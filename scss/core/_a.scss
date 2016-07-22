@@ -1,0 +1,9 @@
+a {
+  color: blue;
+
+  &:focus,
+  &:hover {
+    color: red;
+    outline: none;
+  }
+}

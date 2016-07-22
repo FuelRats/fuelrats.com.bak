@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-overflow: ellipsis;
+}
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100vw;
+}
+
+html {
+  font-size: 1vmax;
+}
+
+body {
+  align-content: stretch;
+  align-items: stretch;
+  display: flex;
+  font-family: Raleway, sans-serif;
+  font-size: 1vmax;
+  line-height: 2;
+}

@@ -1,0 +1,134 @@
+[role=banner] {
+  align-items: center;
+  background-color: $black;
+  border-right-color: $red;
+  border-right-style: solid;
+  border-right-width: 0.5rem;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  text-align: center;
+
+  .brand {
+    margin: 1rem;
+    max-width: 5vw;
+  }
+
+  [for=nav-control] {
+    flex-shrink: 0;
+  }
+
+  nav {
+    min-height: 50vh;
+    opacity: 0;
+    overflow: auto;
+    position: relative;
+    text-align: center;
+    transition-duration:
+      0.5s,
+      0.5s;
+    transition-delay:
+      0s,
+      0.2s;
+    transition-property:
+      opacity,
+      width;
+    width: 0;
+
+    ul {
+      align-content: stretch;
+      display: flex;
+      flex-direction: column;
+    }
+
+    li {
+      margin-bottom: 1rem;
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+
+    a,
+    label {
+      color: inherit;
+      cursor: pointer;
+      display: block;
+      outline: none;
+      padding: 2rem 5rem;
+      position: relative;
+      text-decoration: none;
+      white-space: nowrap;
+
+      span {
+        position: relative;
+        z-index: 1;
+      }
+
+      &:after,
+      &:before {
+        background-color: $red;
+        bottom: 0;
+        content: '';
+        position: absolute;
+        top: 0;
+        transition: all 0.3s;
+        width: 0;
+        z-index: 0;
+      }
+
+      &:after {
+        right: 50%;
+      }
+
+      &:before {
+        left: 50%;
+      }
+
+      &:focus,
+      &:hover {
+        color: $white;
+
+        &:after,
+        &:before {
+          width: 50%;
+        }
+
+        &:after {
+          right: 0;
+        }
+
+        &:before {
+          left: 0;
+        }
+      }
+    }
+
+    input[type=checkbox][data-subnav] {
+      display: none;
+
+      &:not(:checked) + [data-subnav] {
+        left: 100%;
+      }
+
+      + [data-subnav] {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: left 0.5s;
+        width: 100%;
+      }
+    }
+  }
+
+  #nav-control:checked ~ nav {
+    opacity: 1;
+    transition-delay:
+      0.5s,
+      0s;
+    width: 20vw;
+  }
+}

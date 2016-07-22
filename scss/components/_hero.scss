@@ -1,0 +1,19 @@
+.hero {
+  @include dimmer-gradient(url(/assets/slideshow_1.jpg));
+
+  align-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100vh;
+  padding: 6rem;
+  text-shadow: 0 0 0.2rem rgba($black, 0.5);
+
+  h1 {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,21 @@
+<form class="markdown-editor">
+  <input id="title" name="title" placeholder="Title" type="text">
+
+  <fieldset>
+    <div
+         aria-controls="markdown-editor-output"
+         aria-multiline="true"
+         autofocus
+         contenteditable="true"
+         data-placeholder="Content"
+         role="textbox">{{content}}</div>
+
+    <output aria-live="polite" id="markdown-editor-output" role="presentation">
+      {{renderedContent}}
+    </output>
+  </fieldset>
+
+  <menu type="toolbar">
+    <button class="primary" type="submit">Save</button>
+  </menu>
+</form>
