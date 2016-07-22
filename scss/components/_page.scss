@@ -1,0 +1,17 @@
+.page {
+  background-color: $black;
+  background-image:
+    linear-gradient(
+      to top,
+      $black,
+      $transparent 60%
+    ),
+    url(/assets/anaconda.jpg);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: $white;
+  padding: 6rem;
+
+  > header {}
+}
