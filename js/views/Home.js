@@ -1,12 +1,12 @@
 import Backbone from 'backbone'
 
-import template from 'templates/About.hbs'
+import template from 'templates/Home.hbs'
 
 
 
 
 
-export default class About extends Backbone.Marionette.ItemView {
+export default class Home extends Backbone.Marionette.ItemView {
 
   /******************************************************************************\
     Public Methods
@@ -27,10 +27,6 @@ export default class About extends Backbone.Marionette.ItemView {
   /******************************************************************************\
     Getters
   \******************************************************************************/
-
-  get className () {
-    return 'page'
-  }
 
   get tagName () {
     return 'main'
