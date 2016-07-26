@@ -2,7 +2,23 @@
   background-position: top center;
   background-repeat: no-repeat;
   background-size: contain;
-  padding: 6rem;
+  background-color: $dark-greyblue;
 
-  > header {}
+  padding: 0;
+
+  > * {
+    padding: 0rem 6rem;
+  }
+
+  > header {
+    padding-top: 2rem;
+    background-color: $red;
+    color: $white;
+  }
+
+  > .content {
+    padding-top: 2rem;
+    font-size: 12pt;
+    color: $white;
+  }
 }
