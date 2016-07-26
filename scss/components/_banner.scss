@@ -8,11 +8,29 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  position: relative;
   text-align: center;
+
+  &:before {
+    background-image: url(/assets/ratface-01.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    height: 100px;
+    position: absolute;
+    right: 150%;
+    top: 0;
+    width: 100%;
+  }
 
   .brand {
     margin: 1rem;
-    max-width: 5vw;
+    max-width: 10vw;
+
+    &:hover {
+      animation-duration: 2s;
+      animation-name: spin-3d;
+    }
   }
 
   [for=nav-control] {
