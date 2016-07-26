@@ -1,0 +1,23 @@
+{
+  "socket": {
+    "port": 3001
+  },
+  "http": {
+    "port": 3000,
+    "ssl": {
+      "port": 4443
+    }
+  },
+  "twitter": {
+    "access_token_key": "[INSERT ACCESS TOKEN KEY HERE]",
+    "access_token_secret": "[INSERT ACCESS TOKEN SECRET HERE]",
+    "consumer_key": "[INSERT CONSUMER KEY HERE]",
+    "consumer_secret": "[INSERT CONSUMER SECRET HERE]",
+    "languages": [
+      "en"
+    ],
+    "limit": 10,
+    "user_id": "87254848",
+    "screen_name": "trezytv"
+  }
+}
