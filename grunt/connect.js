@@ -13,6 +13,8 @@ module.exports = {
     options: {
       debug: true,
 
+      host: config.http.host || '0.0.0.0',
+
       keepalive: config.http.keepalive || false,
 
       middleware: function (connect, options) {
