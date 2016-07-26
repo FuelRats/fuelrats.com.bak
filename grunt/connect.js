@@ -13,7 +13,7 @@ module.exports = {
     options: {
       debug: true,
 
-      host: config.http.host || '0.0.0.0',
+      host: process.env.HOSTNAME || config.http.hostname || '0.0.0.0',
 
       keepalive: config.http.keepalive || false,
 
@@ -41,7 +41,7 @@ module.exports = {
 
         return middlewares
       },
-      port: process.env.PORT || config.http.port
+      port: process.env.PORT || config.http.port || 3000
     },
 
     proxies: [

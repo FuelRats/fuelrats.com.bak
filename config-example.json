@@ -1,6 +1,6 @@
 {
   "http": {
-    "host": '0.0.0.0',
+    "hostname": "0.0.0.0",
     "port": 3000,
     "ssl": {
       "port": 4443
@@ -15,7 +15,7 @@
       "en"
     ],
     "limit": 10,
-    "user_id": "87254848",
-    "screen_name": "trezytv"
+    "user_id": "[INSERT TWITTER USERID HERE]",
+    "screen_name": "[INSERT TWITTER USERNAME HERE]"
   }
 }
