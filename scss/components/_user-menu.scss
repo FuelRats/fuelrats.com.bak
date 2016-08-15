@@ -1,0 +1,61 @@
+menu.user {
+  display: flex;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+
+  .avatar {
+    order: 2;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  a {
+    background-color: $black;
+    color: $white;
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    transition-property: background-color, color;
+    transition-duration: 0.2s;
+
+    &:hover {
+      background-color: $red;
+    }
+  }
+
+  nav {
+    border-color: $red;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    color: $white;
+    margin-right: -2rem;
+    margin-top: 2rem;
+    max-height: 1rem;
+    order: 1;
+    overflow: hidden;
+    transition-delay:
+      0.5s,
+      0s;
+    transition-duration:
+      0.5s,
+      0.5s;
+    transition-property:
+      width,
+      max-height;
+    width: 0;
+  }
+
+  &:hover {
+    nav {
+      max-height: 100vh;
+      transition-delay:
+        0s,
+        0.5s;
+      width: 10rem;
+    }
+  }
+}

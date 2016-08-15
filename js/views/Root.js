@@ -1,6 +1,7 @@
 import Backbone from 'backbone'
 
 import HeaderView from 'views/Header'
+import UserMenuView from 'views/UserMenu'
 import template from 'templates/Root.hbs'
 
 
@@ -21,6 +22,10 @@ export default class Root extends Backbone.Marionette.LayoutView {
     this.getRegion('header').show(new HeaderView, {
       replaceElement: true
     })
+
+    this.getRegion('userMenu').show(new UserMenuView, {
+      replaceElement: true
+    })
   }
 
 
@@ -39,7 +44,8 @@ export default class Root extends Backbone.Marionette.LayoutView {
     return this._regions || (this._regions = {
       footer: 'footer',
       header: 'header',
-      main: 'main'
+      main: 'main',
+      userMenu: 'menu'
     })
   }
 
