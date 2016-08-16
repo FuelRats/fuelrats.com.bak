@@ -1,8 +1,11 @@
 menu.user {
   display: flex;
+  opacity: 0.2;
   position: absolute;
   right: 1rem;
   top: 1rem;
+  transition-duration: 20s;
+  transition-property: opacity;
 
   .avatar {
     order: 2;
@@ -50,6 +53,10 @@ menu.user {
   }
 
   &:hover {
+    opacity: 1;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+
     nav {
       max-height: 100vh;
       transition-delay:
