@@ -7,14 +7,13 @@
   color: $white;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   overflow: auto;
   position: relative;
   text-align: center;
+  width: 20vw;
 
   &:before {
-    background-image: url(/assets/ratface-01.png);
-    background-repeat: no-repeat;
-    background-size: contain;
     content: '';
     height: 100px;
     position: absolute;
