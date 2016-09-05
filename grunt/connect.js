@@ -41,22 +41,30 @@ module.exports = {
 
         return middlewares
       },
-      port: process.env.PORT || config.http.port || 3000
+
+      port: process.env.PORT || config.http.port || 3000,
+
+      protocol: config.http.ssl ? 'https' : 'http'
     },
 
     proxies: [
       {
         context: [
-          '/api'
+          '/wp-api'
         ],
+        debug: true,
         headers: {
-          host: 'fuelrats.com'
+          Authorization: 'Basic ' + new Buffer(config.wordpress.username + ':' + config.wordpress.applicationPassword).toString('base64'),
+          host: 'www.fuelrats.com',
+          referer: 'www.fuelrats.com'
         },
-        host: 'fuelrats.com',
-        https: true,
-//        rewrite: {
-//          'wp-json/wp/v2': ''
-//        }
+        host: 'www.fuelrats.com',
+        https: config.http.ssl,
+        port: config.http.ssl ? 443 : 80,
+        protocol: config.http.ssl ? 'https:' : 'http:',
+        rewrite: {
+          '^/wp-api': '/wp-json/wp/v2'
+        }
       }
     ]
   }
