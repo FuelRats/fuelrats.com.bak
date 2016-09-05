@@ -1,25 +1,12 @@
 import Backbone from 'backbone'
 
-import BlogSummaryView from 'views/BlogSummary'
-import template from 'templates/BlogList.hbs'
+import template from 'templates/Leaderboard.hbs'
 
 
 
 
 
-export default class BlogList extends Backbone.Marionette.CompositeView {
-
-  /******************************************************************************\
-    Private Methods
-  \******************************************************************************/
-
-  _bindEvents () {
-    this.listenTo(this.collection, 'change', this.render)
-  }
-
-
-
-
+export default class Leaderboard extends Backbone.Marionette.ItemView {
 
   /******************************************************************************\
     Public Methods
@@ -31,8 +18,6 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
     })
 
     super(options)
-
-    this._bindEvents()
   }
 
 
@@ -40,14 +25,14 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
-  get childView () {
-    return BlogSummaryView
+  get className () {
+    return 'page'
   }
 
   get tagName () {
-    return 'ol'
+    return 'main'
   }
 }

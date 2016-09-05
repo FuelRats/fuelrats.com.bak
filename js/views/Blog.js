@@ -31,4 +31,8 @@ export default class Blog extends Backbone.Marionette.ItemView {
   get tagName () {
     return 'article'
   }
+
+  get template () {
+    return template
+  }
 }

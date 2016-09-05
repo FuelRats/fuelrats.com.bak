@@ -1,41 +1,45 @@
 import Route from '../Route'
-import BlogListView from 'views/BlogList'
-import BlogsCollection from 'collections/Blogs'
+import LoginView from 'views/Login'
 
 
 
 
 
-export default class BlogList extends Route {
+export default class Login extends Route {
 
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
 
-  loadData (params) {
-    return new Promise((resolve, reject) => {
-      this.viewOptions.collection = this.appChannel.request('blogs')
+  onBeforeShow (params) {
+    this.viewOptions.model = this.model
 
-      this.viewOptions.collection.fetch({
-        error: reject,
-        success: resolve
-      })
-    })
+    if (this.model.get('loggedIn')) {
+      this.routerChannel.request('route', '/pokemon')
+    }
   }
+
+
+
+
 
   /******************************************************************************\
     Getters
   \******************************************************************************/
+
+  get model () {
+    return Backbone.Radio.channel('application').request('user')
+  }
 
   get replaceElement () {
     return false
   }
 
   get title () {
-    return 'Blogs'
+    return 'Login'
   }
 
   get view () {
-    return BlogListView
+    return LoginView
   }
 }

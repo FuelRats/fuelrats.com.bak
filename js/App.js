@@ -5,8 +5,9 @@ import Router from './Router'
 import Routes from './Routes'
 import RootView from 'views/Root'
 
+import UserModel from 'models/User'
 import BlogsCollection from 'collections/Blogs'
-import TweetsCollection from 'collections/Tweets'
+import PagesCollection from 'collections/Pages'
 
 
 
@@ -38,8 +39,10 @@ export default class App extends Backbone.Marionette.Application {
       this.title.innerHTML = `${route.title} | ${this.baseTitle}`
 
       // Update analytics
-      ga('set', 'page', location.pathname)
-      ga('send', 'pageview')
+      if (window.ga) {
+        ga('set', 'page', location.pathname)
+        ga('send', 'pageview')
+      }
     })
 
     this.routerChannel.on('error', () => {
@@ -50,6 +53,9 @@ export default class App extends Backbone.Marionette.Application {
       }
     })
 
+    this.appChannel.reply('blogs', this.blogs)
+    this.appChannel.reply('pages', this.pages)
+    this.appChannel.reply('user', this.user)
     this.appChannel.reply('scheduler', this.scheduler)
   }
 
@@ -118,42 +124,26 @@ export default class App extends Backbone.Marionette.Application {
   \******************************************************************************/
 
   get blogs () {
-    if (!this._blogs) {
-      this._blogs = new BlogsCollection
-    }
+    return this._blogs || (this._blogs = new BlogsCollection)
+  }
 
-    return this._blogs
+  get pages () {
+    return this._pages || (this._pages = new PagesCollection)
   }
 
   get scheduler () {
-    if (!this._scheduler) {
-      this._scheduler = new Rafael
-    }
-
-    return this._scheduler
+    return this._scheduler || (this._scheduler = new Rafael)
   }
 
-  get tweets () {
-    if (!this._tweets) {
-      this._tweets = new TweetsCollection
-    }
-
-    return this._tweets
+  get user () {
+    return this._user || (this._user = new UserModel)
   }
 
   get appChannel () {
-    if (!this._appChannel) {
-      this._appChannel = Backbone.Radio.channel('application')
-    }
-
-    return this._appChannel
+    return Backbone.Radio.channel('application')
   }
 
   get routerChannel () {
-    if (!this._routerChannel) {
-      this._routerChannel = Backbone.Radio.channel('router')
-    }
-
-    return this._routerChannel
+    return Backbone.Radio.channel('router')
   }
 }

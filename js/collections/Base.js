@@ -15,8 +15,4 @@ export default class Base extends Backbone.Collection {
 
     this.sync = new Backbone.Hoard.Control().getModelSync()
   }
-
-  parse (response) {
-    return response.data
-  }
 }

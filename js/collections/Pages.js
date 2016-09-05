@@ -1,13 +1,12 @@
 import _ from 'underscore'
 
 import BaseCollection from 'collections/Base'
-import Blog from 'models/Blog'
 
 
 
 
 
-export default class Blogs extends BaseCollection {
+export default class Pages extends BaseCollection {
 
   /******************************************************************************\
     Public Methods
@@ -25,11 +24,7 @@ export default class Blogs extends BaseCollection {
     Getters
   \******************************************************************************/
 
-//  get model () {
-//    return Blog
-//  }
-
   get url () {
-    return '/wp-api/posts/'
+    return '//www.fuelrats.com/wp-json/wp/v2/pages'
   }
 }

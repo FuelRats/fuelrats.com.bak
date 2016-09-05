@@ -1,6 +1,5 @@
 import Route from '../Route'
 import BlogView from 'views/Blog'
-import BlogsCollection from 'collections/Blogs'
 
 
 
@@ -14,12 +13,15 @@ export default class Blog extends Route {
 
   loadData (params) {
     return new Promise((resolve, reject) => {
-      this.viewOptions.model = this.appChannel.request('blog', params.id)
+      let blogs = this.appChannel.request('blogs')
 
-      if (this.viewOptions.model.get('loaded')) {
+      this.viewOptions.model = blogs.findWhere({id: params.id})
+
+      if (this.viewOptions.model) {
         resolve()
 
       } else {
+        this.viewOptions.model = blogs.add({id: params.id})
         this.viewOptions.model.fetch({
           error: reject,
           success: resolve
@@ -37,7 +39,7 @@ export default class Blog extends Route {
   }
 
   get title () {
-    return this.viewOptions.model.get('title')
+    return this.viewOptions.model.get('title').rendered
   }
 
   get view () {
