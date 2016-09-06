@@ -73,7 +73,8 @@
       cursor: pointer;
       display: block;
       outline: none;
-      padding: 2rem 5rem;
+      overflow: hidden;
+      padding: 2rem 0;
       position: relative;
       text-decoration: none;
       white-space: nowrap;
@@ -146,6 +147,6 @@
     transition-delay:
       0.5s,
       0s;
-    width: 20vw;
+    width: 100%;
   }
 }
