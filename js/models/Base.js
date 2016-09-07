@@ -15,16 +15,4 @@ export default class Base extends Backbone.Model {
 
     this.sync = new Backbone.Hoard.Control().getModelSync()
   }
-
-
-
-
-
-  /******************************************************************************\
-    Getters
-  \******************************************************************************/
-
-  get idAttribute () {
-    return '_id'
-  }
 }
