@@ -1,31 +1,19 @@
-import BaseLayoutView from 'views/BaseLayoutView'
-import CommentListView from 'views/CommentList'
-import template from 'templates/Blog.hbs'
+import Backbone from 'backbone'
 
 
 
 
 
-export default class Blog extends BaseLayoutView {
+export default class BaseLayoutView extends Backbone.Marionette.LayoutView {
 
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
 
-  constructor (options) {
-    options = _.extend(options || {}, {
-      template: template
-    })
-
-    super(options)
-  }
-
   onAttach () {
-    super.onAttach()
-
-    this.getRegion('comments').show(new CommentListView({
-      collection: this.model.get('comments')
-    }))
+    if (this.regions) {
+      this._buildRegions(this.regions)
+    }
   }
 
 
@@ -37,17 +25,7 @@ export default class Blog extends BaseLayoutView {
   \******************************************************************************/
 
   get regions () {
-    return this._regions || (this._regions = {
-      comments: '.comments'
-    })
-  }
-
-  get tagName () {
-    return 'article'
-  }
-
-  get template () {
-    return template
+    return this._regions || (this._regions = {})
   }
 
 

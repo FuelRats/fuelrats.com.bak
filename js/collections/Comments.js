@@ -1,13 +1,18 @@
 import _ from 'underscore'
 
 import BaseCollection from 'collections/Base'
-import Blog from 'models/Blog'
 
 
 
 
 
-export default class Blogs extends BaseCollection {
+let url = '/wp-api/comments/?post='
+
+
+
+
+
+export default class Comments extends BaseCollection {
 
   /******************************************************************************\
     Public Methods
@@ -25,11 +30,11 @@ export default class Blogs extends BaseCollection {
     Getters
   \******************************************************************************/
 
-  get model () {
-    return Blog
+  get url () {
+    return this._url || (this._url = url)
   }
 
-  get url () {
-    return '/wp-api/posts/'
+  set url (id) {
+    this._url = url + id
   }
 }
