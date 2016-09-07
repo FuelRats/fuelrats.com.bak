@@ -25,10 +25,12 @@ export default class User extends BaseModel {
       }
 
       $.ajax({
-        email: this.get('email'),
+        data: {
+          email: this.get('email'),
+          password: this.get('password')
+        },
         error: reject,
         method: 'post',
-        password: this.get('password'),
         success: (response, status, xhr) => {
           console.log(response)
 
@@ -38,7 +40,7 @@ export default class User extends BaseModel {
             password: ''
           })
         },
-        url: 'https://dev.api.fuelrats.com/login'
+        url: 'https://api.fuelrats.com/login'
       })
     })
   }
