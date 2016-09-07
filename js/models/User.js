@@ -32,13 +32,25 @@ export default class User extends BaseModel {
         error: reject,
         method: 'post',
         success: (response, status, xhr) => {
-          console.log(response)
-
           this.set({
             loggedIn: true,
             loggingIn: false,
             password: ''
           })
+
+          if (window.location.search) {
+            let query = window.location.search.substr(1).split('&')
+            let queryHash = {}
+
+            query.forEach((item, index, array) => {
+              item = item.split('=')
+              queryHash[item[0]] = item[1]
+            })
+
+            if (queryHash.redirect) {
+              window.location = queryHash.redirect
+            }
+          }
         },
         url: 'https://api.fuelrats.com/login'
       })
