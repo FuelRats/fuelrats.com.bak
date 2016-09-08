@@ -43,7 +43,7 @@ export default class Blog extends Route {
   }
 
   get title () {
-    return this.viewOptions.model.get('title').rendered
+    return this.viewOptions.model.get('title')
   }
 
   get view () {
