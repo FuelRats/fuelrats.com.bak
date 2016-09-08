@@ -1,6 +1,6 @@
 import Backbone from 'backbone'
 
-import CommentSummaryView from 'views/CommentSummary'
+import CommentView from 'views/Comment'
 import template from 'templates/CommentList.hbs'
 
 
@@ -44,7 +44,11 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
   \******************************************************************************/
 
   get childView () {
-    return CommentSummaryView
+    return CommentView
+  }
+
+  get className () {
+    return 'comments'
   }
 
   get tagName () {

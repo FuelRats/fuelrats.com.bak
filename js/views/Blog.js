@@ -25,7 +25,9 @@ export default class Blog extends BaseLayoutView {
 
     this.getRegion('comments').show(new CommentListView({
       collection: this.model.get('comments')
-    }))
+    }), {
+      replaceElement: true
+    })
   }
 
 

@@ -1,12 +1,12 @@
 import Backbone from 'backbone'
 
-import template from 'templates/CommentSummary.hbs'
+import template from 'templates/Comment.hbs'
 
 
 
 
 
-export default class CommentSummary extends Backbone.Marionette.ItemView {
+export default class Comment extends Backbone.Marionette.ItemView {
 
   /******************************************************************************\
     Getters

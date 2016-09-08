@@ -1,0 +1,13 @@
+<article class="comment">
+  <header>
+    <img src="{{author.avatar}}">
+
+    {{#if author.url}}
+      <a class="author" href="{{author.url}}">{{author.name}}</a>
+    {{else}}
+      <span class="author" href="{{author.url}}">{{author.name}}</span>
+    {{/if}}
+  </header>
+
+  {{{content}}}
+</article>

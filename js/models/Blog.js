@@ -35,6 +35,7 @@ export default class Blog extends BaseModel {
   getComments () {
     let comments = this.get('comments')
 
+
     if (!comments.length) {
       comments.url = this.get('id')
 
