@@ -1,17 +1,19 @@
-<div class="avatar small" data-letter="T"></div>
+{{#if loggedIn}}
+  <div class="avatar small" data-letter="T"></div>
 
-<nav>
-  <ul>
-    <li>
-      <a href="/profile">My Profile</a>
-    </li>
+  <nav>
+    <ul>
+      <li>
+        <a href="/profile">My Profile</a>
+      </li>
 
-    <li>
-      <a href="/stats">My Stats</a>
-    </li>
+      <li>
+        <a href="/stats">My Stats</a>
+      </li>
 
-    <li>
-      <a href="/leaderboard">Leaderboard</a>
-    </li>
-  </ul>
-</nav>
+      <li>
+        <a href="/leaderboard">Leaderboard</a>
+      </li>
+    </ul>
+  </nav>
+{{/if}}

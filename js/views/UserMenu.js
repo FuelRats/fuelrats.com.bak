@@ -20,7 +20,13 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
     Public Methods
   \******************************************************************************/
 
-  onBeforeShow () {}
+  constructor (options) {
+    options = _.extend(options || {}, {
+      template: template
+    })
+
+    super(options)
+  }
 
 
 
@@ -30,8 +36,16 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
     Getters
   \******************************************************************************/
 
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
+
   get className () {
     return 'user'
+  }
+
+  get model () {
+    return this.appChannel.request('user')
   }
 
   get tagName () {

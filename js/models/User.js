@@ -30,8 +30,6 @@ export default class User extends BaseModel {
         method: 'post',
         password: this.get('password'),
         success: (response, status, xhr) => {
-          console.log(response)
-
           this.set({
             loggedIn: true,
             loggingIn: false,
@@ -60,9 +58,11 @@ export default class User extends BaseModel {
 
   get defaults () {
     return {
+      CMDRs: [],
       email: '',
       loggedIn: false,
       loggingIn: false,
+      name: 'Trezy',
       password: ''
     }
   }

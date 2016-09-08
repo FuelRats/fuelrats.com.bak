@@ -90,6 +90,9 @@ export default class App extends Backbone.Marionette.Application {
   }
 
   onStart () {
+    // Bind application-wide events
+    this._bindEvents()
+
     // Grab the title element. We'll use this reference to update the page
     // title when we navigate
     this.title = document.querySelector('title')
@@ -101,9 +104,6 @@ export default class App extends Backbone.Marionette.Application {
     // The `main` region is where we'll show pretty much every view so we'll
     // attach it to the app object for easy access
     this.main = this.RootView.getRegion('main')
-
-    // Bind application-wide events
-    this._bindEvents()
 
     // Start the router with push routing
     Backbone.history.start({
