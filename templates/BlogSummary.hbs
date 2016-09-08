@@ -1,3 +1,27 @@
-<a href="/blog/{{id}}"><h2>{{title.rendered}}</h2></a>
+<article>
+  <header>
+    <h2><a href="/blog/{{id}}">{{title.rendered}}</a></h2>
 
-{{{excerpt.rendered}}}
+    <small>
+      <span class="posted-date">
+        <i class="fa fa-clock-o"></i>
+        Posted <time datetime="{{date_gmt}}">{{moment date_gmt format="DD MMM, YYYY"}}</time>
+      </span>
+
+      <span class="author">
+        <i class="fa fa-user"></i>
+        {{author}}
+      </span>
+
+      <span class="categories">
+        <i class="fa fa-folder"></i>
+        Categories:
+        {{#each categories}}
+          <a href="/blog/category/{{this}}">{{this}}</a>
+        {{/each}}
+      </span>
+    </small>
+  </header>
+
+  {{{excerpt.rendered}}}
+</article>
