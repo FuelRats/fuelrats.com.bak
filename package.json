@@ -23,7 +23,7 @@
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.1",
     "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^1.1.0",
     "grunt-sass-globbing": "^1.5.1",
@@ -39,7 +39,7 @@
     "twitter": "^1.2.5",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "ws": "^1.1.0"
+    "ws": "^1.1.1"
   },
   "engines": {
     "node": ">=5"
