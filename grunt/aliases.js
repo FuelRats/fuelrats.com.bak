@@ -21,6 +21,7 @@ module.exports = {
   ],
 
   buildAppCSS: [
+    'copy:fontawesome',
     'sass_globbing',
     'sass:appCSS'
   ],
