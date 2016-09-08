@@ -1,9 +1,11 @@
 a {
-  color: blue;
+  color: $red;
+  text-decoration: none;
+  transition: all 0.2s;
 
   &:focus,
   &:hover {
-    color: red;
+    color: black;
     outline: none;
   }
 }

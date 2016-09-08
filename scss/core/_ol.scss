@@ -1,8 +1,9 @@
 ol {
   margin-bottom: 2rem;
-  padding-left: 3rem;
+  padding: 0;
 
   .numbered {
     list-style-type: decimal;
+    padding-left: 3rem;
   }
 }

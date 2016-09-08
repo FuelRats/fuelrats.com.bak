@@ -47,6 +47,10 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
     return BlogSummaryView
   }
 
+  get className () {
+    return 'article-list'
+  }
+
   get tagName () {
     return 'ol'
   }
