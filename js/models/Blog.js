@@ -17,16 +17,8 @@ export default class Blog extends BaseModel {
     Private Methods
   \******************************************************************************/
 
-  _decrappify (string) {
-    // Remove inline styles
-    string = string.replace(/(align=".*")?/gi, '')
-    string = string.replace(/(style=".*")?/gi, '')
 
-    // Language attributes shouldn't be set on elements
-    string = string.replace(/(lang=".*")?/gi, '')
 
-    return string
-  }
 
   /******************************************************************************\
     Public Methods
