@@ -1,6 +1,8 @@
+import CategoriesCollection from 'collections/Categories'
 import AuthorModel from 'models/Author'
 import AuthorView from 'views/Author'
 import BaseLayoutView from 'views/BaseLayoutView'
+import CategoryListView from 'views/CategoryList'
 import CommentListView from 'views/CommentList'
 
 import template from 'templates/Blog.hbs'
@@ -21,6 +23,18 @@ export default class Blog extends BaseLayoutView {
     if (author instanceof AuthorModel) {
       this.getRegion('author').show(new AuthorView({
         model: author
+      }), {
+        replaceElement: true
+      })
+    }
+  }
+
+  _showCategories () {
+    let categories = this.model.get('categories')
+
+    if (categories instanceof CategoriesCollection) {
+      this.getRegion('categories').show(new CategoryListView({
+        collection: categories
       }), {
         replaceElement: true
       })
@@ -55,9 +69,9 @@ export default class Blog extends BaseLayoutView {
     super.onAttach()
 
     this._showAuthor()
-
     this.listenTo(this.model, 'change:author', this._showAuthor)
-
+    this._showCategories()
+    this.listenTo(this.model, 'change:categories', this._showCategories)
     this._showComments()
   }
 
@@ -72,6 +86,7 @@ export default class Blog extends BaseLayoutView {
   get regions () {
     return this._regions || (this._regions = {
       author: '.author',
+      categories: '.categories',
       comments: '.comments'
     })
   }

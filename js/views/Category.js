@@ -1,21 +1,19 @@
 import Backbone from 'backbone'
 
-import CommentView from 'views/Comment'
-
-import template from 'templates/CommentList.hbs'
+import template from 'templates/Category.hbs'
 
 
 
 
 
-export default class CommentList extends Backbone.Marionette.CompositeView {
+export default class Category extends Backbone.Marionette.ItemView {
 
   /******************************************************************************\
-    Private Methods
+    Public Methods
   \******************************************************************************/
 
   _bindEvents () {
-    this.listenTo(this.collection, 'change', this.render)
+    this.listenTo(this.model, 'change sync', this.render)
   }
 
 
@@ -26,13 +24,7 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
     Public Methods
   \******************************************************************************/
 
-  constructor (options) {
-    options = _.extend(options || {}, {
-      template: template
-    })
-
-    super(options)
-
+  initialize () {
     this._bindEvents()
   }
 
@@ -41,18 +33,18 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
-  get childView () {
-    return CommentView
-  }
-
   get className () {
-    return 'comments'
+    return 'category'
   }
 
   get tagName () {
-    return 'ol'
+    return 'li'
+  }
+
+  get template () {
+    return template
   }
 }

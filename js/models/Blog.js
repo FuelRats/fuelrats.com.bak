@@ -20,26 +20,6 @@ export default class Blog extends BaseModel {
     Public Methods
   \******************************************************************************/
 
-  addCategory (categoryId) {
-    let categoriesCache = this.appChannel.request('categories')
-    let categoriesCollection = this.get('categories')
-    let category = categoriesCache.findWhere({id: categoryId})
-
-    if (!category) {
-      return new Promise((resolve, reject) => {
-//        category = categoriesCollection.add(categoriesCache.add({id: categoryId}))
-
-//        category.fetch({
-//          error: reject,
-//          success: resolve
-//        })
-        resolve()
-      })
-    }
-
-    return Promise.resolve(categoriesCollection.add(category))
-  }
-
   getAuthor (authorId) {
     let authors = this.appChannel.request('authors')
     let author = authors.findWhere({id: authorId})
@@ -52,33 +32,30 @@ export default class Blog extends BaseModel {
     return author
   }
 
-  getCategories () {
-    // Cache the original array of categories
-    let categories = this.get('categories')
-    let promises = []
+  getCategories (categoryIds) {
+    let categories = new CategoriesCollection
 
-    // Return if we've already converted categories into a collection
-    if (categories instanceof Backbone.Collection) {
-      return Promise.resolve()
+    categoryIds.forEach((categoryId) => {
+      categories.add(this.getCategory(categoryId))
+    })
+
+    return categories
+  }
+
+  getCategory (categoryId) {
+    let categories = this.appChannel.request('categories')
+    let category = categories.findWhere({id: categoryId})
+
+    if (!category) {
+      category = categories.add({id: categoryId})
+      category.fetch()
     }
 
-    // Create a new collection for storing the categories
-    this.set('categories', new CategoriesCollection)
-
-    categories.forEach((categoryId) => {
-      promises.push(this.addCategory(categoryId))
-    })
-
-    return new Promise((resolve, reject) => {
-      Promise.all(promises)
-      .then(resolve)
-      .catch(reject)
-    })
+    return category
   }
 
   getComments () {
     let comments = this.get('comments')
-
 
     if (!comments.length) {
       comments.url = this.get('id')
@@ -107,6 +84,7 @@ export default class Blog extends BaseModel {
       response.title = this._decrappify(response.title.rendered)
 
       response.author = this.getAuthor(response.author)
+      response.categories = this.getCategories(response.categories)
 
       // Clean up unnecessary attributes
       delete response._links
@@ -135,6 +113,7 @@ export default class Blog extends BaseModel {
   get defaults () {
     return {
       author: '',
+      categories: [],
       comments: new CommentsCollection
     }
   }

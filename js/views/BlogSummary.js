@@ -1,6 +1,8 @@
+import CategoriesCollection from 'collections/Categories'
 import AuthorModel from 'models/Author'
 import AuthorView from 'views/Author'
 import BaseLayoutView from 'views/BaseLayoutView'
+import CategoryListView from 'views/CategoryList'
 
 import template from 'templates/BlogSummary.hbs'
 
@@ -26,6 +28,18 @@ export default class BlogSummary extends BaseLayoutView {
     }
   }
 
+  _showCategories () {
+    let categories = this.model.get('categories')
+
+    if (categories instanceof CategoriesCollection) {
+      this.getRegion('categories').show(new CategoryListView({
+        collection: categories
+      }), {
+        replaceElement: true
+      })
+    }
+  }
+
 
 
 
@@ -37,8 +51,9 @@ export default class BlogSummary extends BaseLayoutView {
   onAttach () {
     super.onAttach()
 
+    this._showCategories()
+    this.listenTo(this.model, 'change:categories', this._showCategories)
     this._showAuthor()
-
     this.listenTo(this.model, 'change:author', this._showAuthor)
   }
 
@@ -52,7 +67,8 @@ export default class BlogSummary extends BaseLayoutView {
 
   get regions () {
     return this._regions || (this._regions = {
-      author: '.author'
+      author: '.author',
+      categories: '.categories'
     })
   }
 
