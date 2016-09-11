@@ -86,7 +86,7 @@ export default class Blog extends BaseLayoutView {
   get regions () {
     return this._regions || (this._regions = {
       author: '.author',
-      categories: '.categories',
+      categories: '.category-list',
       comments: '.comments'
     })
   }

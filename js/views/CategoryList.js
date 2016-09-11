@@ -49,7 +49,7 @@ export default class CategoryList extends Backbone.Marionette.CompositeView {
   }
 
   get className () {
-    return 'categories'
+    return 'category-list'
   }
 
   get tagName () {

@@ -65,10 +65,14 @@ export default class BlogSummary extends BaseLayoutView {
     Getters
   \******************************************************************************/
 
+  get className () {
+    return 'article'
+  }
+
   get regions () {
     return this._regions || (this._regions = {
       author: '.author',
-      categories: '.categories'
+      categories: '.category-list'
     })
   }
 
