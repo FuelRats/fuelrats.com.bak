@@ -1,5 +1,8 @@
+import AuthorModel from 'models/Author'
+import AuthorView from 'views/Author'
 import BaseLayoutView from 'views/BaseLayoutView'
 import CommentListView from 'views/CommentList'
+
 import template from 'templates/Blog.hbs'
 
 
@@ -7,6 +10,34 @@ import template from 'templates/Blog.hbs'
 
 
 export default class Blog extends BaseLayoutView {
+
+  /******************************************************************************\
+    Private Methods
+  \******************************************************************************/
+
+  _showAuthor () {
+    let author = this.model.get('author')
+
+    if (author instanceof AuthorModel) {
+      this.getRegion('author').show(new AuthorView({
+        model: author
+      }), {
+        replaceElement: true
+      })
+    }
+  }
+
+  _showComments () {
+    this.getRegion('comments').show(new CommentListView({
+      collection: this.model.get('comments')
+    }), {
+      replaceElement: true
+    })
+  }
+
+
+
+
 
   /******************************************************************************\
     Public Methods
@@ -23,11 +54,11 @@ export default class Blog extends BaseLayoutView {
   onAttach () {
     super.onAttach()
 
-    this.getRegion('comments').show(new CommentListView({
-      collection: this.model.get('comments')
-    }), {
-      replaceElement: true
-    })
+    this._showAuthor()
+
+    this.listenTo(this.model, 'change:author', this._showAuthor)
+
+    this._showComments()
   }
 
 
@@ -40,6 +71,7 @@ export default class Blog extends BaseLayoutView {
 
   get regions () {
     return this._regions || (this._regions = {
+      author: '.author',
       comments: '.comments'
     })
   }
