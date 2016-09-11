@@ -36,7 +36,7 @@ export default class Comment extends BaseModel {
       delete response.date_gmt
       delete response.link
 
-      // Mark the blog as parsed so it doesn't get parsed again
+      // Mark the parsed so it doesn't get parsed again
       response.parsed = true
     }
 

@@ -6,7 +6,9 @@ import Routes from './Routes'
 import RootView from 'views/Root'
 
 import UserModel from 'models/User'
+import AuthorsCollection from 'collections/Authors'
 import BlogsCollection from 'collections/Blogs'
+import CategoriesCollection from 'collections/Categories'
 import PagesCollection from 'collections/Pages'
 
 
@@ -53,24 +55,12 @@ export default class App extends Backbone.Marionette.Application {
       }
     })
 
+    this.appChannel.reply('authors', this.authors)
     this.appChannel.reply('blogs', this.blogs)
+    this.appChannel.reply('categories', this.categories)
     this.appChannel.reply('pages', this.pages)
     this.appChannel.reply('user', this.user)
     this.appChannel.reply('scheduler', this.scheduler)
-  }
-
-  _getBlog (id) {
-    let blog = this.blogs.findWhere({
-      _id: id
-    })
-
-    if (!blog) {
-      blog = this.blogs.add({
-        _id: id
-      })
-    }
-
-    return blog
   }
 
 
@@ -123,8 +113,16 @@ export default class App extends Backbone.Marionette.Application {
     Getters
   \******************************************************************************/
 
+  get authors () {
+    return this._authors || (this._authors = new AuthorsCollection)
+  }
+
   get blogs () {
     return this._blogs || (this._blogs = new BlogsCollection)
+  }
+
+  get categories () {
+    return this._categories || (this._categories = new CategoriesCollection)
   }
 
   get pages () {
