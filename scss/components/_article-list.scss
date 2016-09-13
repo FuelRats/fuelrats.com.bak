@@ -1,4 +1,6 @@
 .article-list {
+  flex-grow: 1;
+
   > li {
     &:after {
       border-top-color: $red;

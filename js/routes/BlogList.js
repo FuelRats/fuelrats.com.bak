@@ -28,7 +28,7 @@ export default class BlogList extends Route {
   \******************************************************************************/
 
   get replaceElement () {
-    return false
+    return true
   }
 
   get title () {

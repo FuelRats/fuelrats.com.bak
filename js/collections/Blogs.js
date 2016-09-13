@@ -1,13 +1,13 @@
 import _ from 'underscore'
+import Backbone from 'backbone'
 
-import BaseCollection from 'collections/Base'
 import Blog from 'models/Blog'
 
 
 
 
 
-export default class Blogs extends BaseCollection {
+export default class Blogs extends Backbone.PageableCollection {
 
   /******************************************************************************\
     Public Methods
@@ -29,7 +29,19 @@ export default class Blogs extends BaseCollection {
     return Blog
   }
 
+  get state () {
+    return this._state || (this._state = {
+      currentPage: 1,
+      firstPage: 1,
+      pageSize: 10
+    })
+  }
+
   get url () {
     return '/wp-api/posts/'
+  }
+
+  set state (value) {
+    this._state = value
   }
 }

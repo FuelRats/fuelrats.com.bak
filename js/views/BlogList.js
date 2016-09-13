@@ -27,6 +27,10 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
 
   constructor (options) {
     options = _.extend(options || {}, {
+      events: {
+        'click button#next': 'nextPage',
+        'click button#previous': 'previousPage'
+      },
       template: template
     })
 
@@ -35,23 +39,33 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
     this._bindEvents()
   }
 
+  nextPage () {
+    this.collection.reset()
+    this.collection.getNextPage()
+  }
+
+  previousPage () {
+    this.collection.reset()
+    this.collection.getPreviousPage()
+  }
+
 
 
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
   get childView () {
     return BlogSummaryView
   }
 
-  get className () {
-    return 'article-list'
+  get childViewContainer () {
+    return 'ol'
   }
 
   get tagName () {
-    return 'ol'
+    return 'main'
   }
 }
