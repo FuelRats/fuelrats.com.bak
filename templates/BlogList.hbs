@@ -2,10 +2,13 @@
 
 <menu type="toolbar">
   <div class="primary">
-    <button id="next" type="button">Older</button>
+    {{#if nextPage}}
+      <a class="button" href="/blog/page/{{nextPage}}" id="next" type="button">Older</a>
+    {{/if}}
   </div>
   <div class="secondary">
-    {{page}}
-    <button class="secondary" id="previous" type="button">Newer</button>
+    {{#if previousPage}}
+      <a class="button" href="/blog/page/{{previousPage}}" id="previous" type="button">Newer</a>
+    {{/if}}
   </div>
 </menu>
