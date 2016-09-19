@@ -22,16 +22,6 @@
     width: 100%;
   }
 
-  .brand {
-    margin: 1rem;
-    max-width: 10vw;
-
-    &:hover {
-      animation-duration: 2s;
-      animation-name: spin-3d;
-    }
-  }
-
   [for=nav-control] {
     flex-shrink: 0;
   }
