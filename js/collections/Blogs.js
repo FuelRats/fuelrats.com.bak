@@ -1,5 +1,4 @@
 import WordpressCollection from 'collections/Wordpress'
-
 import Blog from 'models/Blog'
 
 

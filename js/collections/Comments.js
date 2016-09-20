@@ -1,6 +1,4 @@
-import _ from 'underscore'
-
-import BaseCollection from 'collections/Base'
+import WordpressCollection from 'collections/Wordpress'
 import Comment from 'models/Comment'
 
 
@@ -13,19 +11,7 @@ let url = '/wp-api/comments/?post='
 
 
 
-export default class Comments extends BaseCollection {
-
-  /******************************************************************************\
-    Public Methods
-  \******************************************************************************/
-
-  comparator (model) {
-    return -model.get('date')
-  }
-
-
-
-
+export default class Comments extends WordpressCollection {
 
   /******************************************************************************\
     Getters

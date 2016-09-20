@@ -15,7 +15,7 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
   \******************************************************************************/
 
   _bindEvents () {
-    this.listenTo(this.collection, 'change', this.render)
+    this.listenTo(this.model, 'change', this.render)
   }
 
 
@@ -28,6 +28,10 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
 
   constructor (options) {
     options = _.extend(options || {}, {
+      events: {
+        'click #next': 'nextPage',
+        'click #previous': 'previousPage'
+      },
       template: template
     })
 
@@ -36,13 +40,25 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
     this._bindEvents()
   }
 
+  nextPage () {
+    this.collection.getNextPage()
+  }
+
+  previousPage () {
+    this.collection.getPreviousPage()
+  }
+
 
 
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
+
+  get childViewContainer () {
+    return 'ol'
+  }
 
   get childView () {
     return CommentView
@@ -52,7 +68,37 @@ export default class CommentList extends Backbone.Marionette.CompositeView {
     return 'comments'
   }
 
+  get events () {
+    return this._events || (this._events = {
+      'click #next': 'nextPage',
+      'click #previous': 'previousPage'
+    })
+  }
+
   get tagName () {
-    return 'ol'
+    return 'section'
+  }
+
+  get ui () {
+    return this._ui || (this._ui = {
+      next: '#next',
+      previous: '#previous'
+    })
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Setters
+  \******************************************************************************/
+
+  set events (value) {
+    this._events = value
+  }
+
+  set ui (value) {
+    this._ui = value
   }
 }

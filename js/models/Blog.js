@@ -61,7 +61,7 @@ export default class Blog extends BaseModel {
       comments.url = this.get('id')
 
       return new Promise((resolve, reject) => {
-        comments.fetch({
+        comments.getFirstPage({
           error: reject,
           success: resolve
         })

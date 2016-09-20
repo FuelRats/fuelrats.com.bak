@@ -1,3 +1,18 @@
 <header>
   <h2>Comments</h2>
 </header>
+
+<ol class="loading"></ol>
+
+<menu type="toolbar">
+  <div class="primary">
+    {{#if nextPage}}
+      <button id="next" type="button">Older</button>
+    {{/if}}
+  </div>
+  <div class="secondary">
+    {{#if previousPage}}
+      <button id="previous" type="button">Newer</button>
+    {{/if}}
+  </div>
+</menu>
