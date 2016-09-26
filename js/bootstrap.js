@@ -30,6 +30,12 @@ marked.setOptions({
   }
 })
 
+$.ajaxSetup({
+  xhrFields: {
+    withCredentials: true
+  }
+})
+
 
 
 

@@ -1,3 +1,5 @@
+import cookie from 'cookie'
+
 import BaseModel from './Base'
 
 
@@ -21,19 +23,12 @@ export default class User extends BaseModel {
   \******************************************************************************/
 
   login () {
+    if (cookie.cookie('connect.sid')) {
+      this.set('loggedIn', true)
+      return Promise.resolve()
+    }
+
     return new Promise((resolve, reject) => {
-      let user = JSON.parse(localStorage.getItem('user'))
-
-      if (user) {
-        this.set({
-          loggedIn: true,
-          loggingIn: false,
-          password: ''
-        })
-
-        return resolve()
-      }
-
       $.ajax({
         data: {
           email: this.get('email'),
