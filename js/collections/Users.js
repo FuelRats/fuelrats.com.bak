@@ -32,6 +32,6 @@ export default class Users extends BaseCollection {
   }
 
   get url () {
-    return 'http://localhost:8080/users'
+    return '/api/users'
   }
 }

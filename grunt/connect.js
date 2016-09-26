@@ -50,6 +50,23 @@ module.exports = {
     proxies: [
       {
         context: [
+          '/api'
+        ],
+        debug: true,
+        headers: {
+          host: 'localhost',
+          referer: 'localhost'
+        },
+        host: 'localhost',
+        https: false,
+        port: 8080,
+        protocol: 'http:',
+        rewrite: {
+          '^/api': ''
+        }
+      },
+      {
+        context: [
           '/wp-api'
         ],
         debug: true,

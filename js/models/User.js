@@ -80,7 +80,7 @@ export default class User extends BaseModel {
             }
           }
         },
-        url: 'http://localhost:8080/login'
+        url: '/api/login'
       })
     })
   }
