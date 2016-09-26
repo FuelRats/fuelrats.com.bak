@@ -10,18 +10,6 @@ import template from 'templates/BlogList.hbs'
 export default class BlogList extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
-    Private Methods
-  \******************************************************************************/
-
-  _bindEvents () {
-    this.listenTo(this.collection, 'change', this.render)
-  }
-
-
-
-
-
-  /******************************************************************************\
     Public Methods
   \******************************************************************************/
 
@@ -31,8 +19,6 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
     })
 
     super(options)
-
-    this._bindEvents()
   }
 
 
@@ -40,14 +26,18 @@ export default class BlogList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
   get childView () {
     return BlogSummaryView
   }
 
-  get tagName () {
+  get childViewContainer () {
     return 'ol'
+  }
+
+  get tagName () {
+    return 'main'
   }
 }

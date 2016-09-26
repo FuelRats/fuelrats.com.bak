@@ -23,7 +23,10 @@ module.exports = {
       loaders: [
         {
           test: /\.hbs$/,
-          loader: 'handlebars'
+          loader: 'handlebars',
+          query: {
+            helperDirs: path.resolve(__dirname, '..', 'js', 'helpers')
+          }
         },
         {
           test: /\.json$/,

@@ -1,0 +1,18 @@
+<header class="page-header">
+  <h1>Blog</h1>
+</header>
+
+<ol class="article-list loading"></ol>
+
+<menu type="toolbar">
+  <div class="primary">
+    {{#if nextPage}}
+      <a class="button" href="/blog/page/{{nextPage}}" id="next" type="button">Older</a>
+    {{/if}}
+  </div>
+  <div class="secondary">
+    {{#if previousPage}}
+      <a class="button" href="/blog/page/{{previousPage}}" id="previous" type="button">Newer</a>
+    {{/if}}
+  </div>
+</menu>

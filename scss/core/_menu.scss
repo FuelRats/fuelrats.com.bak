@@ -1,0 +1,26 @@
+menu {
+  align-content: stretch;
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 2rem 4rem;
+
+  > {
+    .primary,
+    .secondary {
+      display: flex;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+
+    .primary {
+      align-content: flex-end;
+      flex-direction: row-reverse;
+      order: 2;
+    }
+
+    .secondary {
+      order: 1;
+    }
+  }
+}

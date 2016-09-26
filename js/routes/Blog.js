@@ -24,7 +24,11 @@ export default class Blog extends Route {
         this.viewOptions.model = blogs.add({id: params.id})
         this.viewOptions.model.fetch({
           error: reject,
-          success: resolve
+          success: () => {
+            this.viewOptions.model.getComments()
+            .then(resolve)
+            .catch(reject)
+          }
         })
       }
     })
@@ -39,7 +43,7 @@ export default class Blog extends Route {
   }
 
   get title () {
-    return this.viewOptions.model.get('title').rendered
+    return this.viewOptions.model.get('title')
   }
 
   get view () {

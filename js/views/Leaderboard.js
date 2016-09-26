@@ -28,10 +28,6 @@ export default class Leaderboard extends Backbone.Marionette.ItemView {
     Getters
   \******************************************************************************/
 
-  get className () {
-    return 'page'
-  }
-
   get tagName () {
     return 'main'
   }

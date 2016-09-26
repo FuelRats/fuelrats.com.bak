@@ -15,6 +15,7 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-react": "^6.5.0",
     "babel-runtime": "^6.6.1",
+    "bower": "^1.7.9",
     "bower-webpack-plugin": "^0.1.9",
     "connect-livereload": "^0.5.4",
     "connect-pushstate": "^1.0.0",
@@ -23,8 +24,9 @@
     "grunt-connect-proxy": "^0.2.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-connect": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^1.1.0",
     "grunt-sass-globbing": "^1.5.1",
@@ -33,14 +35,14 @@
     "handlebars-loader": "^1.2.0",
     "json-loader": "^0.5.4",
     "load-grunt-config": "^0.19.1",
-    "node-sass": "^3.4.2",
+    "node-sass": "3.9.0",
     "rafael": "^4.3.0",
     "serve-static": "^1.10.2",
     "time-grunt": "^1.3.0",
     "twitter": "^1.2.5",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "ws": "^1.1.0"
+    "ws": "^1.1.1"
   },
   "engines": {
     "node": ">=5"

@@ -17,6 +17,7 @@ export default {
   routes: {
     'about(/)': new AboutRoute,
     'blog/:id(/)': new BlogRoute,
+    'blog/page/:page(/)': new BlogListRoute,
     'blog(/)': new BlogListRoute,
     'home(/)': new HomeRoute,
     'leaderboard(/)': new LeaderboardRoute,

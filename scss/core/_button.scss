@@ -1,4 +1,5 @@
 button,
+input[type=button],
 .button {
   background-color: $red;
   border-color: $red;
@@ -8,6 +9,7 @@ button,
   color: $white;
   cursor: pointer;
   display: inline-block;
+  flex-shrink: 0;
   font-family: inherit;
   margin: 0;
   outline: none;
@@ -18,6 +20,11 @@ button,
 
   &:focus,
   &:hover {
+    background-color: $transparent;
+    color: $red;
+  }
+
+  &.secondary {
     background-color: $transparent;
     color: $red;
   }

@@ -1,3 +1,24 @@
-<a href="/blog/{{id}}"><h2>{{title.rendered}}</h2></a>
+<article>
+  <header>
+    <h2 class="title" text-collapse><a href="/blog/{{id}}">{{title}}</a></h2>
+  </header>
 
-{{{excerpt.rendered}}}
+  <small>
+    <span class="posted-date">
+      <i class="fa fa-clock-o"></i>
+      Posted <time datetime="{{date}}">{{moment date format="DD MMM, YYYY"}}</time>
+    </span>
+
+    <span class="author">
+      <i class="fa fa-user"></i>
+    </span>
+
+    <span>
+      <i class="fa fa-folder"></i>
+      Categories:
+      <ul class="category-list"></ul>
+    </span>
+  </small>
+
+  {{{excerpt}}}
+</article>

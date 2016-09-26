@@ -104,9 +104,11 @@ export default class User extends BaseModel {
 
   get defaults () {
     return {
+      CMDRs: [],
       email: '',
       loggedIn: false,
       loggingIn: false,
+      name: 'Trezy',
       password: ''
     }
   }
