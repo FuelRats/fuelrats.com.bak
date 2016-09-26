@@ -7,6 +7,7 @@ import HomeRoute from 'routes/Home'
 import LeaderboardRoute from 'routes/Leaderboard'
 import LoginRoute from 'routes/Login'
 import TweeterRoute from 'routes/Tweeter'
+import UserListRoute from 'routes/UserList'
 
 
 
@@ -21,6 +22,7 @@ export default {
     'leaderboard(/)': new LeaderboardRoute,
     'login(/)': new LoginRoute,
     'tweeter(/)': new TweeterRoute,
+    'users(/)': new UserListRoute,
     '*notfound': new HomeRoute
   }
 }

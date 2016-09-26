@@ -1,3 +1,5 @@
+import cookie from 'cookie'
+
 import BaseModel from './Base'
 
 
@@ -5,6 +7,25 @@ import BaseModel from './Base'
 
 
 export default class User extends BaseModel {
+
+  /******************************************************************************\
+    Private Methods
+  \******************************************************************************/
+
+  _checkCookie () {
+    let userCookie = cookie.get('user.id')
+
+    if (userCookie) {
+      return this.set({
+        id: userCookie,
+        loggedIn: true
+      })
+    }
+  }
+
+
+
+
 
   /******************************************************************************\
     Public Methods
@@ -38,6 +59,13 @@ export default class User extends BaseModel {
             password: ''
           })
 
+          cookie.set({
+            'user.id': response.data.id
+          }, {
+            path: '/'
+          })
+
+          // Handle redirect query parameters
           if (window.location.search) {
             let query = window.location.search.substr(1).split('&')
             let queryHash = {}
@@ -52,7 +80,7 @@ export default class User extends BaseModel {
             }
           }
         },
-        url: 'https://api.fuelrats.com/login'
+        url: 'http://localhost:8080/login'
       })
     })
   }
@@ -62,6 +90,8 @@ export default class User extends BaseModel {
       email: '',
       loggedIn: false
     })
+
+    cookie.remove('user.id')
   }
 
 

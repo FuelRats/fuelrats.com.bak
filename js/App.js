@@ -7,6 +7,7 @@ import RootView from 'views/Root'
 
 import UserModel from 'models/User'
 import BlogsCollection from 'collections/Blogs'
+import UsersCollection from 'collections/Users'
 import PagesCollection from 'collections/Pages'
 
 
@@ -56,6 +57,7 @@ export default class App extends Backbone.Marionette.Application {
     this.appChannel.reply('blogs', this.blogs)
     this.appChannel.reply('pages', this.pages)
     this.appChannel.reply('user', this.user)
+    this.appChannel.reply('users', this.users)
     this.appChannel.reply('scheduler', this.scheduler)
   }
 
@@ -137,6 +139,10 @@ export default class App extends Backbone.Marionette.Application {
 
   get user () {
     return this._user || (this._user = new UserModel)
+  }
+
+  get users () {
+    return this._users || (this._users = new UsersCollection)
   }
 
   get appChannel () {
