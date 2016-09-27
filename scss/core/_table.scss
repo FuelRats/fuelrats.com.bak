@@ -1,17 +1,25 @@
 table {
   max-width: 100%;
+
+  &.padded {
+    th, td {
+      padding: 1rem;
+    }
+  }
+
+  &.striped {
+    tr:nth-child(even) {
+      background-color: $light-grey;
+    }
+  }
 }
 
 th, td {
-  padding: 1rem;
   text-align: left;
   vertical-align: top;
 }
 
 th {
   font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: $light-grey;
+  padding-right: 1rem;
 }

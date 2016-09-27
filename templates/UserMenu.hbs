@@ -1,29 +1,64 @@
 {{#if loggedIn}}
-  <div class="avatar small" data-letter="T"></div>
+  <div class="avatar medium"><img src="//api.adorable.io/avatars/64/{{email}}"></div>
 
-  <nav>
-    <ul>
-      <li>
-        <a href="/profile">My Profile</a>
-      </li>
-
-      <li>
-        <a href="/stats">My Stats</a>
-      </li>
-
-      <li>
-        <a href="/leaderboard">Leaderboard</a>
-      </li>
-    </ul>
-
-    {{#if isAdmin}}
-      <ul class="admin">
+  <menu>
+    <nav class="user">
+      <ul>
         <li>
-          <a href="/users">Users</a>
+          <a href="/profile">My Profile</a>
+        </li>
+
+        <li>
+          <a href="/stats">My Stats</a>
+        </li>
+
+        <li>
+          <a href="/leaderboard">Leaderboard</a>
         </li>
       </ul>
+    </nav>
+
+    {{#if isAdmin}}
+      <nav class="admin">
+        <header>Admin</header>
+
+        <ul class="">
+          <li>
+            <a href="/rescues">Rescues</a>
+          </li>
+
+          <li>
+            <a href="/rats">Rats</a>
+          </li>
+
+          <li>
+            <a href="/users">Users</a>
+          </li>
+        </ul>
+      </nav>
     {{/if}}
-  </nav>
+
+    <div class="stats">
+      <header>My Stats</header>
+
+      <table>
+        <tbody>
+          <tr>
+            <th>Rescues</th>
+            <td>648</td>
+          </tr>
+          <tr>
+            <th>Assists</th>
+            <td>537</td>
+          </tr>
+          <tr>
+            <th>Favorite Ship</th>
+            <td>Asp Explorer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </menu>
 {{else}}
   <a class="button" href="/login">Login</a>
 {{/if}}

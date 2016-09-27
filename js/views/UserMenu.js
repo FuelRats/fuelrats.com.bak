@@ -57,7 +57,7 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
   }
 
   get className () {
-    return 'user'
+    return 'user-menu'
   }
 
   get model () {
@@ -69,7 +69,7 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
   }
 
   get tagName () {
-    return 'menu'
+    return 'div'
   }
 
   get template () {
