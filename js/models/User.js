@@ -10,12 +10,48 @@ import CMDRsCollection from 'collections/CMDRs'
 export default class User extends BaseModel {
 
   /******************************************************************************\
+    Private Methods
+  \******************************************************************************/
+
+  _bindEvents () {
+    this.listenTo(this, 'change', () => {
+      this._setPermissions()
+      this.serializeUser()
+    })
+  }
+
+  _setPermissions (user) {
+    if (user.group === 'admin') {
+      user.isAdmin = true
+    }
+
+    return user
+  }
+
+
+
+
+
+  /******************************************************************************\
     Public Methods
   \******************************************************************************/
 
+  deserializeUser () {
+    let user = JSON.parse(localStorage.getItem('user'))
+
+    if (user) {
+      user.loggedIn = true
+      user = this._setPermissions(user)
+      this.set(user)
+    }
+
+    return
+  }
+
   login () {
     if (cookie.cookie('connect.sid')) {
-      this.set('loggedIn', true)
+      let user = this.deserializeUser()
+      this.set(user)
       return Promise.resolve()
     }
 
@@ -28,11 +64,15 @@ export default class User extends BaseModel {
         error: reject,
         method: 'post',
         success: (response, status, xhr) => {
-          this.set({
-            loggedIn: true,
-            loggingIn: false,
-            password: ''
-          })
+          let user = response.data
+
+          user.loggedIn = true
+          user.loggingIn = false
+          user.password = ''
+
+          this.set(user)
+
+          this.serializeUser()
 
           // Handle redirect query parameters
           if (window.location.search) {
@@ -55,10 +95,27 @@ export default class User extends BaseModel {
   }
 
   logout () {
+    cookie.cookie.remove('connect.sid')
+
+    localStorage.removeItem('user')
+
     this.set({
       email: '',
       loggedIn: false
     })
+  }
+
+  serializeUser () {
+    let user = this.toJSON()
+
+    localStorage.setItem('user', JSON.stringify({
+      drilled: user.drilled,
+      drilledDispatch: user.drilledDispatch,
+      email: user.email,
+      group: user.group,
+      id: user.id,
+      nicknames: user.nicknames
+    }))
   }
 
 
@@ -75,7 +132,7 @@ export default class User extends BaseModel {
       email: '',
       loggedIn: false,
       loggingIn: false,
-      name: 'Trezy',
+      name: '',
       password: ''
     }
   }

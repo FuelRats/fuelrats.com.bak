@@ -5,19 +5,7 @@ menu.user {
   top: 1rem;
 
   .avatar {
-    animation-duration: 10s;
-    animation-name: half-fade-out;
-    opacity: 0.2;
     order: 2;
-    transition-duration: 10s;
-    transition-property: opacity;
-
-    &:hover {
-      animation: none;
-      opacity: 1;
-      transition-delay: 0s;
-      transition-duration: 0.2s;
-    }
   }
 
   ul {

@@ -23,7 +23,9 @@ export default class Root extends Backbone.Marionette.LayoutView {
       replaceElement: true
     })
 
-    this.getRegion('userMenu').show(new UserMenuView, {
+    this.getRegion('userMenu').show(new UserMenuView({
+      model: Backbone.Radio.channel('application').request('user')
+    }), {
       replaceElement: true
     })
   }

@@ -15,6 +15,14 @@
         <a href="/leaderboard">Leaderboard</a>
       </li>
     </ul>
+
+    {{#if isAdmin}}
+      <ul class="admin">
+        <li>
+          <a href="/users">Users</a>
+        </li>
+      </ul>
+    {{/if}}
   </nav>
 {{else}}
   <a class="button" href="/login">Login</a>

@@ -13,6 +13,8 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
   \******************************************************************************/
 
   _bindEvents () {
+    this.listenTo(this.model, 'change', this.render)
+
     this.routerChannel.on('before:navigate', () => {
       if (window.location.pathname.indexOf('/login') === 0) {
         this.el.setAttribute('data-hidden', '')
