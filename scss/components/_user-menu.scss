@@ -1,34 +1,27 @@
 menu.user {
-  animation-duration: 10s;
-  animation-name: half-fade-out;
   display: flex;
-  opacity: 0.2;
   position: absolute;
   right: 2rem;
   top: 1rem;
-  transition-duration: 10s;
-  transition-property: opacity;
 
   .avatar {
+    animation-duration: 10s;
+    animation-name: half-fade-out;
+    opacity: 0.2;
     order: 2;
+    transition-duration: 10s;
+    transition-property: opacity;
+
+    &:hover {
+      animation: none;
+      opacity: 1;
+      transition-delay: 0s;
+      transition-duration: 0.2s;
+    }
   }
 
   ul {
     margin-bottom: 0;
-  }
-
-  a {
-    background-color: $black;
-    color: $white;
-    display: block;
-    padding: 1rem;
-    text-decoration: none;
-    transition-property: background-color, color;
-    transition-duration: 0.2s;
-
-    &:hover {
-      background-color: $red;
-    }
   }
 
   nav {
@@ -52,14 +45,23 @@ menu.user {
       width,
       max-height;
     width: 0;
+
+    a {
+      background-color: $black;
+      color: $white;
+      display: block;
+      padding: 1rem;
+      text-decoration: none;
+      transition-property: background-color, color;
+      transition-duration: 0.2s;
+
+      &:hover {
+        background-color: $red;
+      }
+    }
   }
 
   &:hover {
-    animation: none;
-    opacity: 1;
-    transition-delay: 0s;
-    transition-duration: 0.2s;
-
     nav {
       max-height: 100vh;
       transition-delay:

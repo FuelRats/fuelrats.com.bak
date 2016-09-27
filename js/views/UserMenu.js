@@ -12,6 +12,16 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
     Private Methods
   \******************************************************************************/
 
+  _bindEvents () {
+    this.routerChannel.on('before:navigate', () => {
+      if (window.location.pathname.indexOf('/login') === 0) {
+        this.el.setAttribute('data-hidden', '')
+      } else {
+        this.el.removeAttribute('data-hidden')
+      }
+    })
+  }
+
 
 
 
@@ -26,6 +36,10 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
     })
 
     super(options)
+  }
+
+  initialize () {
+    this._bindEvents()
   }
 
 
@@ -46,6 +60,10 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
 
   get model () {
     return this.appChannel.request('user')
+  }
+
+  get routerChannel () {
+    return Backbone.Radio.channel('router')
   }
 
   get tagName () {
