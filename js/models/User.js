@@ -20,12 +20,10 @@ export default class User extends BaseModel {
     })
   }
 
-  _setPermissions (user) {
-    if (user.group === 'admin') {
-      user.isAdmin = true
+  _setPermissions () {
+    if (this.get('group') === 'admin') {
+      this.set('isAdmin', true)
     }
-
-    return user
   }
 
 
@@ -41,11 +39,15 @@ export default class User extends BaseModel {
 
     if (user) {
       user.loggedIn = true
-      user = this._setPermissions(user)
       this.set(user)
+      this._setPermissions()
     }
 
     return
+  }
+
+  initialize () {
+    this._bindEvents()
   }
 
   login () {
@@ -97,9 +99,11 @@ export default class User extends BaseModel {
   }
 
   logout () {
-    cookie.cookie.remove('connect.sid')
-
     localStorage.removeItem('user')
+
+    cookie.cookie.removeSpecific('connect.sid', {
+      path: '/'
+    })
 
     this.set({
       email: '',
