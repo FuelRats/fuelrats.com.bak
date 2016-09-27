@@ -88,6 +88,8 @@ export default class User extends BaseModel {
               window.location = queryHash.redirect
             }
           }
+
+          this.routerChannel.request('route', '/home')
         },
         url: '/api/login'
       })

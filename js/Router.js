@@ -27,7 +27,11 @@ export default class Router extends Backbone.BaseRouter {
   }
 
   _bindEvents () {
-    this.routerChannel.on('route', this.navigate)
+    this.routerChannel.reply('route', (route) => {
+      this.navigate(route, {
+        trigger: true
+      })
+    })
   }
 
 
@@ -37,6 +41,10 @@ export default class Router extends Backbone.BaseRouter {
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
+
+  initialize () {
+    this._bindEvents()
+  }
 
   onNavigate (routeData) {
     this._authenticate(routeData)
