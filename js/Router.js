@@ -27,7 +27,7 @@ export default class Router extends Backbone.BaseRouter {
   }
 
   _bindEvents () {
-    this.channel.on('route', this.navigate)
+    this.routerChannel.on('route', this.navigate)
   }
 
 
@@ -41,19 +41,19 @@ export default class Router extends Backbone.BaseRouter {
   onNavigate (routeData) {
     this._authenticate(routeData)
     .then(() => {
-      this.channel.trigger('before:navigate', routeData.linked)
+      this.routerChannel.trigger('before:navigate', routeData.linked)
 
       routeData.linked.show(routeData.params)
       .then(() => {
-        this.channel.trigger('navigate', routeData.linked)
+        this.routerChannel.trigger('navigate', routeData.linked)
       })
       .catch((error) => {
         console.error(error)
-        this.channel.trigger('error')
+        this.routerChannel.trigger('error')
       })
     })
     .catch(error => {
-      return this.channel.request('route', '/login')
+      return this.routerChannel.request('route', '/login')
     })
   }
 
@@ -65,7 +65,11 @@ export default class Router extends Backbone.BaseRouter {
     Getters
   \******************************************************************************/
 
-  get channel () {
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
+
+  get routerChannel () {
     return Backbone.Radio.channel('router')
   }
 }

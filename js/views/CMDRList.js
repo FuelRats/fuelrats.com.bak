@@ -1,13 +1,13 @@
 import Backbone from 'backbone'
 
-import UserSummaryView from 'views/UserSummary'
-import template from 'templates/UserList.hbs'
+import CMDRSummaryView from 'views/CMDRSummary'
+import template from 'templates/CMDRList.hbs'
 
 
 
 
 
-export default class UserList extends Backbone.Marionette.CompositeView {
+export default class CMDRList extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
     Public Methods
@@ -26,18 +26,18 @@ export default class UserList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Getters
+    Public Methods
   \******************************************************************************/
 
   get childView () {
-    return UserSummaryView
+    return CMDRSummaryView
   }
 
-  get childViewContainer () {
-    return '.user-list'
+  get className () {
+    return 'CMDRs'
   }
 
   get tagName () {
-    return 'main'
+    return 'ul'
   }
 }

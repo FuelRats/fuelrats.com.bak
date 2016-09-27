@@ -28,7 +28,11 @@ export default class UserList extends Route {
   \******************************************************************************/
 
   get replaceElement () {
-    return false
+    return true
+  }
+
+  get requireAuthentication () {
+    return true
   }
 
   get title () {

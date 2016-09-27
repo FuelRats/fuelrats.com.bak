@@ -1,5 +1,7 @@
 ul {
-  list-style-type: square;
-  margin-bottom: 2rem;
-  padding-left: 3rem;
+  &.bulleted {
+    list-style-type: square;
+    margin-bottom: 2rem;
+    padding-left: 3rem;
+  }
 }

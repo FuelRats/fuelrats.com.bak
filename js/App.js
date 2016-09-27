@@ -9,8 +9,9 @@ import UserModel from 'models/User'
 import AuthorsCollection from 'collections/Authors'
 import BlogsCollection from 'collections/Blogs'
 import CategoriesCollection from 'collections/Categories'
-import UsersCollection from 'collections/Users'
 import PagesCollection from 'collections/Pages'
+import CMDRsCollection from 'collections/CMDRs'
+import UsersCollection from 'collections/Users'
 
 
 
@@ -59,6 +60,7 @@ export default class App extends Backbone.Marionette.Application {
     this.appChannel.reply('authors', this.authors)
     this.appChannel.reply('blogs', this.blogs)
     this.appChannel.reply('categories', this.categories)
+    this.appChannel.reply('CMDRs', this.CMDRs)
     this.appChannel.reply('pages', this.pages)
     this.appChannel.reply('user', this.user)
     this.appChannel.reply('users', this.users)
@@ -125,6 +127,10 @@ export default class App extends Backbone.Marionette.Application {
 
   get categories () {
     return this._categories || (this._categories = new CategoriesCollection)
+  }
+
+  get CMDRs () {
+    return this._CMDRs || (this._CMDRs = new CMDRsCollection)
   }
 
   get pages () {

@@ -1,13 +1,27 @@
-<p>{{email}}</p>
+<td>
+  <img src="https://api.adorable.io/avatars/64/{{email}}">
+</td>
 
-<p>
-  {{#each CMDRs}}
-    {{this}}<br>
-  {{/each}}
-</p>
+<td>
+  {{email}}
+</td>
 
-<p>
-  {{#each nicknames}}
-    {{this}}<br>
-  {{/each}}
-</p>
+<td>
+  {{#if CMDRs.length}}
+    <ul class="CMDRs comma-separated inline"></ul>
+  {{else}}
+    <p>This user has no CMDRs associated with their account</p>
+  {{/if}}
+</td>
+
+<td>
+  {{#if nicknames}}
+    <ul class="comma-separated inline nicknames">
+      {{#each nicknames}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>This user has no nicknames associated with their account</p>
+  {{/if}}
+</td>

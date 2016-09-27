@@ -4,8 +4,8 @@ import AboutRoute from 'routes/About'
 import BlogListRoute from 'routes/BlogList'
 import BlogRoute from 'routes/Blog'
 import HomeRoute from 'routes/Home'
-import LeaderboardRoute from 'routes/Leaderboard'
 import LoginRoute from 'routes/Login'
+import LogoutRoute from 'routes/Logout'
 import TweeterRoute from 'routes/Tweeter'
 import UserListRoute from 'routes/UserList'
 
@@ -20,8 +20,8 @@ export default {
     'blog/page/:page(/)': new BlogListRoute,
     'blog(/)': new BlogListRoute,
     'home(/)': new HomeRoute,
-    'leaderboard(/)': new LeaderboardRoute,
     'login(/)': new LoginRoute,
+    'logout(/)': new LogoutRoute,
     'tweeter(/)': new TweeterRoute,
     'users(/)': new UserListRoute,
     '*notfound': new HomeRoute

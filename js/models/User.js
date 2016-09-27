@@ -1,22 +1,13 @@
 import cookie from 'cookie'
 
 import BaseModel from './Base'
+import CMDRsCollection from 'collections/CMDRs'
 
 
 
 
 
 export default class User extends BaseModel {
-
-  /******************************************************************************\
-    Private Methods
-  \******************************************************************************/
-
-  }
-
-
-
-
 
   /******************************************************************************\
     Public Methods

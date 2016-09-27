@@ -1,0 +1,24 @@
+ol, ul {
+  &.inline {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      white-space: nowrap;
+    }
+
+    &.comma-separated {
+      li {
+        &:after {
+          content: ', ';
+          margin-right: 0.2rem;
+        }
+
+        &:last-of-type:after {
+          content: '';
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
