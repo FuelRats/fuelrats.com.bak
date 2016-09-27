@@ -100,7 +100,6 @@ export default class User extends BaseModel {
 
   logout () {
     localStorage.removeItem('user')
-
     cookie.cookie.removeSpecific('connect.sid', {
       path: '/'
     })
