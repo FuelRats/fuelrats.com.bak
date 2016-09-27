@@ -1,16 +1,12 @@
-<td>
-  <img src="https://api.adorable.io/avatars/64/{{email}}">
-</td>
+<td><img src="//api.adorable.io/avatars/64/{{email}}"></td>
 
-<td>
-  {{email}}
-</td>
+<td>{{email}}</td>
 
 <td>
   {{#if CMDRs.length}}
     <ul class="CMDRs comma-separated inline"></ul>
   {{else}}
-    <p>This user has no CMDRs associated with their account</p>
+    This user has no CMDRs associated with their account
   {{/if}}
 </td>
 
@@ -22,6 +18,6 @@
       {{/each}}
     </ul>
   {{else}}
-    <p>This user has no nicknames associated with their account</p>
+    This user has no nicknames associated with their account
   {{/if}}
 </td>
