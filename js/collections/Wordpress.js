@@ -9,7 +9,7 @@ import BaseModel from 'models/Base'
 export default class Wordpress extends Backbone.PageableCollection {
 
   /******************************************************************************\
-    Public Methods
+    Private Methods
   \******************************************************************************/
 
   _bindEvents () {
