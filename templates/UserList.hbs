@@ -15,3 +15,16 @@
 
   <tbody></tbody>
 </table>
+
+<menu type="toolbar">
+  <div class="primary">
+    {{#if nextPage}}
+      <a class="button" href="/users/page/{{nextPage}}" id="next" type="button">Older</a>
+    {{/if}}
+  </div>
+  <div class="secondary">
+    {{#if previousPage}}
+      <a class="button" href="/users/page/{{previousPage}}" id="previous" type="button">Newer</a>
+    {{/if}}
+  </div>
+</menu>

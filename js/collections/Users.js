@@ -20,8 +20,8 @@ export default class Users extends Backbone.PageableCollection {
 
   _updateData () {
     this.data.set({
-      nextPage: this.hasNextPage() ? this.state.currentPage + 1 : null,
-      previousPage: this.hasPreviousPage() ? this.state.currentPage - 1 : null
+      nextPage: this.hasNextPage() ? this.state.currentPage + 1 : false,
+      previousPage: this.hasPreviousPage() ? this.state.currentPage - 1 : false
     })
   }
 

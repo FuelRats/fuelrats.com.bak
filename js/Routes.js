@@ -23,6 +23,7 @@ export default {
     'login(/)': new LoginRoute,
     'logout(/)': new LogoutRoute,
     'tweeter(/)': new TweeterRoute,
+    'users/page/:page(/)': new UserListRoute,
     'users(/)': new UserListRoute,
     '*notfound': new HomeRoute
   }
