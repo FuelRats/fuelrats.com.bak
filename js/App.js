@@ -10,7 +10,8 @@ import AuthorsCollection from 'collections/Authors'
 import BlogsCollection from 'collections/Blogs'
 import CategoriesCollection from 'collections/Categories'
 import PagesCollection from 'collections/Pages'
-import CMDRsCollection from 'collections/CMDRs'
+import RatsCollection from 'collections/Rats'
+import RescuesCollection from 'collections/Rescues'
 import UsersCollection from 'collections/Users'
 
 
@@ -60,8 +61,9 @@ export default class App extends Backbone.Marionette.Application {
     this.appChannel.reply('authors', this.authors)
     this.appChannel.reply('blogs', this.blogs)
     this.appChannel.reply('categories', this.categories)
-    this.appChannel.reply('CMDRs', this.CMDRs)
     this.appChannel.reply('pages', this.pages)
+    this.appChannel.reply('rats', this.rats)
+    this.appChannel.reply('rescues', this.rescues)
     this.appChannel.reply('user', this.user)
     this.appChannel.reply('users', this.users)
     this.appChannel.reply('scheduler', this.scheduler)
@@ -131,12 +133,16 @@ export default class App extends Backbone.Marionette.Application {
     return this._categories || (this._categories = new CategoriesCollection)
   }
 
-  get CMDRs () {
-    return this._CMDRs || (this._CMDRs = new CMDRsCollection)
-  }
-
   get pages () {
     return this._pages || (this._pages = new PagesCollection)
+  }
+
+  get rats () {
+    return this._rats || (this._rats = new RatsCollection)
+  }
+
+  get rescues () {
+    return this._rescues || (this._rescues = new RescuesCollection)
   }
 
   get scheduler () {

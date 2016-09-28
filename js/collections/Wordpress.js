@@ -61,7 +61,6 @@ export default class Wordpress extends Backbone.PageableCollection {
 
   get state () {
     return this._state || (this._state = {
-      currentPage: 1,
       firstPage: 1,
       pageSize: 10
     })

@@ -1,12 +1,12 @@
 import Backbone from 'backbone'
 
-import template from 'templates/CMDRSummary.hbs'
+import template from 'templates/RatSummary.hbs'
 
 
 
 
 
-export default class CMDRSummary extends Backbone.Marionette.ItemView {
+export default class RatSummary extends Backbone.Marionette.ItemView {
 
   /******************************************************************************\
     Getters

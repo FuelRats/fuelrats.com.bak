@@ -46,4 +46,8 @@ export default class Base extends Backbone.Model {
   get appChannel () {
     return Backbone.Radio.channel('application')
   }
+
+  get routerChannel () {
+    return Backbone.Radio.channel('router')
+  }
 }

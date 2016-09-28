@@ -1,13 +1,13 @@
+import Backbone from 'backbone'
+
 import BaseModel from 'models/Base'
-import User from 'models/User'
-import APICollection from 'collections/API'
 import RatsCollection from 'collections/Rats'
 
 
 
 
 
-export default class Users extends APICollection {
+export default class API extends Backbone.PageableCollection {
 
   /******************************************************************************\
     Private Methods
@@ -19,6 +19,7 @@ export default class Users extends APICollection {
 
   _updateData () {
     this.data.set({
+      hasMultiplePages: this.hasNextPage() || this.hasPreviousPage(),
       nextPage: this.hasNextPage() ? this.state.currentPage + 1 : false,
       previousPage: this.hasPreviousPage() ? this.state.currentPage - 1 : false
     })
@@ -34,36 +35,6 @@ export default class Users extends APICollection {
 
   initialize () {
     this._bindEvents()
-  }
-
-  parseRecords (response) {
-    let allRats = Backbone.Radio.channel('application').request('rats')
-
-    response.data.forEach(user => {
-      let userRats = user.CMDRs
-
-      user.CMDRs = new RatsCollection
-
-      userRats.forEach(id => {
-        let idHash = {
-          id: id
-        }
-
-        let ratModel = allRats.findWhere(idHash)
-
-        if (!ratModel) {
-          ratModel = allRats.add(idHash)
-        }
-
-        user.CMDRs.add(ratModel)
-      })
-    })
-
-    allRats.fetch({
-      bulk: true
-    })
-
-    return response.data
   }
 
   parseState (response, queryParams, state, options) {
@@ -82,35 +53,24 @@ export default class Users extends APICollection {
     Getters
   \******************************************************************************/
 
-  get comparator () {
-    return 'email'
-  }
-
   get data () {
     return this._data || (this._data = new BaseModel)
-  }
-
-  get model () {
-    return User
   }
 
   get queryParams () {
     return this._queryParams || (this._queryParams = {
       currentPage: 'offset',
-      pageSize: 'limit'
+      pageSize: 'limit',
+      totalPages: '',
+      totalRecords: ''
     })
   }
 
   get state () {
     return this._state || (this._state = {
-      currentPage: 1,
-      firstPage: 1,
+      firstPage: 0,
       pageSize: 100
     })
-  }
-
-  get url () {
-    return '/api/users'
   }
 
 

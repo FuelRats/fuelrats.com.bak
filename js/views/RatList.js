@@ -1,13 +1,13 @@
 import Backbone from 'backbone'
 
-import UserSummaryView from 'views/UserSummary'
-import template from 'templates/UserList.hbs'
+import RatSummaryView from 'views/RatSummary'
+import template from 'templates/RatList.hbs'
 
 
 
 
 
-export default class UserList extends Backbone.Marionette.CompositeView {
+export default class RatList extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
     Public Methods
@@ -26,18 +26,18 @@ export default class UserList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Getters
+    Public Methods
   \******************************************************************************/
 
   get childView () {
-    return UserSummaryView
+    return RatSummaryView
   }
 
-  get childViewContainer () {
-    return '.user-list tbody'
+  get className () {
+    return 'rats-list'
   }
 
   get tagName () {
-    return 'main'
+    return 'ul'
   }
 }

@@ -1,0 +1,38 @@
+<header class="page-header">
+  <h1>Rescues</h1>
+</header>
+
+<table class="full-width rescue-list padded striped">
+  <thead>
+    <td class="system">System</td>
+
+    <td class="open">Open</td>
+
+    <td class="active">Active</td>
+
+    <td class="codeRed">Code Red</td>
+
+    <td class="successful">Successful</td>
+
+    <td class="rats">Rats</td>
+
+    <td class="createdAt">Created</td>
+
+    <td class="updatedAt">Last Updated</td>
+  </thead>
+
+  <tbody></tbody>
+</table>
+
+<menu type="toolbar">
+  <div class="primary">
+    {{#if nextPage}}
+      <a class="button" href="/rescues/page/{{nextPage}}" id="next" type="button">Older</a>
+    {{/if}}
+  </div>
+  <div class="secondary">
+    {{#if previousPage}}
+      <a class="button" href="/rescues/page/{{previousPage}}" id="previous" type="button">Newer</a>
+    {{/if}}
+  </div>
+</menu>

@@ -1,13 +1,13 @@
 import Backbone from 'backbone'
 
-import CMDRSummaryView from 'views/CMDRSummary'
-import template from 'templates/CMDRList.hbs'
+import RescueSummaryView from 'views/RescueSummary'
+import template from 'templates/RescueList.hbs'
 
 
 
 
 
-export default class CMDRList extends Backbone.Marionette.CompositeView {
+export default class RescueList extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
     Public Methods
@@ -26,18 +26,18 @@ export default class CMDRList extends Backbone.Marionette.CompositeView {
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
   get childView () {
-    return CMDRSummaryView
+    return RescueSummaryView
   }
 
-  get className () {
-    return 'CMDRs'
+  get childViewContainer () {
+    return '.rescue-list tbody'
   }
 
   get tagName () {
-    return 'ul'
+    return 'main'
   }
 }

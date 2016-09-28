@@ -1,7 +1,7 @@
 import cookie from 'cookie'
 
 import BaseModel from './Base'
-import CMDRsCollection from 'collections/CMDRs'
+import RatsCollection from 'collections/Rats'
 
 
 
@@ -133,16 +133,12 @@ export default class User extends BaseModel {
 
   get defaults () {
     return {
-      CMDRs: [],
+      rats: [],
       email: '',
       loggedIn: false,
       loggingIn: false,
       name: '',
       password: ''
     }
-  }
-
-  get routerChannel () {
-    return Backbone.Radio.channel('router')
   }
 }

@@ -1,0 +1,48 @@
+<td class="title">
+  {{#if title}}
+    {{title}}
+    <em>{{system}}</em>
+  {{else}}
+    {{system}}
+  {{/if}}
+</td>
+
+<td class="open">
+  <span class="text-success">
+    <i class="fa{{#if open}} fa-check-circle{{/if}}" title="Open"></i>
+  </span>
+</td>
+
+<td class="active">
+  <span class="text-success">
+    <i class="fa{{#if active}} fa-check-circle{{/if}}" title="Active"></i>
+  </span>
+</td>
+
+<td class="codeRed">
+  <span class="text-success">
+    <i class="fa{{#if codeRed}} fa-check-circle{{/if}}" title="Code Red"></i>
+  </span>
+</td>
+
+<td class="successful">
+  <span class="text-success">
+    <i class="fa{{#if successful}} fa-check-circle{{/if}}" title="Successful"></i>
+  </span>
+</td>
+
+<td class="rats">
+  {{#if rats.length}}
+    <ul class="rats comma-separated inline"></ul>
+  {{else}}
+    There are no rats assigned to this rescue
+  {{/if}}
+</td>
+
+<td class="createdAt">
+<!--  {{createdAt}}-->
+</td>
+
+<td class="updatedAt">
+<!--  {{updatedAt}}-->
+</td>

@@ -4,7 +4,7 @@ import BaseModel from './Base'
 
 
 
-export default class CMDR extends BaseModel {
+export default class Rat extends BaseModel {
 
   /******************************************************************************\
     Private Methods
@@ -46,9 +46,5 @@ export default class CMDR extends BaseModel {
     return {
       loaded: false
     }
-  }
-
-  get routerChannel () {
-    return Backbone.Radio.channel('router')
   }
 }

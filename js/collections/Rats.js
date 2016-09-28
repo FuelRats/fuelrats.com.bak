@@ -1,37 +1,16 @@
 import config from '../../config.json'
 import BaseCollection from 'collections/Base'
-import CMDR from 'models/CMDR'
+import Rat from 'models/Rat'
 
 
 
 
 
-export default class CMDRs extends BaseCollection {
+export default class Rats extends BaseCollection {
 
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
-
-  fetch (options) {
-    options = options || {}
-
-    let ids = []
-
-    this.forEach(CMDR => {
-      if (!CMDR.get('loaded')) {
-        ids.push(CMDR.get('id'))
-      }
-    })
-
-    if (options.bulk) {
-      options.data = {
-        id: ids,
-        limit: ids.length
-      }
-    }
-
-    super.fetch(options)
-  }
 
   parse (response) {
     return response.data
@@ -46,7 +25,7 @@ export default class CMDRs extends BaseCollection {
   \******************************************************************************/
 
   get model () {
-    return CMDR
+    return Rat
   }
 
   get url () {

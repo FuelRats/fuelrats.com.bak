@@ -1,6 +1,10 @@
 table {
   max-width: 100%;
 
+  &.full-width {
+    width: 100%;
+  }
+
   &.padded {
     th, td {
       padding: 1rem;
@@ -12,6 +16,11 @@ table {
       background-color: $light-grey;
     }
   }
+}
+
+thead {
+  background-color: $black;
+  color: $white;
 }
 
 th, td {
