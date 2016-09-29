@@ -4,7 +4,7 @@ import Route from '../Route'
 
 
 
-export default class Login extends Route {
+export default class Logout extends Route {
 
   /******************************************************************************\
     Public Methods

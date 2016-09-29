@@ -99,14 +99,13 @@ export default class User extends BaseModel {
   }
 
   logout () {
-    localStorage.removeItem('user')
-    cookie.cookie.removeSpecific('connect.sid', {
-      path: '/'
-    })
-
     this.set({
       email: '',
       loggedIn: false
+    })
+    localStorage.removeItem('user')
+    cookie.cookie.removeSpecific('connect.sid', {
+      path: '/'
     })
   }
 
