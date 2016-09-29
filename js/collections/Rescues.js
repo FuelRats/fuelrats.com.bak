@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import BaseModel from 'models/Base'
 import APICollection from 'collections/API'
 import RatsCollection from 'collections/Rats'
@@ -12,6 +14,10 @@ export default class Rescues extends APICollection {
     Public Methods
   \******************************************************************************/
 
+  comparator (model) {
+    return -model.get('createdAt')
+  }
+
   parseRecords (response) {
     let allRats = Backbone.Radio.channel('application').request('rats')
 
@@ -19,6 +25,9 @@ export default class Rescues extends APICollection {
       let rescueRats = rescue.rats
 
       rescue.rats = new RatsCollection
+      rescue.createdAt = new moment(rescue.createdAt)
+      rescue.updatedAt = new moment(rescue.updatedAt)
+      rescue.date = rescue.createdAt.fromNow()
 
       rescueRats.forEach(id => {
         let idHash = {
@@ -50,10 +59,6 @@ export default class Rescues extends APICollection {
   /******************************************************************************\
     Getters
   \******************************************************************************/
-
-  get comparator () {
-    return 'createdAt'
-  }
 
   get url () {
     return '/api/rescues'
