@@ -1,6 +1,7 @@
 import config from '../../config.json'
-import BaseCollection from 'collections/Base'
+
 import Rat from 'models/Rat'
+import BaseCollection from 'collections/Base'
 
 
 
