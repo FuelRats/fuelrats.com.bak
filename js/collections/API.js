@@ -59,8 +59,14 @@ export default class API extends Backbone.PageableCollection {
 
   get queryParams () {
     return this._queryParams || (this._queryParams = {
-      currentPage: 'offset',
+      currentPage: 'page',
+      directions: {
+        '-1': 'ASC',
+        '1': 'DESC'
+      },
+      order: 'direction',
       pageSize: 'limit',
+      sortKey: 'order',
       totalPages: '',
       totalRecords: ''
     })
@@ -68,8 +74,10 @@ export default class API extends Backbone.PageableCollection {
 
   get state () {
     return this._state || (this._state = {
-      firstPage: 0,
-      pageSize: 100
+      firstPage: 1,
+      order: 1,
+      pageSize: 100,
+      sortKey: 'createdAt'
     })
   }
 
@@ -86,6 +94,15 @@ export default class API extends Backbone.PageableCollection {
   }
 
   set state (value) {
-    this._state = value
+    if (this._state) {
+      let keys = Object.keys(value)
+
+      keys.forEach(key => {
+        this._state[key] = value[key]
+      })
+
+    } else {
+      this._state = value
+    }
   }
 }
