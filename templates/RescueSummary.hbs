@@ -7,28 +7,44 @@
   {{/if}}
 </td>
 
-<td class="open">
-  <span class="text-success">
-    <i class="fa{{#if open}} fa-check-circle{{/if}}" title="Open"></i>
-  </span>
-</td>
-
-<td class="active">
-  <span class="text-success">
-    <i class="fa{{#if active}} fa-check-circle{{/if}}" title="Active"></i>
-  </span>
+<td class="state">
+  {{#if open}}
+    {{#if active}}
+      <span class="text-info">
+        <i class="fa fa-rocket" title="Active"></i>
+        Active
+      </span>
+    {{else}}
+      <span class="text-muted">
+        <i class="fa fa-pause" title="Inactive"></i>
+        Inactive
+      </span>
+    {{/if}}
+  {{else}}
+    {{#if successful}}
+      <span class="text-success">
+        <i class="fa fa-check" title="Successful"></i>
+        Successful
+      </span>
+    {{else}}
+      <span class="text-danger">
+        <i class="fa fa-times" title="Failed"></i>
+        Failed
+      </span>
+    {{/if}}
+  {{/if}}
 </td>
 
 <td class="codeRed">
-  <span class="text-success">
-    <i class="fa{{#if codeRed}} fa-check-circle{{/if}}" title="Code Red"></i>
-  </span>
-</td>
-
-<td class="successful">
-  <span class="text-success">
-    <i class="fa{{#if successful}} fa-check-circle{{/if}}" title="Successful"></i>
-  </span>
+  {{#if codeRed}}
+    <span class="text-danger">
+      <i class="fa fa-check" title="Code Red"></i>
+    </span>
+  {{else}}
+    <span class="text-muted">
+      <i class="fa fa-minus"></i>
+    </span>
+  {{/if}}
 </td>
 
 <td class="rats">
@@ -39,10 +55,6 @@
   {{/if}}
 </td>
 
-<td class="createdAt">
-<!--  {{createdAt}}-->
-</td>
-
-<td class="updatedAt">
-<!--  {{updatedAt}}-->
+<td class="date">
+  {{{date}}}
 </td>
