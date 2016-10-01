@@ -1,0 +1,26 @@
+<header class="page-header">
+  <h1>Rescues</h1>
+</header>
+
+<table class="full-width rats padded striped">
+  <thead>
+    <td class="CMDRname">CMDR Name</td>
+
+    <td class="rescues">Rescues</td>
+  </thead>
+
+  <tbody></tbody>
+</table>
+
+<menu type="toolbar">
+  <div class="primary">
+    {{#if nextPage}}
+      <a class="button" href="/rats/page/{{nextPage}}" id="next" type="button">Older</a>
+    {{/if}}
+  </div>
+  <div class="secondary">
+    {{#if previousPage}}
+      <a class="button" href="/rats/page/{{previousPage}}" id="previous" type="button">Newer</a>
+    {{/if}}
+  </div>
+</menu>

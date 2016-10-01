@@ -1,28 +1,28 @@
 import BaseLayoutView from 'views/BaseLayoutView'
-import RatListView from 'views/RatList'
+//import RescueListView from 'views/RescueList'
 
-import template from 'templates/RescueAdminRow.hbs'
-
-
+import template from 'templates/RatAdminRow.hbs'
 
 
 
-export default class RescueAdminRow extends BaseLayoutView {
+
+
+export default class RatAdminRow extends BaseLayoutView {
 
   /******************************************************************************\
     Private Methods
   \******************************************************************************/
 
   _bindEvents () {
-    this.listenTo(this.model.get('rats'), 'change', this._showRats)
+    this.listenTo(this.model.get('rescues'), 'change', this._showRescues)
   }
 
-  _showRats () {
-    let rats = this.model.get('rats')
+  _showRescues () {
+    let rescues = this.model.get('rescues')
 
-    if (rats.length) {
-      this.getRegion('rats').show(new RatListView({
-        collection: rats
+    if (rescues.length) {
+      this.getRegion('rescues').show(new RescueListView({
+        collection: rescues
       }))
     }
   }
@@ -43,15 +43,15 @@ export default class RescueAdminRow extends BaseLayoutView {
     super(options)
   }
 
-  initialize () {
-    this._bindEvents()
-  }
-
-  onAttach () {
-    super.onAttach()
-
-    this._showRats()
-  }
+//  initialize () {
+//    this._bindEvents()
+//  }
+//
+//  onAttach () {
+//    super.onAttach()
+//
+//    this._showRescues()
+//  }
 
 
 
@@ -62,12 +62,12 @@ export default class RescueAdminRow extends BaseLayoutView {
   \******************************************************************************/
 
   get className () {
-    return 'rescue'
+    return 'rat'
   }
 
   get regions () {
     return this._regions || (this._regions = {
-      rats: '.rats'
+      rescues: '.rescues'
     })
   }
 

@@ -1,7 +1,6 @@
 import Backbone from 'backbone'
 
 import BaseModel from 'models/Base'
-import RatsCollection from 'collections/Rats'
 
 
 
