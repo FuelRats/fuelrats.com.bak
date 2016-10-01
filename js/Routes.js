@@ -8,7 +8,7 @@ import LoginRoute from 'routes/Login'
 import LogoutRoute from 'routes/Logout'
 import RescueListRoute from 'routes/RescueList'
 import TweeterRoute from 'routes/Tweeter'
-import UserListRoute from 'routes/UserList'
+import UserAdminTableRoute from 'routes/UserAdminTable'
 
 
 
@@ -26,8 +26,8 @@ export default {
     'rescues/page/:page(/)': new RescueListRoute,
     'rescues(/)': new RescueListRoute,
     'tweeter(/)': new TweeterRoute,
-    'users/page/:page(/)': new UserListRoute,
-    'users(/)': new UserListRoute,
+    'users/page/:page(/)': new UserAdminTableRoute,
+    'users(/)': new UserAdminTableRoute,
     '*notfound': new HomeRoute
   }
 }

@@ -1,13 +1,13 @@
 import Backbone from 'backbone'
 
-import UserSummaryView from 'views/UserSummary'
-import template from 'templates/UserList.hbs'
+import UserAdminRowView from 'views/UserAdminRow'
+import template from 'templates/UserAdminTable.hbs'
 
 
 
 
 
-export default class UserList extends Backbone.Marionette.CompositeView {
+export default class UserAdminTable extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
     Public Methods
@@ -30,11 +30,11 @@ export default class UserList extends Backbone.Marionette.CompositeView {
   \******************************************************************************/
 
   get childView () {
-    return UserSummaryView
+    return UserAdminRowView
   }
 
   get childViewContainer () {
-    return '.user-list tbody'
+    return '.users tbody'
   }
 
   get tagName () {

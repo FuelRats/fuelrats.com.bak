@@ -2,13 +2,13 @@ import BaseLayoutView from 'views/BaseLayoutView'
 
 import RatListView from 'views/RatList'
 
-import template from 'templates/UserSummary.hbs'
+import template from 'templates/UserAdminRow.hbs'
 
 
 
 
 
-export default class UserSummary extends BaseLayoutView {
+export default class UserAdminRow extends BaseLayoutView {
 
   /******************************************************************************\
     Private Methods

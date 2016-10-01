@@ -1,12 +1,12 @@
 import Route from '../Route'
-import UserListView from 'views/UserList'
+import UserAdminTableView from 'views/UserAdminTable'
 import UsersCollection from 'collections/Users'
 
 
 
 
 
-export default class UserList extends Route {
+export default class UserAdminTable extends Route {
 
   /******************************************************************************\
     Public Methods
@@ -40,6 +40,6 @@ export default class UserList extends Route {
   }
 
   get view () {
-    return UserListView
+    return UserAdminTableView
   }
 }
