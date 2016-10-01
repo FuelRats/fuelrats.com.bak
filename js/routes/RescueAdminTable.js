@@ -1,12 +1,12 @@
 import Route from '../Route'
-import RescueListView from 'views/RescueList'
+import RescueAdminTableView from 'views/RescueAdminTable'
 import RescuesCollection from 'collections/Rescues'
 
 
 
 
 
-export default class RescueList extends Route {
+export default class RescueAdminTable extends Route {
 
   /******************************************************************************\
     Public Methods
@@ -40,6 +40,6 @@ export default class RescueList extends Route {
   }
 
   get view () {
-    return RescueListView
+    return RescueAdminTableView
   }
 }

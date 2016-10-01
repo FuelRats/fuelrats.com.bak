@@ -2,13 +2,13 @@ import BaseLayoutView from 'views/BaseLayoutView'
 
 import RatListView from 'views/RatList'
 
-import template from 'templates/RescueSummary.hbs'
+import template from 'templates/RescueAdminRow.hbs'
 
 
 
 
 
-export default class RescueSummary extends BaseLayoutView {
+export default class RescueAdminRow extends BaseLayoutView {
 
   /******************************************************************************\
     Private Methods
