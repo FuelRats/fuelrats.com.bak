@@ -35,15 +35,15 @@ export default class API extends Backbone.PageableCollection {
   fetch (options) {
     options = options || {}
 
-    let ids = []
-
-    this.forEach(model => {
-      if (!model.get('loaded')) {
-        ids.push(model.get('id'))
-      }
-    })
-
     if (options.bulk) {
+      let ids = []
+
+      this.forEach(model => {
+        if (!model.get('loaded')) {
+          ids.push(model.get('id'))
+        }
+      })
+
       options.data = {
         id: ids,
         limit: ids.length
