@@ -1,0 +1,34 @@
+.login {
+  align-content: center;
+  align-items: center;
+  background-color: $black;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+
+  form {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    min-width: 30rem;
+  }
+
+  menu {
+    padding: 0;
+  }
+
+  menu,
+  .email,
+  .password {
+    width: 100%;
+  }
+
+  .email,
+  .password {
+    background-color: rgba($white, 0.2);
+    color: $white;
+    margin-bottom: 2rem;
+    padding: 1rem;
+  }
+}

@@ -37,12 +37,6 @@ export default class Login extends Backbone.Marionette.ItemView {
     Getters
   \******************************************************************************/
 
-  get events () {
-    return this._events || (this._events = {
-      'click button[type=submit]': 'onSubmit'
-    })
-  }
-
   get bindings () {
     return {
       '#password': 'password',
@@ -50,8 +44,18 @@ export default class Login extends Backbone.Marionette.ItemView {
     }
   }
 
+  get className () {
+    return 'login'
+  }
+
+  get events () {
+    return this._events || (this._events = {
+      'click button[type=submit]': 'onSubmit'
+    })
+  }
+
   get tagName () {
-    return 'form'
+    return 'main'
   }
 
   get ui () {
