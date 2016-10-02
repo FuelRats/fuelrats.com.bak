@@ -12,6 +12,15 @@ export default class Rats extends APICollection {
     Public Methods
   \******************************************************************************/
 
+  constructor () {
+    super()
+
+    this.state = {
+      order: -1,
+      sortKey: 'CMDRname'
+    }
+  }
+
   parseRecords (response) {
 //    let allRats = Backbone.Radio.channel('application').request('rats')
 //
