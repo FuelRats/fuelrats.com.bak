@@ -93,7 +93,8 @@ export default class Dialog extends BaseLayoutView {
   get events () {
     return this._events || (this._events = {
       'click button[name=cancel]': 'cancel',
-      'click button[name=confirm]': 'close'
+      'click button[name=confirm]': 'close',
+      'click button.close': 'close'
     })
   }
 
