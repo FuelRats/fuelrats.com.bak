@@ -112,16 +112,18 @@ export default class User extends BaseModel {
   }
 
   serializeUser () {
-    let user = this.toJSON()
+    if (this.get('loggedIn')) {
+      let user = this.toJSON()
 
-    localStorage.setItem('user', JSON.stringify({
-      drilled: user.drilled,
-      drilledDispatch: user.drilledDispatch,
-      email: user.email,
-      group: user.group,
-      id: user.id,
-      nicknames: user.nicknames
-    }))
+      localStorage.setItem('user', JSON.stringify({
+        drilled: user.drilled,
+        drilledDispatch: user.drilledDispatch,
+        email: user.email,
+        group: user.group,
+        id: user.id,
+        nicknames: user.nicknames
+      }))
+    }
   }
 
 
