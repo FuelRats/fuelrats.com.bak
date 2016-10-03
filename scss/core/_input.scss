@@ -1,6 +1,25 @@
 input {
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  outline: none;
+  &:not([type]),
+  &[type=date],
+  &[type=datetime],
+  &[type=datetime-local],
+  &[type=email],
+  &[type=month],
+  &[type=number],
+  &[type=password],
+  &[type=search],
+  &[type=tel],
+  &[type=text],
+  &[type=time],
+  &[type=url],
+  &[type=week] {
+    background-color: rgba($white, 0.2);
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    margin-bottom: 2rem;
+    outline: none;
+    padding: 1rem;
+    width: 100%;
+  }
 }
