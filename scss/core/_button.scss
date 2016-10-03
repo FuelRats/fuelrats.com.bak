@@ -17,14 +17,23 @@ input[type=button],
   text-decoration: none;
   transition: all 0.2s;
 
-  &:focus,
   &:hover {
     background-color: $transparent;
     color: $red;
   }
 
   &.secondary {
-    background-color: $transparent;
-    color: $red;
+    background-color: $black-lightened;
+    border: none;
+    color: $grey;
+
+    &:hover {
+      background-color: $red;
+      color: $white;
+    }
+  }
+
+  &.icon {
+    padding: 1rem;
   }
 }
