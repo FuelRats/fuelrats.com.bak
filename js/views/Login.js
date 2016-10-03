@@ -51,9 +51,15 @@ export default class Login extends Backbone.Marionette.ItemView {
   }
 
   onSubmit (event) {
+    this.appChannel.request('dialog:loading')
+
     this.model.login()
     .then(() => {
       this.appChannel.request('dialog:close')
+      this.appChannel.request('dialog:loaded')
+    })
+    .catch(() => {
+      this.appChannel.request('dialog:loaded')
     })
   }
 

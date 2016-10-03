@@ -23,8 +23,10 @@ export default class Dialog extends BaseLayoutView {
       this.trigger('cancel')
     })
 
-    this.appChannel.reply('dialog:show', this.show.bind(this))
     this.appChannel.reply('dialog:close', this.close.bind(this))
+    this.appChannel.reply('dialog:loading', this.showLoader.bind(this))
+    this.appChannel.reply('dialog:loaded', this.hideLoader.bind(this))
+    this.appChannel.reply('dialog:show', this.show.bind(this))
   }
 
 
@@ -52,6 +54,10 @@ export default class Dialog extends BaseLayoutView {
     super(options)
   }
 
+  hideLoader () {
+    this.el.querySelector('.loading').setAttribute('data-hidden', '')
+  }
+
   initialize () {
     this._bindEvents()
   }
@@ -75,6 +81,10 @@ export default class Dialog extends BaseLayoutView {
       this.once('close', resolve)
       this.once('cancel', reject)
     })
+  }
+
+  showLoader () {
+    this.el.querySelector('.loading').removeAttribute('data-hidden')
   }
 
 
