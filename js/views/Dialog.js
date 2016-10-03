@@ -70,7 +70,6 @@ export default class Dialog extends BaseLayoutView {
     }
 
     this.el.showModal()
-    this.ui.confirm.focus()
 
     return new Promise((resolve, reject) => {
       this.once('close', resolve)
