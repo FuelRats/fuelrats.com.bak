@@ -1,4 +1,4 @@
-import cookie from 'cookie'
+import cookie from 'cookies-js'
 
 import BaseModel from './Base'
 import RatsCollection from 'collections/Rats'
@@ -51,7 +51,7 @@ export default class User extends BaseModel {
   }
 
   login () {
-    if (cookie.cookie('connect.sid')) {
+    if (cookie.get('connect.sid')) {
       let user = this.deserializeUser()
       this.set(user)
       return Promise.resolve()
@@ -106,9 +106,7 @@ export default class User extends BaseModel {
       loggedIn: false
     })
     localStorage.removeItem('user')
-    cookie.cookie.removeSpecific('connect.sid', {
-      path: '/'
-    })
+    cookie.expire('connect.sid')
   }
 
   serializeUser () {
