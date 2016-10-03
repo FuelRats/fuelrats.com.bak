@@ -6,14 +6,20 @@
   {{{body}}}
 </div>
 
-<footer>
-  <menu type="toolbar">
-    <div class="secondary">
-      <button name="cancel" type="button">Close</button>
-    </div>
+{{#if showMenu}}
+  {{#if menu}}
+    {{menu}}
+  {{else}}
+    <footer>
+      <menu type="toolbar">
+        <div class="secondary">
+          <button name="cancel" type="button">Close</button>
+        </div>
 
-    <div class="primary">
-      <button name="confirm" type="button">Confirm</button>
-    </div>
-  </menu>
-</footer>
+        <div class="primary">
+          <button name="confirm" type="button">Confirm</button>
+        </div>
+      </menu>
+    </footer>
+  {{/if}}
+{{/if}}

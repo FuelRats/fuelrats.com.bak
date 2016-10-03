@@ -56,6 +56,10 @@ export default class Dialog extends BaseLayoutView {
   }
 
   show (options) {
+    if (typeof options.showMenu !== 'boolean') {
+      options.showMenu = true
+    }
+
     this.model.clear()
     this.model.set(options)
     this.render()
