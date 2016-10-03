@@ -59,6 +59,11 @@ export default class Dialog extends BaseLayoutView {
     this.model.clear()
     this.model.set(options)
     this.render()
+
+    if (options.body instanceof Backbone.View) {
+      this.getRegion('content').show(options.body)
+    }
+
     this.el.showModal()
     this.ui.confirm.focus()
 
