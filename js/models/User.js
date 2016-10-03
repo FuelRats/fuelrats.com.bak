@@ -92,6 +92,8 @@ export default class User extends BaseModel {
           }
 
           this.routerChannel.request('route', '/home')
+
+          resolve()
         },
         url: '/api/login'
       })

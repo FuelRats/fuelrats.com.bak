@@ -12,7 +12,7 @@ export default class Logout extends Route {
 
   onBeforeShow (params) {
     this.model.logout()
-    this.routerChannel.request('route', '/login')
+    this.routerChannel.request('route', '/')
   }
 
 

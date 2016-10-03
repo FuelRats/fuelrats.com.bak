@@ -1,5 +1,4 @@
 import Backbone from 'backbone'
-import Handlebars from 'handlebars'
 
 import template from 'templates/Login.hbs'
 
@@ -8,6 +7,28 @@ import template from 'templates/Login.hbs'
 
 
 export default class Login extends Backbone.Marionette.ItemView {
+
+  /******************************************************************************\
+    Private Methods
+  \******************************************************************************/
+
+  _bindEvents () {
+    this.listenTo(this.model, 'change', this._toggleLoginButton)
+  }
+
+  _toggleLoginButton () {
+    let loginButton = this.el.querySelector('button[type=submit]')
+
+    if (this.model.get('email') && this.model.get('password')) {
+      loginButton.removeAttribute('disabled')
+    } else {
+      loginButton.setAttribute('disabled', '')
+    }
+  }
+
+
+
+
 
   /******************************************************************************\
     Public Methods
@@ -21,12 +42,19 @@ export default class Login extends Backbone.Marionette.ItemView {
     super(options)
   }
 
+  initialize () {
+    this._bindEvents()
+  }
+
   onRender () {
     this.stickit()
   }
 
   onSubmit (event) {
     this.model.login()
+    .then(() => {
+      this.appChannel.request('dialog:close')
+    })
   }
 
 
@@ -36,6 +64,10 @@ export default class Login extends Backbone.Marionette.ItemView {
   /******************************************************************************\
     Getters
   \******************************************************************************/
+
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
 
   get bindings () {
     return {

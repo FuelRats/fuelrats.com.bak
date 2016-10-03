@@ -23,7 +23,8 @@ export default class Dialog extends BaseLayoutView {
       this.trigger('cancel')
     })
 
-    this.appChannel.reply('dialog', this.show.bind(this))
+    this.appChannel.reply('dialog:show', this.show.bind(this))
+    this.appChannel.reply('dialog:close', this.close.bind(this))
   }
 
 

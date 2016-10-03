@@ -1,5 +1,6 @@
 import Backbone from 'backbone'
 
+import LoginView from 'views/Login'
 import template from 'templates/UserMenu.hbs'
 
 
@@ -21,6 +22,16 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
       } else {
         this.el.removeAttribute('data-hidden')
       }
+    })
+  }
+
+  _showLogin () {
+    this.appChannel.request('dialog:show', {
+      body: new LoginView({
+        model: this.model
+      }),
+      showMenu: false,
+      title: 'Login'
     })
   }
 
@@ -60,6 +71,12 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
     return 'user-menu'
   }
 
+  get events () {
+    return this._events || (this._events = {
+      'click button.login': '_showLogin'
+    })
+  }
+
   get model () {
     return this.appChannel.request('user')
   }
@@ -74,5 +91,17 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
 
   get template () {
     return template
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Getters
+  \******************************************************************************/
+
+  set events (value) {
+    this._events = value
   }
 }
