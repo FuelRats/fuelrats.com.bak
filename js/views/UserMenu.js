@@ -31,7 +31,7 @@ export default class UserMenu extends Backbone.Marionette.ItemView {
         model: this.model
       }),
       showMenu: false,
-      title: 'Login'
+      title: '<h2>Login</h2>'
     })
   }
 

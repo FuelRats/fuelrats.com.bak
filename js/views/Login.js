@@ -87,7 +87,7 @@ export default class Login extends Backbone.Marionette.ItemView {
   }
 
   get tagName () {
-    return 'main'
+    return 'form'
   }
 
   get ui () {
