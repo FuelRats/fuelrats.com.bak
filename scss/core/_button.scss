@@ -36,4 +36,14 @@ input[type=button],
   &.icon {
     padding: 1rem;
   }
+
+  &.link {
+    background: none;
+    border: none;
+
+    &:hover {
+      background-color: none;
+      border: none;
+    }
+  }
 }

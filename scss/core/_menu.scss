@@ -1,7 +1,7 @@
 menu {
-  align-content: stretch;
   display: flex;
   flex-shrink: 0;
+  justify-content: space-between;
   margin: 0;
   padding: 2rem 4rem;
 
@@ -9,13 +9,12 @@ menu {
     .primary,
     .secondary {
       display: flex;
-      flex-grow: 1;
       flex-shrink: 0;
     }
 
     .primary {
-      align-content: flex-end;
-      flex-direction: row-reverse;
+//      align-content: flex-end;
+//      flex-direction: row-reverse;
       order: 2;
     }
 
