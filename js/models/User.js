@@ -21,7 +21,9 @@ export default class User extends BaseModel {
   }
 
   _setPermissions () {
-    if (this.get('group') === 'admin') {
+    let group = this.get('group') || this.get('groups')
+
+    if ((Array.isArray(group) && group.indexOf('admin') !== -1) || group === 'admin') {
       this.set('isAdmin', true)
     }
   }
