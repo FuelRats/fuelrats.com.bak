@@ -22,10 +22,11 @@ export default class User extends BaseModel {
 
   _setPermissions () {
     let group = this.get('group') || this.get('groups')
+    let isArray = Array.isArray(group)
 
-    if ((Array.isArray(group) && group.indexOf('admin') !== -1) || group === 'admin') {
-      this.set('isAdmin', true)
-    }
+    this.set('isAdmin', (isArray && group.indexOf('admin') !== -1) || group === 'admin')
+    this.set('isModerator', (isArray && group.indexOf('moderator') !== -1) || group === 'moderator')
+    this.set('isOverseer', (isArray && group.indexOf('overseer') !== -1) || group === 'overseer')
   }
 
 
