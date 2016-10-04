@@ -3,8 +3,20 @@
 <td>{{email}}</td>
 
 <td>
+  {{#if drilled}}
+    <i class="fa fa-check"></i>
+  {{/if}}
+</td>
+
+<td>
+  {{#if dispatchDrilled}}
+    <i class="fa fa-check"></i>
+  {{/if}}
+</td>
+
+<td>
   {{#if rats.length}}
-    <ul class="rats comma-separated inline"></ul>
+    <ul class="comma-separated rats"></ul>
   {{else}}
     This user has no rats associated with their account
   {{/if}}
@@ -12,7 +24,7 @@
 
 <td>
   {{#if nicknames}}
-    <ul class="comma-separated inline nicknames">
+    <ul class="comma-separated nicknames">
       {{#each nicknames}}
         <li>{{this}}</li>
       {{/each}}

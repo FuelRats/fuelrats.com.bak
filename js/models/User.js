@@ -137,12 +137,14 @@ export default class User extends BaseModel {
 
   get defaults () {
     return {
-      rats: [],
+      dispatchDrilled: false,
+      drilled: false,
       email: '',
       loggedIn: false,
       loggingIn: false,
       name: '',
-      password: ''
+      password: '',
+      rats: []
     }
   }
 }
