@@ -13,14 +13,20 @@ export default class API extends Backbone.PageableCollection {
   \******************************************************************************/
 
   _bindEvents () {
-    this.data.listenTo(this, 'sync', this._updateData.bind(this))
+    this.data.listenTo(this, 'pageable:state:change sync', this._updateData.bind(this))
   }
 
   _updateData () {
+    let currentPage = this.state.currentPage
+    let lastPage = this.state.lastPage
+    let firstPage = this.state.firstPage
+
     this.data.set({
+      currentPage: currentPage,
       hasMultiplePages: this.hasNextPage() || this.hasPreviousPage(),
-      nextPage: this.hasNextPage() ? this.state.currentPage + 1 : false,
-      previousPage: this.hasPreviousPage() ? this.state.currentPage - 1 : false
+      lastPage: lastPage,
+      nextPage: this.hasNextPage() ? currentPage + 1 : false,
+      previousPage: this.hasPreviousPage() ? currentPage - 1 : false
     })
   }
 

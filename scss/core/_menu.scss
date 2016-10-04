@@ -6,16 +6,20 @@ menu {
   padding: 2rem 4rem;
 
   > {
+    .page,
     .primary,
     .secondary {
       display: flex;
       flex-shrink: 0;
     }
 
-    .primary {
-//      align-content: flex-end;
-//      flex-direction: row-reverse;
+    .page {
+      align-items: center;
       order: 2;
+    }
+
+    .primary {
+      order: 3;
     }
 
     .secondary {
