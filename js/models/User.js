@@ -16,6 +16,7 @@ export default class User extends BaseModel {
   _bindEvents () {
     this.listenTo(this, 'change', () => {
       this._setPermissions()
+      this._updateAvatar()
       this.serializeUser()
     })
   }
@@ -27,6 +28,12 @@ export default class User extends BaseModel {
     this.set('isAdmin', (isArray && group.indexOf('admin') !== -1) || group === 'admin')
     this.set('isModerator', (isArray && group.indexOf('moderator') !== -1) || group === 'moderator')
     this.set('isOverseer', (isArray && group.indexOf('overseer') !== -1) || group === 'overseer')
+  }
+
+  _updateAvatar () {
+    let id = this.get('id')
+
+    this.set('avatar', `//api.adorable.io/avatars/${id}`)
   }
 
 
@@ -137,6 +144,7 @@ export default class User extends BaseModel {
 
   get defaults () {
     return {
+      avatar: '',
       dispatchDrilled: false,
       drilled: false,
       email: '',
