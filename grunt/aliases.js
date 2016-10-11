@@ -6,7 +6,8 @@ module.exports = {
   ],
 
   build: [
-    'clean',
+    'clean:app',
+    'updateLocales',
     'buildCSS',
     'buildJS'
   ],
@@ -28,6 +29,11 @@ module.exports = {
 
   buildLibCSS: [
     'sass:libCSS'
+  ],
+
+  updateLocales: [
+    'clean:locales',
+    'copy:locales'
   ],
 
   dist: [

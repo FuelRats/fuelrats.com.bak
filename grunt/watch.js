@@ -37,7 +37,10 @@ module.exports = {
     ],
     tasks: [
       'buildJS'
-    ]
+    ],
+    options: {
+      livereload: true
+    }
   },
 
   appCSS: {
@@ -67,6 +70,19 @@ module.exports = {
     ],
     tasks: [
       'buildLibCSS'
+    ],
+    options: {
+      livereload: true
+    }
+  },
+
+  locales: {
+    files: [
+      'locales/**/*.json',
+      'locales/options.json'
+    ],
+    tasks: [
+      'updateLocales'
     ],
     options: {
       livereload: true

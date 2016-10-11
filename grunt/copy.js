@@ -5,5 +5,11 @@ module.exports = {
     filter: 'isFile',
     flatten: true,
     src: 'bower_components/font-awesome/fonts/*'
+  },
+
+  locales: {
+    dest: 'assets/',
+    filter: 'isFile',
+    src: 'locales/**/*.json'
   }
 }

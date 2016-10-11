@@ -1,5 +1,6 @@
 ### Project ###
 assets/fonts/font-awesome/
+assets/locales/
 dist/
 config.json
 
