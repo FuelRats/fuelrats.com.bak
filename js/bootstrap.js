@@ -1,5 +1,8 @@
 import i18next from 'i18next'
+import i18nextCache from 'i18next-localstorage-cache'
+import i18nextLanguageDetector from 'i18next-browser-languagedetector'
 import i18nextOptions from '../locales/options.json'
+import i18nextXHR from 'i18next-xhr-backend'
 
 import Backbone from 'backbone'
 import 'backbone.base-router'
@@ -41,7 +44,11 @@ marked.setOptions({
 })
 
 // Set up i18next
-i18next.init(i18nextOptions)
+i18next
+.use(i18nextCache)
+.use(i18nextLanguageDetector)
+.use(i18nextXHR)
+.init(i18nextOptions)
 
 
 
