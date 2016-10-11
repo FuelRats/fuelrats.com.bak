@@ -33,7 +33,8 @@
     "marked": "^0.3.5",
     "CSS-Hamburgers": "hamburgers#^1.0.0",
     "backbone.paginator": "^2.0.5",
-    "cookies-js": "^1.2.2"
+    "cookies-js": "^1.2.2",
+    "i18next": "^3.4.3"
   },
   "resolutions": {
     "backbone": "^1.3.3"

@@ -1,3 +1,6 @@
+import i18next from 'i18next'
+import i18nextOptions from '../locales/options.json'
+
 import Backbone from 'backbone'
 import 'backbone.base-router'
 import 'backbone.hoard'
@@ -23,6 +26,13 @@ import App from './App'
 
 
 
+// Set some default values for XHRs made with jQuery
+$.ajaxSetup({
+  xhrFields: {
+    withCredentials: true
+  }
+})
+
 // Set up marked to use prism for syntax highlighting
 marked.setOptions({
   highlight: (code, language) => {
@@ -30,11 +40,8 @@ marked.setOptions({
   }
 })
 
-$.ajaxSetup({
-  xhrFields: {
-    withCredentials: true
-  }
-})
+// Set up i18next
+i18next.init(i18nextOptions)
 
 
 
