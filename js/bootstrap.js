@@ -43,17 +43,20 @@ marked.setOptions({
   }
 })
 
-// Set up i18next
-i18next
-.use(i18nextCache)
-.use(i18nextLanguageDetector)
-.use(i18nextXHR)
-.init(i18nextOptions)
+// Things to do once the page is loaded
+$(document).ready(() => {
+  // Set up i18next
+  i18next
+  .use(i18nextCache)
+  .use(i18nextLanguageDetector)
+  .use(i18nextXHR)
+  .init(i18nextOptions, error => {
+    if (error) {
+      throw error
+    }
 
-
-
-
-
-// Start the damn thing already
-window.app = new App
-app.start()
+    // Start the damn thing already
+    window.app = new App
+    app.start()
+  })
+})
