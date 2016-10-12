@@ -1,5 +1,4 @@
-import Backbone from 'backbone'
-
+import BaseTableView from 'views/BaseTableView'
 import RescueAdminRowView from 'views/RescueAdminRow'
 import template from 'templates/RescueAdminTable.hbs'
 
@@ -7,7 +6,7 @@ import template from 'templates/RescueAdminTable.hbs'
 
 
 
-export default class RescueAdminTable extends Backbone.Marionette.CompositeView {
+export default class RescueAdminTable extends BaseTableView {
 
   /******************************************************************************\
     Public Methods
@@ -31,10 +30,6 @@ export default class RescueAdminTable extends Backbone.Marionette.CompositeView 
 
   get childView () {
     return RescueAdminRowView
-  }
-
-  get childViewContainer () {
-    return '.rescues tbody'
   }
 
   get tagName () {

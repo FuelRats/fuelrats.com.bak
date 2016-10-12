@@ -1,12 +1,10 @@
-import BaseTableView from 'views/BaseTableView'
-import RatAdminRowView from 'views/RatAdminRow'
-import template from 'templates/RatAdminTable.hbs'
+import BaseLayoutView from 'views/BaseLayoutView'
 
 
 
 
 
-export default class RatAdminTable extends BaseTableView {
+export default class BaseRow extends BaseLayoutView {
 
   /******************************************************************************\
     Public Methods
@@ -28,15 +26,25 @@ export default class RatAdminTable extends BaseTableView {
     Getters
   \******************************************************************************/
 
-  get childView () {
-    return RatAdminRowView
-  }
-
-  get childViewContainer () {
-    return '.rats tbody'
+  get regions () {
+    return this._regions || (this._regions = {
+      tbody: 'tbody'
+    })
   }
 
   get tagName () {
-    return 'main'
+    return 'tr'
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Setters
+  \******************************************************************************/
+
+  set regions (value) {
+    this._regions = value
   }
 }
