@@ -12,7 +12,7 @@ export default class About extends Route {
   \******************************************************************************/
 
   get title () {
-    return 'About Trezy'
+    return 'About'
   }
 
   get view () {
