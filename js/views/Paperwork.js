@@ -20,9 +20,9 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     let submitButton = this.el.querySelector('button[type=submit]')
 
     if (this.isComplete()) {
-      loginButton.removeAttribute('disabled')
+      submitButton.removeAttribute('disabled')
     } else {
-      loginButton.setAttribute('disabled', '')
+      submitButton.setAttribute('disabled', '')
     }
   }
 
