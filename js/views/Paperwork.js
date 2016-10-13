@@ -74,7 +74,7 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   get bindings () {
     return {
-      '#assists': 'assists',
+      '#rats': 'rats',
       '#codeRed': 'codeRed',
       '#firstLimpet': 'firstLimpet',
       '#notes': 'notes',
