@@ -20,6 +20,14 @@ export default class Rescue extends BaseModel {
     let createdAt = this.get('createdAt')
 
     if (createdAt) {
+      if (!moment.isMoment(createdAt)) {
+        createdAt = moment(createdAt)
+
+        this.set('createdAt', createdAt, {
+          silent: true
+        })
+      }
+
       this.set('date', createdAt.calendar())
     }
   }
@@ -35,6 +43,10 @@ export default class Rescue extends BaseModel {
   initialize () {
     this._updateDate()
     this._bindEvents()
+  }
+
+  parse (response) {
+    return response.data
   }
 
 
