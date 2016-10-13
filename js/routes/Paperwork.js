@@ -28,6 +28,7 @@ export default class Paperwork extends Route {
             success: resolve
           })
         }
+
       } else {
         this.viewOptions.model = rescues.add({
           id: params.id
@@ -45,6 +46,10 @@ export default class Paperwork extends Route {
   /******************************************************************************\
     Getters
   \******************************************************************************/
+
+  get replaceElement () {
+    return false
+  }
 
   get title () {
     return 'Paperwork'

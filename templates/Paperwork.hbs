@@ -3,49 +3,51 @@
 </header>
 
 <label for="assists">
-  Who arrived for the rescue?
+  {{t 'paperwork.assists.question'}}
 </label>
 <input id="assists" multiple name="assists" type="tags">
 
 <label for="firstLimpet">
-  Who fired the first limpet?
+  {{t 'paperwork.firstLimpet.question'}}
 </label>
 <input id="firstLimpet" name="firstLimpet" type="tags">
 
 <label for="system">
-  Where did it happen?
+  {{t 'paperwork.system.question'}}
   <small>
-    In what star system did the rescue took place? (put "n/a" if not applicable)
+    {{t 'paperwork.system.subtext'}}
   </small>
 </label>
 <input id="system" name="system" type="tags">
 
 <label>
-  What platform was the rescue on?
+  {{t 'paperwork.platform.question'}}
 </label>
 <input checked id="platform-pc" name="platform" type="radio" value="pc"> <label for="platform-pc">PC</label>
 <input id="platform-xb" name="platform" type="radio" value="xb"> <label for="platform-xb">Xbox One</label>
 
 <label>
-  Was the rescue successful?
+  {{t 'paperwork.successful.question'}}
 </label>
 <input checked id="successful-yes" name="successful" type="radio" value="yes"> <label for="successful-yes">Yes</label>
 <input id="successful-no" name="successful" type="radio" value="no"> <label for="successful-no">No</label>
 
 <label>
-  Was is a code red?
+  {{t 'paperwork.codeRed.question'}}
 </label>
 <input checked id="codeRed-yes" name="codeRed" type="radio" value="yes"> <label for="codeRed-yes">Yes</label>
 <input id="codeRed-no" name="codeRed" type="radio" value="no"> <label for="codeRed-no">No</label>
 
 <label for="notes">
-  Notes
+  {{t 'paperwork.notes.question'}}
 </label>
 <textarea id="notes" name="notes"></textarea>
 
 <menu type="toolbar">
   <div class="primary">
-    <button type="submit">Older</button>
+    <button type="submit">
+      {{t 'common.submit'}}
+    </button>
   </div>
   <div class="secondary"></div>
 </menu>

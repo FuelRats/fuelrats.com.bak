@@ -1,9 +1,47 @@
 {
+  "blogs": {
+    "categories": "Categories"
+  },
+
+  "common": {
+    "submit": "Submit"
+  },
+
   "pages": {
     "about": "About Us",
     "blog": "Blog",
     "community-hub": "Community Hub",
     "propaganda": "Propaganda",
     "store": "Store"
+  },
+
+  "paperwork": {
+    "assists": {
+      "question": "Who arrived for the rescue?"
+    },
+    "codeRed": {
+      "question": "Was it a code red?"
+    },
+    "firstLimpet": {
+      "question": "Who fired the first limpet?"
+    },
+    "notes": {
+      "question": "Notes"
+    },
+    "platform": {
+      "question": "What platform was the rescue on?"
+    },
+    "successful": {
+      "question": "Was the rescue successful?"
+    },
+    "system": {
+      "question": "Where did it happen?",
+      "subtext": "In what star system did the rescue took place? (put \"n/a\" if not applicable)"
+    }
+  },
+
+  "pagination": {
+    "newer": "Newer",
+    "older": "Older"
   }
 }
