@@ -1,0 +1,51 @@
+<header class="page-header">
+  <h1>Paperwork</h1>
+</header>
+
+<label for="assists">
+  Who arrived for the rescue?
+</label>
+<input id="assists" multiple name="assists" type="tags">
+
+<label for="firstLimpet">
+  Who fired the first limpet?
+</label>
+<input id="firstLimpet" name="firstLimpet" type="tags">
+
+<label for="system">
+  Where did it happen?
+  <small>
+    In what star system did the rescue took place? (put "n/a" if not applicable)
+  </small>
+</label>
+<input id="system" name="system" type="tags">
+
+<label>
+  What platform was the rescue on?
+</label>
+<input checked id="platform-pc" name="platform" type="radio" value="pc"> <label for="platform-pc">PC</label>
+<input id="platform-xb" name="platform" type="radio" value="xb"> <label for="platform-xb">Xbox One</label>
+
+<label>
+  Was the rescue successful?
+</label>
+<input checked id="successful-yes" name="successful" type="radio" value="yes"> <label for="successful-yes">Yes</label>
+<input id="successful-no" name="successful" type="radio" value="no"> <label for="successful-no">No</label>
+
+<label>
+  Was is a code red?
+</label>
+<input checked id="codeRed-yes" name="codeRed" type="radio" value="yes"> <label for="codeRed-yes">Yes</label>
+<input id="codeRed-no" name="codeRed" type="radio" value="no"> <label for="codeRed-no">No</label>
+
+<label for="notes">
+  Notes
+</label>
+<textarea id="notes" name="notes"></textarea>
+
+<menu type="toolbar">
+  <div class="primary">
+    <button type="submit">Older</button>
+  </div>
+  <div class="secondary"></div>
+</menu>

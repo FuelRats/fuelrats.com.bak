@@ -6,6 +6,7 @@ import BlogRoute from 'routes/Blog'
 import HomeRoute from 'routes/Home'
 import LoginRoute from 'routes/Login'
 import LogoutRoute from 'routes/Logout'
+import PaperworkRoute from 'routes/Paperwork'
 import RatAdminTableRoute from 'routes/RatAdminTable'
 import RescueAdminTableRoute from 'routes/RescueAdminTable'
 import TweeterRoute from 'routes/Tweeter'
@@ -24,6 +25,8 @@ export default {
     'home(/)': new HomeRoute,
     'login(/)': new LoginRoute,
     'logout(/)': new LogoutRoute,
+    'paperwork(/)': new PaperworkRoute,
+    'paperwork/:id(/)': new PaperworkRoute,
     'rats/page/:page(/)': new RatAdminTableRoute,
     'rats(/)': new RatAdminTableRoute,
     'rescues/page/:page(/)': new RescueAdminTableRoute,

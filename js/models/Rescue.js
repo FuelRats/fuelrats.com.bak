@@ -17,7 +17,11 @@ export default class Rescue extends BaseModel {
   }
 
   _updateDate () {
-    this.set('date', this.get('createdAt').calendar())
+    let createdAt = this.get('createdAt')
+
+    if (createdAt) {
+      this.set('date', createdAt.calendar())
+    }
   }
 
 
