@@ -2,12 +2,20 @@
   border-color: $grey-lightened;
   border-style: solid;
   border-width: 0.1rem;
+  box-shadow: 0 0 0.5rem 0 rgba($red, 0);
   color: inherit;
   font-family: inherit;
   font-size: inherit;
   outline: none;
+  transition-duration: 0.5s;
+  transition-property: border-color, box-shadow;
   padding: 1rem;
   width: 100%;
+
+  &:focus {
+    border-color: $grey;
+    box-shadow: 0 0 0.5rem 0 rgba($red, 0.5);
+  }
 }
 
 input {
