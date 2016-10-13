@@ -2,46 +2,76 @@
   <h1>{{t 'pages.paperwork'}}</h1>
 </header>
 
-<label for="assists">
-  {{t 'paperwork.assists.question'}}
-</label>
-<input id="assists" multiple name="assists" type="tags">
+<fieldset>
+  <label for="assists">
+    {{t 'paperwork.assists.question'}}
+  </label>
 
-<label for="firstLimpet">
-  {{t 'paperwork.firstLimpet.question'}}
-</label>
-<input id="firstLimpet" name="firstLimpet" type="tags">
+  <input id="assists" multiple name="assists">
+</fieldset>
 
-<label for="system">
-  {{t 'paperwork.system.question'}}
-  <small>
-    {{t 'paperwork.system.subtext'}}
-  </small>
-</label>
-<input id="system" name="system" type="tags">
+<fieldset>
+  <label for="firstLimpet">
+    {{t 'paperwork.firstLimpet.question'}}
+  </label>
 
-<label>
-  {{t 'paperwork.platform.question'}}
-</label>
-<input checked id="platform-pc" name="platform" type="radio" value="pc"> <label for="platform-pc">{{t 'common.pc'}}</label>
-<input id="platform-xb" name="platform" type="radio" value="xb"> <label for="platform-xb">{{t 'common.xbox'}}</label>
+  <input id="firstLimpet" name="firstLimpet">
+</fieldset>
 
-<label>
-  {{t 'paperwork.successful.question'}}
-</label>
-<input checked id="successful-yes" name="successful" type="radio" value="yes"> <label for="successful-yes">{{t 'common.yes'}}</label>
-<input id="successful-no" name="successful" type="radio" value="no"> <label for="successful-no">{{t 'common.no'}}</label>
+<fieldset>
+  <label for="system">
+    {{t 'paperwork.system.question'}}
+    <small>
+      {{t 'paperwork.system.subtext'}}
+    </small>
+  </label>
 
-<label>
-  {{t 'paperwork.codeRed.question'}}
-</label>
-<input checked id="codeRed-yes" name="codeRed" type="radio" value="yes"> <label for="codeRed-yes">{{t 'common.yes'}}</label>
-<input id="codeRed-no" name="codeRed" type="radio" value="no"> <label for="codeRed-no">{{t 'common.no'}}</label>
+  <input id="system" name="system">
+</fieldset>
 
-<label for="notes">
-  {{t 'paperwork.notes.question'}}
-</label>
-<textarea id="notes" name="notes"></textarea>
+<fieldset>
+  <label>
+    {{t 'paperwork.platform.question'}}
+  </label>
+
+  <div class="option-group">
+    <input checked id="platform-pc" name="platform" type="radio" value="pc"> <label for="platform-pc">{{t 'common.pc'}}</label>
+
+    <input id="platform-xb" name="platform" type="radio" value="xb"> <label for="platform-xb">{{t 'common.xbox'}}</label>
+  </div>
+</fieldset>
+
+<fieldset>
+  <label>
+    {{t 'paperwork.successful.question'}}
+  </label>
+
+  <div class="option-group">
+    <input checked id="successful-yes" name="successful" type="radio" value="yes"> <label for="successful-yes">{{t 'common.yes'}}</label>
+
+    <input id="successful-no" name="successful" type="radio" value="no"> <label for="successful-no">{{t 'common.no'}}</label>
+  </div>
+</fieldset>
+
+<fieldset>
+  <label>
+    {{t 'paperwork.codeRed.question'}}
+  </label>
+
+  <div class="option-group">
+    <input checked id="codeRed-yes" name="codeRed" type="radio" value="yes"> <label for="codeRed-yes">{{t 'common.yes'}}</label>
+
+    <input id="codeRed-no" name="codeRed" type="radio" value="no"> <label for="codeRed-no">{{t 'common.no'}}</label>
+  </div>
+</fieldset>
+
+<fieldset>
+  <label for="notes">
+    {{t 'paperwork.notes.question'}}
+  </label>
+
+  <textarea id="notes" name="notes"></textarea>
+</fieldset>
 
 <menu type="toolbar">
   <div class="primary">

@@ -1,3 +1,15 @@
+%text-input {
+  border-color: $grey-lightened;
+  border-style: solid;
+  border-width: 0.1rem;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: 1rem;
+  width: 100%;
+}
+
 input {
   &:not([type]),
   &[type=date],
@@ -13,14 +25,12 @@ input {
   &[type=time],
   &[type=url],
   &[type=week] {
-    background-color: rgba($white, 0.2);
-    border: none;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    margin-bottom: 2rem;
-    outline: none;
-    padding: 1rem;
-    width: 100%;
+    @extend %text-input;
   }
+}
+
+textarea {
+  @extend %text-input;
+
+  min-height: 10rem;
 }
