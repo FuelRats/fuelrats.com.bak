@@ -9,7 +9,8 @@ module.exports = {
     'clean:app',
     'updateLocales',
     'buildCSS',
-    'buildJS'
+    'buildJS',
+    'updateWorkers'
   ],
 
   buildJS: [
@@ -34,6 +35,11 @@ module.exports = {
   updateLocales: [
     'clean:locales',
     'copy:locales'
+  ],
+
+  updateWorkers: [
+    'clean:workers',
+    'copy:workers'
   ],
 
   dist: [

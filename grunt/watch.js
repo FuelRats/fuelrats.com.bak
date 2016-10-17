@@ -33,7 +33,8 @@ module.exports = {
       'config.json',
       'package.json',
       'js/**/*.js',
-      'templates/**/*.hbs'
+      'templates/**/*.hbs',
+      '!js/workers/**/*.js'
     ],
     tasks: [
       'buildJS'
@@ -83,6 +84,18 @@ module.exports = {
     ],
     tasks: [
       'updateLocales'
+    ],
+    options: {
+      livereload: true
+    }
+  },
+
+  workers: {
+    files: [
+      'js/workers/**/*.js'
+    ],
+    tasks: [
+      'updateWorkers'
     ],
     options: {
       livereload: true

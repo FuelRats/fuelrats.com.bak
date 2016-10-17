@@ -11,5 +11,13 @@ module.exports = {
     dest: 'assets/',
     filter: 'isFile',
     src: 'locales/**/*.json'
+  },
+
+  workers: {
+    dest: 'dist/workers/',
+    expand: true,
+    filter: 'isFile',
+    flatten: true,
+    src: 'js/workers/**/*.js'
   }
 }

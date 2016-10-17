@@ -5,5 +5,9 @@ module.exports = {
 
   locales: [
     'assets/locales/'
+  ],
+
+  workers: [
+    'dist/workers/'
   ]
 }
