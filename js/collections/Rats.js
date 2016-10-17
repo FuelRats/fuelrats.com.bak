@@ -12,8 +12,8 @@ export default class Rats extends APICollection {
     Public Methods
   \******************************************************************************/
 
-  constructor () {
-    super()
+  constructor (models, options) {
+    super(models, options)
 
     this.state = {
       order: -1,

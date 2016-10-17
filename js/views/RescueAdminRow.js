@@ -14,7 +14,7 @@ export default class RescueAdminRow extends BaseLayoutView {
   \******************************************************************************/
 
   _bindEvents () {
-    this.listenTo(this.model.get('rats'), 'change', this._showRats)
+    this.listenTo(this.model.get('rats'), 'change sync', this._showRats)
   }
 
   _showRats () {

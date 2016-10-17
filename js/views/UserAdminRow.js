@@ -21,7 +21,7 @@ export default class UserAdminRow extends BaseLayoutView {
   _showRats () {
     let rats = this.model.get('rats')
 
-    if (rats.length) {
+    if (rats && rats.length) {
       this.getRegion('rats').show(new RatListView({
         collection: rats
       }))

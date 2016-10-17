@@ -14,6 +14,21 @@ export default class API extends Backbone.PageableCollection {
 
   _bindEvents () {
     this.data.listenTo(this, 'pageable:state:change sync', this._updateData.bind(this))
+    this.listenTo(this, 'sync', this._syncModels.bind(this))
+    this.listenTo(this, 'request', this._requestModels.bind(this))
+  }
+
+  _requestModels () {
+    this.models.forEach(model => {
+      model.set('loading', true)
+    })
+  }
+
+  _syncModels () {
+    this.models.forEach(model => {
+      model.set('loading', false)
+      model.set('loaded', true)
+    })
   }
 
   _updateData () {
@@ -45,10 +60,16 @@ export default class API extends Backbone.PageableCollection {
       let ids = []
 
       this.forEach(model => {
-        if (!model.get('loaded')) {
+        if (!model.get('loaded') && !model.get('loading')) {
           ids.push(model.get('id'))
         }
+
+        model.set('loading', true)
       })
+
+      if (!ids.length) {
+        return
+      }
 
       options.data = {
         id: ids,

@@ -11,7 +11,7 @@ export default class Rat extends BaseModel {
   \******************************************************************************/
 
   _bindEvents () {
-    this.listenTo(this, 'change', () => {
+    this.listenTo(this, 'sync', () => {
       if (!this.get('loaded')) {
         this.set({
           loaded: true
@@ -44,7 +44,8 @@ export default class Rat extends BaseModel {
 
   get defaults () {
     return {
-      loaded: false
+      loaded: false,
+      loading: false
     }
   }
 }
