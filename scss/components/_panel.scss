@@ -1,0 +1,29 @@
+.panel {
+  background-color: $white;
+
+  footer,
+  header {
+    background-color: $black;
+    color: $white;
+    padding: 1rem;
+    position: relative;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    menu {
+      padding: 0;
+    }
+  }
+
+  .content {
+    overflow: auto;
+  }
+}
