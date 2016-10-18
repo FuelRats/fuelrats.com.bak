@@ -100,6 +100,10 @@ export default class API extends Backbone.PageableCollection {
     Getters
   \******************************************************************************/
 
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
+
   get data () {
     return this._data || (this._data = new BaseModel)
   }
