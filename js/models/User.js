@@ -17,14 +17,18 @@ export default class User extends BaseModel {
 
   _bindEvents () {
     this.listenTo(this.appChannel.request('rescues'), 'add change', (rescue) => {
-      let isUserRescue = !!rescue.get('rats').findWhere({
-        id: this.get('id')
-      })
+      let rescueRats = rescue.get('rats')
+      let rescues = this.get('rescues')
+      let userRats = this.get('rats')
 
-      if (isUserRescue) {
-        this.rescues.add(rescue)
-      }
+      userRats.forEach(userRat => {
+        if (rescueRats.contains(userRat)) {
+          rescues.add(rescue)
+        }
+      })
     })
+
+    this.listenTo(this.get('rats'), 'add', this._getRescues)
 
     this.listenTo(this, 'change:CMDRs', this._getRats)
     this.listenTo(this, 'change:group change:groups', this._getPermissions)
@@ -73,13 +77,30 @@ export default class User extends BaseModel {
 
   _getRescues () {
     let allRescues = this.appChannel.request('rescues')
+    let id = this.get('id')
+    let rescues = this.get('rescues')
 
-    allRescues.filter(rescue => {
-      let hasUser = false
-      let hasUserID = false
+    let filteredRescues = allRescues.filter(rescue => {
+      let rats = rescue.get('rats')
 
-      return hasUser || hasUserID
+      return !!rats.findWhere({
+        id: id
+      })
     })
+
+    allRescues.add(filteredRescues)
+
+//    rescues.rats = id
+//
+//    rescues.fetch({
+//      bulk: true,
+//      error: () => {
+//        console.log('error!', arguments)
+//      },
+//      success: () => {
+//        console.log('success!', arguments)
+//      }
+//    })
   }
 
   _getPermissions () {
@@ -126,6 +147,7 @@ export default class User extends BaseModel {
       user.loggedIn = true
       this.set(this.parse(user))
       this._getPermissions()
+      this._getRats()
     }
 
     return
