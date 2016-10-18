@@ -49,11 +49,11 @@ export default class Root extends Backbone.Marionette.LayoutView {
 
   get regions () {
     return this._regions || (this._regions = {
-      dialog: 'dialog',
-      footer: 'footer',
-      header: 'header',
+      dialog: '> dialog',
+      footer: '> footer',
+      header: '> header',
       main: 'main',
-      userMenu: 'menu'
+      userMenu: '> menu'
     })
   }
 
