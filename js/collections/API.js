@@ -1,3 +1,4 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
 
 import BaseModel from 'models/Base'
@@ -71,10 +72,10 @@ export default class API extends Backbone.PageableCollection {
         return
       }
 
-      options.data = {
+      options.data = _.extend(options.data || {}, {
         id: ids,
         limit: ids.length
-      }
+      })
     }
 
     super.fetch(options)
