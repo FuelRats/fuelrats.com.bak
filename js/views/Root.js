@@ -21,6 +21,9 @@ export default class Root extends Backbone.Marionette.LayoutView {
   }
 
   onRender () {
+    let user = this.appChannel.request('user')
+    let userRescues = user.get('rescues')
+
     this.getRegion('header').show(new HeaderView, {
       replaceElement: true
     })
@@ -30,12 +33,14 @@ export default class Root extends Backbone.Marionette.LayoutView {
     })
 
     this.getRegion('userMenu').show(new UserMenuView({
-      model: Backbone.Radio.channel('application').request('user')
+      model: user
     }), {
       replaceElement: true
     })
 
-    this.getRegion('reminders').show(new RemindersView, {
+    this.getRegion('reminders').show(new RemindersView({
+      collection: userRescues
+    }), {
       replaceElement: true
     })
   }
@@ -47,6 +52,10 @@ export default class Root extends Backbone.Marionette.LayoutView {
   /******************************************************************************\
     Getters
   \******************************************************************************/
+
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
 
   get el () {
     return 'body'
