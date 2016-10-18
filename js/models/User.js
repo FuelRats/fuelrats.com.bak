@@ -14,10 +14,15 @@ export default class User extends BaseModel {
   \******************************************************************************/
 
   _bindEvents () {
+    this.listenTo(this, 'change:group change:groups', this._getPermissions)
+    this.listenTo(this, 'change:loggedIn', this._updateAvatar)
+
     this.listenTo(this, 'change', () => {
-      this._getPermissions()
-      this._updateAvatar()
-      this.serializeUser()
+      if (this.get('loggedIn')) {
+        this.serializeUser()
+      } else {
+        this.deserializeUser()
+      }
     })
   }
 
