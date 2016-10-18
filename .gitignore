@@ -3,6 +3,7 @@ assets/fonts/font-awesome/
 assets/locales/
 dist/
 config.json
+.idea/
 
 # Created by https://www.gitignore.io
 
