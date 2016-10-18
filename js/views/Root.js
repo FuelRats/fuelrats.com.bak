@@ -35,9 +35,7 @@ export default class Root extends Backbone.Marionette.LayoutView {
       replaceElement: true
     })
 
-    this.getRegion('reminders').show(new RemindersView({
-      collection: Backbone.Radio.channel('application').request('rescues')
-    }), {
+    this.getRegion('reminders').show(new RemindersView, {
       replaceElement: true
     })
   }

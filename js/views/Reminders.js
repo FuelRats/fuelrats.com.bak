@@ -43,7 +43,6 @@ export default class Reminders extends Backbone.Marionette.CompositeView {
   }
 
   minimize () {
-    console.log('minimize!')
     this.el.classList.toggle('minimize')
   }
 
