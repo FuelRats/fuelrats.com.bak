@@ -1,6 +1,7 @@
 import cookie from 'cookies-js'
 
 import BaseModel from './Base'
+import RatModel from 'models/Rat'
 import RatsCollection from 'collections/Rats'
 
 
@@ -14,6 +15,7 @@ export default class User extends BaseModel {
   \******************************************************************************/
 
   _bindEvents () {
+    this.listenTo(this, 'change:CMDRs', this._getRats)
     this.listenTo(this, 'change:group change:groups', this._getPermissions)
     this.listenTo(this, 'change:loggedIn', this._updateAvatar)
 
@@ -23,6 +25,38 @@ export default class User extends BaseModel {
       } else {
         this.deserializeUser()
       }
+    })
+  }
+
+  _getRats () {
+    let allRats = this.appChannel.request('rats')
+    let CMDRs = this.get('CMDRs')
+    let rats = this.get('rats')
+
+    CMDRs.forEach(id => {
+      let rat
+      let idHash = {
+        id: id
+      }
+
+      // Skip this rat if it's already in our local collection
+      if (rats.findWhere(idHash)) {
+        return
+      }
+
+      // Look for the rat in the global rat cache
+      if (!rat) {
+        rat = allRats.findWhere(idHash)
+      }
+
+      // Add the rat to the global cache if it's not there already
+      if (!rat) {
+        rat = allRats.add(idHash)
+        rat.fetch()
+      }
+
+      // Add the rat to the local cache
+      rats.add(rat)
     })
   }
 
@@ -147,6 +181,7 @@ export default class User extends BaseModel {
       let user = this.toJSON()
 
       localStorage.setItem('user', JSON.stringify({
+        CMDRs: user.CMDRs,
         drilled: user.drilled,
         drilledDispatch: user.drilledDispatch,
         email: user.email,
@@ -168,6 +203,7 @@ export default class User extends BaseModel {
   get defaults () {
     return {
       avatar: '',
+      CMDRs: [],
       dispatchDrilled: false,
       drilled: false,
       email: '',
@@ -175,7 +211,7 @@ export default class User extends BaseModel {
       loggingIn: false,
       name: '',
       password: '',
-      rats: []
+      rats: new RatsCollection
     }
   }
 }
