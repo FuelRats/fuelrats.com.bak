@@ -2,6 +2,7 @@ import Backbone from 'backbone'
 
 import DialogView from 'views/Dialog'
 import HeaderView from 'views/Header'
+import RemindersView from 'views/Reminders'
 import UserMenuView from 'views/UserMenu'
 import template from 'templates/Root.hbs'
 
@@ -33,6 +34,12 @@ export default class Root extends Backbone.Marionette.LayoutView {
     }), {
       replaceElement: true
     })
+
+    this.getRegion('reminders').show(new RemindersView({
+      collection: Backbone.Radio.channel('application').request('rescues')
+    }), {
+      replaceElement: true
+    })
   }
 
 
@@ -53,6 +60,7 @@ export default class Root extends Backbone.Marionette.LayoutView {
       footer: '> footer',
       header: '> header',
       main: 'main',
+      reminders: '> .reminders',
       userMenu: '> menu'
     })
   }

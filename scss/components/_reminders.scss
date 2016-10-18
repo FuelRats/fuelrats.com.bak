@@ -9,6 +9,7 @@
   transition-property: all;
 
   &.minimize {
+    box-shadow: 0 0 1rem 0 rgba($grey, 0);
     min-width: 0;
     transition-delay: 0.5s;
 
