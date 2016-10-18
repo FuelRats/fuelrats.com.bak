@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import BaseModel from './Base'
 
 
@@ -32,6 +34,20 @@ export default class Rat extends BaseModel {
 
   initialize () {
     this._bindEvents()
+  }
+
+  parse (response) {
+    if (!response.parsed) {
+      response = response.data
+    } else {
+      delete response.parsed
+    }
+
+    response.createdAt = new moment(response.createdAt)
+    response.joined = new moment(response.joined)
+    response.updatedAt = new moment(response.updatedAt)
+
+    return response
   }
 
 

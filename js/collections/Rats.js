@@ -22,6 +22,10 @@ export default class Rats extends APICollection {
   }
 
   parseRecords (response) {
+    response.data.forEach(datum => {
+      datum.parsed = true
+    })
+
     return response.data
   }
 
