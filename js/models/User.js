@@ -15,19 +15,33 @@ export default class User extends BaseModel {
 
   _bindEvents () {
     this.listenTo(this, 'change', () => {
-      this._setPermissions()
+      this._getPermissions()
       this._updateAvatar()
       this.serializeUser()
     })
   }
 
-  _setPermissions () {
+  _getPermissions () {
     let group = this.get('group') || this.get('groups')
     let isArray = Array.isArray(group)
 
-    this.set('isAdmin', (isArray && group.indexOf('admin') !== -1) || group === 'admin')
-    this.set('isModerator', (isArray && group.indexOf('moderator') !== -1) || group === 'moderator')
-    this.set('isOverseer', (isArray && group.indexOf('overseer') !== -1) || group === 'overseer')
+    let isAdmin = false
+    let isModerator = false
+    let isOverseer = false
+
+    if (isArray) {
+      isAdmin = group.indexOf('admin') !== -1
+      isModerator = group.indexOf('moderator') !== -1
+      isOverseer = group.indexOf('overseer') !== -1
+    } else {
+      isAdmin = group === 'admin'
+      isModerator = isAdmin || group === 'moderator'
+      isOverseer = isModerator || group === 'overseer'
+    }
+
+    this.set('isAdmin', isAdmin)
+    this.set('isModerator', isModerator)
+    this.set('isOverseer', isOverseer)
   }
 
   _updateAvatar () {
@@ -49,8 +63,8 @@ export default class User extends BaseModel {
 
     if (user) {
       user.loggedIn = true
-      this.set(user)
-      this._setPermissions()
+      this.set(this.parse(user))
+      this._getPermissions()
     }
 
     return
@@ -82,7 +96,7 @@ export default class User extends BaseModel {
           user.loggingIn = false
           user.password = ''
 
-          this.set(user)
+          this.set(this.parse(user))
 
           this.serializeUser()
 
@@ -117,6 +131,10 @@ export default class User extends BaseModel {
     })
     localStorage.removeItem('user')
     cookie.expire('connect.sid')
+  }
+
+  parse (response) {
+    return response
   }
 
   serializeUser () {
