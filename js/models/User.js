@@ -3,6 +3,7 @@ import cookie from 'cookies-js'
 import BaseModel from './Base'
 import RatModel from 'models/Rat'
 import RatsCollection from 'collections/Rats'
+import RescuesCollection from 'collections/Rescues'
 
 
 
@@ -15,6 +16,16 @@ export default class User extends BaseModel {
   \******************************************************************************/
 
   _bindEvents () {
+    this.listenTo(this.appChannel.request('rescues'), 'add change', (rescue) => {
+      let isUserRescue = !!rescue.get('rats').findWhere({
+        id: this.get('id')
+      })
+
+      if (isUserRescue) {
+        this.rescues.add(rescue)
+      }
+    })
+
     this.listenTo(this, 'change:CMDRs', this._getRats)
     this.listenTo(this, 'change:group change:groups', this._getPermissions)
     this.listenTo(this, 'change:loggedIn', this._updateAvatar)
@@ -57,6 +68,17 @@ export default class User extends BaseModel {
 
       // Add the rat to the local cache
       rats.add(rat)
+    })
+  }
+
+  _getRescues () {
+    let allRescues = this.appChannel.request('rescues')
+
+    allRescues.filter(rescue => {
+      let hasUser = false
+      let hasUserID = false
+
+      return hasUser || hasUserID
     })
   }
 
@@ -211,7 +233,8 @@ export default class User extends BaseModel {
       loggingIn: false,
       name: '',
       password: '',
-      rats: new RatsCollection
+      rats: new RatsCollection,
+      rescues: new RescuesCollection
     }
   }
 }
