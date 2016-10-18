@@ -3,6 +3,6 @@
     "loadPath": "/assets/locales/{{lng}}/{{ns}}.json"
   },
   "debug": true,
-  "language": "en-US",
+  "lng": "en-US",
   "load": "currentOnly"
 }
