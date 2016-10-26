@@ -1,3 +1,6 @@
+import Backbone from 'backbone'
+import Bloodhound from 'typeahead.js'
+
 let prototype = Object.create(HTMLElement.prototype)
 
 prototype.addTag = function (value) {
@@ -18,8 +21,15 @@ prototype.attributeChangedCallback = function (attribute, oldValue, newValue) {
   }
 }
 
+prototype.clearOptions = function () {
+  this.optionList.innerHTML = ''
+}
+
 prototype.createdCallback = function () {
+  this.initializeBloodhound()
+
   this.value = []
+  this.optionList = document.createElement('ol')
   this.tagList = document.createElement('ul')
   this.input = document.createElement('input')
 
@@ -35,6 +45,15 @@ prototype.createdCallback = function () {
   this.createShadowRoot()
   this.shadowRoot.appendChild(this.tagList)
   this.shadowRoot.appendChild(this.input)
+  this.shadowRoot.appendChild(this.optionList)
+}
+
+prototype.createOption = function (option) {
+  let optionElement = document.createElement('li')
+
+  optionElement.innerHTML = option.CMDRname
+
+  return optionElement
 }
 
 prototype.createRemoveButton = function (tag) {
@@ -90,7 +109,31 @@ prototype.handleInput = function (event) {
         this.handleReturn()
       }
       break
+
+    default:
+      this.search(this.input.value)
+      break
   }
+}
+
+prototype.initializeBloodhound = function (target) {
+  this.engine = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      prepare: function (query, settings) {
+        settings.data = {
+          name: query
+        }
+
+        return settings
+      },
+      transform: function (response) {
+        return response.data
+      },
+      url: '/api/autocomplete'
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+  })
 }
 
 prototype.removeTag = function (tag) {
@@ -105,6 +148,26 @@ prototype.removeTag = function (tag) {
   this.dispatchEvent(new CustomEvent('remove', {
     detail: value
   }))
+}
+
+prototype.search = function (query) {
+  if (query) {
+    this.engine.search(query, data => {
+      this.updateOptions(data)
+    }, data => {
+      this.updateOptions(data)
+    })
+  } else {
+    this.clearOptions()
+  }
+}
+
+prototype.updateOptions = function (options) {
+  this.clearOptions()
+
+  options.forEach(option => {
+    this.optionList.appendChild(this.createOption(option))
+  })
 }
 
 document.registerElement('tags-input', {
