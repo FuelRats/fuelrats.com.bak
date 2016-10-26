@@ -25,7 +25,8 @@ module.exports = {
           test: /\.hbs$/,
           loader: 'handlebars',
           query: {
-            helperDirs: path.resolve(__dirname, '..', 'js', 'helpers')
+            helperDirs: path.resolve(__dirname, '..', 'js', 'helpers'),
+            partialDirs: path.resolve(__dirname, '..', 'templates', 'partials')
           }
         },
         {
