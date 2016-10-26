@@ -1,5 +1,6 @@
 import Backbone from 'backbone'
 
+import RescuesCollection from 'collections/Rescues'
 import ReminderView from 'views/Reminder'
 import template from 'templates/Reminders.hbs'
 
@@ -10,18 +11,34 @@ import template from 'templates/Reminders.hbs'
 export default class Reminders extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
+    Private Methods
+  \******************************************************************************/
+
+  _bindEvents () {
+    this.listenTo(this.collection, 'add change remove', this.render)
+  }
+
+
+
+
+
+  /******************************************************************************\
     Public Methods
   \******************************************************************************/
 
- constructor (options) {
-   options = _.extend(options || {}, {
-     events: {
-       'click button.minimize': 'minimize'
-     },
-     template: template
-   })
+  constructor (options) {
+    options = _.extend(options || {}, {
+      events: {
+        'click button.minimize': 'minimize'
+      },
+      template: template
+    })
 
-   super(options)
+    super(options)
+  }
+
+  initialize () {
+    this._bindEvents()
   }
 
   minimize () {
@@ -29,21 +46,26 @@ export default class Reminders extends Backbone.Marionette.CompositeView {
   }
 
   onBeforeRender () {
-    this.collection = this.collection.filter((rescue) => {
-      let needsUpdate = false
+    this.rescues.reset(this.user.get('rescues').filter(rescue => {
+      // The rescue is still open
+      if (rescue.get('open')) {
+        return false
+      }
 
-      // Check if the paperwork needs some love
       // The rescue was successful but first limpet hasn't been assigned
-      needsUpdate = needsUpdate || (rescue.get('successful') && !rescue.get('firstLimpet'))
+      if (rescue.get('successful') && !rescue.get('firstLimpet')) {
+        return true
+      }
 
       // The rescue was unsuccessful but nobody has entered any notes
-      needsUpdate = needsUpdate || (!rescue.get('successful') && !rescue.get('notes'))
+      if (!rescue.get('successful') && rescue.get('notes')) {
+        return true
+      }
 
-      // If either of the above are true and the case is inactive
-      needsUpdate = needsUpdate && !rescue.get('active')
+      return false
+    }))
 
-      return needsUpdate
-    })
+    this.el.classList.toggle('hide', !this.collection.length)
   }
 
 
@@ -67,7 +89,11 @@ export default class Reminders extends Backbone.Marionette.CompositeView {
   }
 
   get className () {
-    return 'panel reminders'
+    return 'hide panel reminders'
+  }
+
+  get rescues () {
+    return this._rescues || (this._rescues = new RescuesCollection)
   }
 
   get tagName () {
@@ -76,5 +102,9 @@ export default class Reminders extends Backbone.Marionette.CompositeView {
 
   get template () {
     return template
+  }
+
+  get user () {
+    return this.appChannel.request('user')
   }
 }
