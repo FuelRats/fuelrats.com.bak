@@ -1,3 +1,5 @@
+import 'webcomponentsjs'
+
 import i18next from 'i18next'
 import i18nextCache from 'i18next-localstorage-cache'
 import i18nextLanguageDetector from 'i18next-browser-languagedetector'
