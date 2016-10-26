@@ -21,11 +21,15 @@ export default class User extends BaseModel {
       let rescues = this.get('rescues')
       let userRats = this.get('rats')
 
-      userRats.forEach(userRat => {
-        if (rescueRats.contains(userRat)) {
-          rescues.add(rescue)
-        }
-      })
+      if (userRats instanceof RatsCollection) {
+        userRats.forEach(userRat => {
+          if (rescueRats instanceof RatsCollection) {
+            if (rescueRats.contains(userRat)) {
+              rescues.add(rescue)
+            }
+          }
+        })
+      }
     })
 
     this.listenTo(this.get('rats'), 'add', this._getRescues)
