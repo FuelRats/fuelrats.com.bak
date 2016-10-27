@@ -3,7 +3,15 @@ import Bloodhound from 'typeahead.js'
 
 let prototype = Object.create(HTMLElement.prototype)
 
-prototype.addTag = function (value) {
+
+
+
+
+/******************************************************************************\
+  addTag
+\******************************************************************************/
+
+prototype.addTag = function addTag (value) {
   this.value.push(value)
   this.tagList.appendChild(this.createTag(value))
   this.dispatchEvent(new CustomEvent('add', {
@@ -11,9 +19,25 @@ prototype.addTag = function (value) {
   }))
 }
 
-prototype.attachedCallback = function () {}
 
-prototype.attributeChangedCallback = function (attribute, oldValue, newValue) {
+
+
+
+/******************************************************************************\
+  attachedCallback
+\******************************************************************************/
+
+prototype.attachedCallback = function attachedCallback () {}
+
+
+
+
+
+/******************************************************************************\
+  attributeChangedCallback
+\******************************************************************************/
+
+prototype.attributeChangedCallback = function attributeChangedCallback (attribute, oldValue, newValue) {
   switch (attribute) {
     case 'data-allow-duplicates':
       this.allowDupes = !!newValue
@@ -21,35 +45,93 @@ prototype.attributeChangedCallback = function (attribute, oldValue, newValue) {
   }
 }
 
-prototype.clearOptions = function () {
+
+
+
+
+/******************************************************************************\
+  clearInput
+\******************************************************************************/
+
+prototype.clearInput = function clearInput () {
+  this.input.value = ''
+}
+
+
+
+
+
+/******************************************************************************\
+  clearOptions
+\******************************************************************************/
+
+prototype.clearOptions = function clearOptions () {
   this.optionList.innerHTML = ''
 }
 
-prototype.createdCallback = function () {
+
+
+
+
+/******************************************************************************\
+  createdCallback
+\******************************************************************************/
+
+prototype.createdCallback = function createdCallback () {
   this.initializeBloodhound()
 
   this.value = []
   this.optionList = document.createElement('ol')
   this.tagList = document.createElement('ul')
-  this.input = document.createElement('input')
-
-  this.input.addEventListener('input', this.handleInput.bind(this))
-  this.input.addEventListener('keydown', this.handleReturn.bind(this))
+  this.allowDupes = !!this.getAttribute('data-allow-duplicates')
 
   let startingValue = this.getAttribute('value')
   if (startingValue) {
     startingValue.split(',').forEach(this.addTag)
   }
 
-  this.allowDupes = !!this.getAttribute('data-allow-duplicates')
+  this.optionList.classList.add('options')
+  this.tagList.classList.add('tags')
 
   this.createShadowRoot()
+  this.shadowRoot.appendChild(this.createStylesheet())
   this.shadowRoot.appendChild(this.tagList)
-  this.shadowRoot.appendChild(this.input)
+  this.shadowRoot.appendChild(this.createInput())
   this.shadowRoot.appendChild(this.optionList)
 }
 
-prototype.createOption = function (option) {
+
+
+
+
+/******************************************************************************\
+  createInput
+\******************************************************************************/
+
+prototype.createInput = function createInput () {
+  this.input = document.createElement('input')
+
+  this.input.addEventListener('input', this.handleInput.bind(this))
+  this.input.addEventListener('keydown', this.handleReturn.bind(this))
+  this.input.addEventListener('focus', () => {
+    this.optionList.classList.remove('hide')
+  })
+  this.input.addEventListener('blur', () => {
+    this.optionList.classList.add('hide')
+  })
+
+  return this.input
+}
+
+
+
+
+
+/******************************************************************************\
+  createOption
+\******************************************************************************/
+
+prototype.createOption = function createOption (option) {
   let optionElement = document.createElement('li')
 
   optionElement.innerHTML = option.CMDRname
@@ -57,7 +139,15 @@ prototype.createOption = function (option) {
   return optionElement
 }
 
-prototype.createRemoveButton = function (tag) {
+
+
+
+
+/******************************************************************************\
+  createRemoveButton
+\******************************************************************************/
+
+prototype.createRemoveButton = function createRemoveButton (tag) {
   let removeButton = document.createElement('button')
 
   removeButton.addEventListener('click', this.removeTag.bind(this, tag))
@@ -65,7 +155,87 @@ prototype.createRemoveButton = function (tag) {
   return removeButton
 }
 
-prototype.createTag = function (value) {
+
+
+
+
+/******************************************************************************\
+  createStylesheet
+\******************************************************************************/
+
+prototype.createStylesheet = function createStylesheet () {
+  let stylesheet = document.createElement('style')
+
+  stylesheet.innerHTML =
+    ':host {' +
+      'align-content: stretch;' +
+      'align-items: center;' +
+      'background-color: white;' +
+      'border: 1px solid black;' +
+      'display: flex;' +
+      'flex-wrap: wrap;' +
+      'position: relative;' +
+    '}' +
+
+//    ':host * {' +
+//      'box-sizing: border-box;'
+//    '}' +
+
+    ':host input {' +
+      'border: none;' +
+      'flex-grow: 1;' +
+      'flex-shrink: 0;' +
+      'min-width: 20%;' +
+      'padding: 1rem 1.5rem;' +
+    '}' +
+
+    ':host .options,' +
+    ':host .tags {' +
+      'list-style: none;' +
+      'margin: 0;' +
+      'padding: 0;' +
+    '}' +
+
+    ':host .options {' +
+      'background-color: white;' +
+      'border: 1px solid black;' +
+      'left: 0;' +
+      'position: absolute;' +
+      'right: 0;' +
+      'top: 100%;' +
+      'width: 100%;' +
+    '}' +
+
+    ':host .tags {' +
+      'align-items: center;' +
+      'display: flex;' +
+      'flex-wrap: wrap;' +
+      'flex-shrink: 0;' +
+      'max-width: 100%;' +
+    '}' +
+
+    ':host .tags li {' +
+      'background-color: lightgrey;' +
+      'margin: 0.5rem;' +
+      'padding: 0 0.5rem;' +
+    '}' +
+
+    ':host .hide {' +
+      'display: none;' +
+    '}'
+
+  return stylesheet
+}
+
+
+
+
+
+/******************************************************************************\
+  createTag
+\******************************************************************************/
+
+prototype.createTag = function createTag (value) {
   let tag = document.createElement('li')
 
   tag.appendChild(this.createTextWrapper(value))
@@ -74,7 +244,15 @@ prototype.createTag = function (value) {
   return tag
 }
 
-prototype.createTextWrapper = function (value) {
+
+
+
+
+/******************************************************************************\
+  createTextWrapper
+\******************************************************************************/
+
+prototype.createTextWrapper = function createTextWrapper (value) {
   let textWrapper = document.createElement('span')
 
   textWrapper.innerHTML = value
@@ -82,9 +260,25 @@ prototype.createTextWrapper = function (value) {
   return textWrapper
 }
 
-prototype.detachedCallback = function () {}
 
-prototype.handleReturn = function (event) {
+
+
+
+/******************************************************************************\
+  detachedCallback
+\******************************************************************************/
+
+prototype.detachedCallback = function detachedCallback () {}
+
+
+
+
+
+/******************************************************************************\
+  handleReturn
+\******************************************************************************/
+
+prototype.handleReturn = function handleReturn (event) {
   let value = this.input.value
   if ((event.which === 9 || event.which === 13) && value) {
     event.preventDefault()
@@ -98,15 +292,49 @@ prototype.handleReturn = function (event) {
 
     this.addTag(value)
 
-    this.input.value = ''
+    this.clearInput()
+    this.clearOptions()
   }
 }
 
-prototype.handleInput = function () {
+
+
+
+
+/******************************************************************************\
+  handleInput
+\******************************************************************************/
+
+prototype.handleInput = function handleInput () {
   this.search(this.input.value)
 }
 
-prototype.initializeBloodhound = function (target) {
+
+
+
+
+/******************************************************************************\
+  handleOptionClick
+\******************************************************************************/
+
+prototype.handleOptionClick = function handleOptionClick (event) {
+  let target = event.target
+  let value = target.innerText
+
+  this.addTag(value)
+  this.clearInput()
+  this.clearOptions()
+}
+
+
+
+
+
+/******************************************************************************\
+  initializeBloodhound
+\******************************************************************************/
+
+prototype.initializeBloodhound = function initializeBloodhound (target) {
   this.engine = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
@@ -127,7 +355,15 @@ prototype.initializeBloodhound = function (target) {
   })
 }
 
-prototype.removeTag = function (tag) {
+
+
+
+
+/******************************************************************************\
+  removeTag
+\******************************************************************************/
+
+prototype.removeTag = function removeTag (tag) {
   let value = tag.querySelector('span').innerText
   let indexToRemove = this.value.indexOf(value)
 
@@ -141,7 +377,15 @@ prototype.removeTag = function (tag) {
   }))
 }
 
-prototype.search = function (query) {
+
+
+
+
+/******************************************************************************\
+  search
+\******************************************************************************/
+
+prototype.search = function search (query) {
   this.clearOptions()
 
   if (query) {
@@ -153,11 +397,27 @@ prototype.search = function (query) {
   }
 }
 
-prototype.updateOptions = function (options) {
+
+
+
+
+/******************************************************************************\
+  updateOptions
+\******************************************************************************/
+
+prototype.updateOptions = function updateOptions (options) {
   options.forEach(option => {
-    this.optionList.appendChild(this.createOption(option))
+    let optionElement = this.createOption(option)
+
+    optionElement.addEventListener('click', this.handleOptionClick.bind(this))
+
+    this.optionList.appendChild(optionElement)
   })
 }
+
+
+
+
 
 document.registerElement('tags-input', {
   prototype: prototype
