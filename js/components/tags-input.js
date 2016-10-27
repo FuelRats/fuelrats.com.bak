@@ -33,7 +33,8 @@ prototype.createdCallback = function () {
   this.tagList = document.createElement('ul')
   this.input = document.createElement('input')
 
-  this.input.addEventListener('keydown', this.handleInput.bind(this))
+  this.input.addEventListener('input', this.handleInput.bind(this))
+  this.input.addEventListener('keydown', this.handleReturn.bind(this))
 
   let startingValue = this.getAttribute('value')
   if (startingValue) {
@@ -83,9 +84,9 @@ prototype.createTextWrapper = function (value) {
 
 prototype.detachedCallback = function () {}
 
-prototype.handleReturn = function () {
+prototype.handleReturn = function (event) {
   let value = this.input.value
-  if (value) {
+  if ((event.which === 9 || event.which === 13) && value) {
     event.preventDefault()
 
     if (!this.allowDupes && this.value.indexOf(value) !== -1) {
@@ -101,19 +102,8 @@ prototype.handleReturn = function () {
   }
 }
 
-prototype.handleInput = function (event) {
-  switch (event.which) {
-    case 9:
-    case 13:
-      if (this.input.value) {
-        this.handleReturn()
-      }
-      break
-
-    default:
-      this.search(this.input.value)
-      break
-  }
+prototype.handleInput = function () {
+  this.search(this.input.value)
 }
 
 prototype.initializeBloodhound = function (target) {
@@ -122,6 +112,7 @@ prototype.initializeBloodhound = function (target) {
     remote: {
       prepare: function (query, settings) {
         settings.data = {
+          limit: 10,
           name: query
         }
 
@@ -151,20 +142,18 @@ prototype.removeTag = function (tag) {
 }
 
 prototype.search = function (query) {
+  this.clearOptions()
+
   if (query) {
     this.engine.search(query, data => {
       this.updateOptions(data)
     }, data => {
       this.updateOptions(data)
     })
-  } else {
-    this.clearOptions()
   }
 }
 
 prototype.updateOptions = function (options) {
-  this.clearOptions()
-
   options.forEach(option => {
     this.optionList.appendChild(this.createOption(option))
   })
