@@ -536,12 +536,6 @@ prototype.handleUpArrow = function handleUpArrow () {
     }
 
     selectedOption.classList.remove('focus')
-  } else {
-    selectedOption = this.optionList.querySelector('li:first-of-type')
-
-    if (selectedOption) {
-      selectedOption.classList.add('focus')
-    }
   }
 }
 
