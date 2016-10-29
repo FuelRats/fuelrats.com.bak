@@ -90,7 +90,7 @@ prototype.createdCallback = function createdCallback () {
     startingValue.split(',').forEach(this.addTag)
   }
 
-  this.optionList.classList.add('options')
+  this.optionList.classList.add('options', 'hide')
   this.tagList.classList.add('tags')
 
   this.createShadowRoot()
@@ -224,6 +224,11 @@ prototype.createStylesheet = function createStylesheet () {
       'padding: 0 0.5rem;' +
     '}' +
 
+    ':host .tags .focus {' +
+      'background-color: blue;' +
+      'color: white;' +
+    '}' +
+
     ':host .hide {' +
       'display: none;' +
     '}'
@@ -279,6 +284,26 @@ prototype.detachedCallback = function detachedCallback () {}
 
 
 /******************************************************************************\
+  handleBackspace
+\******************************************************************************/
+
+prototype.handleBackspace = function handleBackspace () {
+  event.preventDefault()
+
+  let selectedTag = this.tagList.querySelector('.focus')
+
+  if (selectedTag) {
+    this.removeTag(selectedTag)
+  } else {
+    this.tagList.querySelector('li:last-of-type').classList.add('focus')
+  }
+}
+
+
+
+
+
+/******************************************************************************\
   handleDownArrow
 \******************************************************************************/
 
@@ -328,9 +353,13 @@ prototype.handleLeftArrow = function handleLeftArrow () {
 
 prototype.handleKeybinds = function handleKeybinds (event) {
   switch (event.which) {
-    case 9:
-    case 13:
+    case 9: // tab
+    case 13: // enter
       this.handleReturn(event)
+      break
+
+    case 8: // backspace
+      this.handleBackspace()
       break
 
     case 37: // left arrow
@@ -347,9 +376,6 @@ prototype.handleKeybinds = function handleKeybinds (event) {
 
     case 40: // down arrow
       this.handleDownArrow()
-      break
-
-    case 8: // backspace
       break
   }
 
