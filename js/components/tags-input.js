@@ -111,8 +111,8 @@ prototype.createdCallback = function createdCallback () {
 prototype.createInput = function createInput () {
   this.input = document.createElement('input')
 
+  this.input.addEventListener('keydown', this.handleKeybinds.bind(this))
   this.input.addEventListener('input', this.handleInput.bind(this))
-  this.input.addEventListener('keydown', this.handleReturn.bind(this))
   this.input.addEventListener('focus', () => {
     this.optionList.classList.remove('hide')
   })
@@ -279,12 +279,110 @@ prototype.detachedCallback = function detachedCallback () {}
 
 
 /******************************************************************************\
+  handleDownArrow
+\******************************************************************************/
+
+prototype.handleDownArrow = function handleDownArrow () {
+  event.preventDefault()
+}
+
+
+
+
+
+/******************************************************************************\
+  handleInput
+\******************************************************************************/
+
+prototype.handleInput = function handleInput () {
+  this.search(this.input.value)
+}
+
+
+
+
+
+/******************************************************************************\
+  handleLeftArrow
+\******************************************************************************/
+
+prototype.handleLeftArrow = function handleLeftArrow () {
+//  event.preventDefault()
+
+  for (let i = this.tagList.length; i > 0; i--) {
+    let tag = this.tagList[i]
+
+    console.log(tag)
+  }
+
+//  this.input.blur()
+}
+
+
+
+
+
+/******************************************************************************\
+  handleKeybinds
+\******************************************************************************/
+
+prototype.handleKeybinds = function handleKeybinds (event) {
+  switch (event.which) {
+    case 9:
+    case 13:
+      this.handleReturn(event)
+      break
+
+    case 37: // left arrow
+      this.handleLeftArrow()
+      break
+
+    case 39: // right arrow
+      this.handleRightArrow()
+      break
+
+    case 38: // up arrow
+      this.handleUpArrow()
+      break
+
+    case 40: // down arrow
+      this.handleDownArrow()
+      break
+
+    case 8: // backspace
+      break
+  }
+
+//  console.log(event.which)
+}
+
+
+
+
+
+/******************************************************************************\
+  handleOptionClick
+\******************************************************************************/
+
+prototype.handleOptionClick = function handleOptionClick (event) {
+  let target = event.target
+  let value = target.innerText
+
+  this.addTag(value)
+  this.clearInput()
+  this.clearOptions()
+}
+
+
+
+
+/******************************************************************************\
   handleReturn
 \******************************************************************************/
 
 prototype.handleReturn = function handleReturn (event) {
   let value = this.input.value
-  if ((event.which === 9 || event.which === 13) && value) {
+  if (value) {
     event.preventDefault()
 
     if (!this.allowDupes && this.value.indexOf(value) !== -1) {
@@ -306,11 +404,11 @@ prototype.handleReturn = function handleReturn (event) {
 
 
 /******************************************************************************\
-  handleInput
+  handleRightArrow
 \******************************************************************************/
 
-prototype.handleInput = function handleInput () {
-  this.search(this.input.value)
+prototype.handleRightArrow = function handleRightArrow () {
+  event.preventDefault()
 }
 
 
@@ -318,16 +416,11 @@ prototype.handleInput = function handleInput () {
 
 
 /******************************************************************************\
-  handleOptionClick
+  handleUpArrow
 \******************************************************************************/
 
-prototype.handleOptionClick = function handleOptionClick (event) {
-  let target = event.target
-  let value = target.innerText
-
-  this.addTag(value)
-  this.clearInput()
-  this.clearOptions()
+prototype.handleUpArrow = function handleUpArrow () {
+  event.preventDefault()
 }
 
 
