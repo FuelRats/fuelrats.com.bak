@@ -210,6 +210,11 @@ prototype.createStylesheet = function createStylesheet () {
       'display: none;' +
     '}' +
 
+    ':host .options .focus {' +
+      'background-color: lightgrey;' +
+//      'color: white;' +
+    '}' +
+
     ':host .tags {' +
       'align-items: center;' +
       'display: flex;' +
@@ -311,13 +316,22 @@ prototype.handleBackspace = function handleBackspace () {
 \******************************************************************************/
 
 prototype.handleDownArrow = function handleDownArrow () {
-  if (this.shouldCaptureKeybind()) {
-    event.preventDefault()
+  event.preventDefault()
 
-    let selectedOption = this.optionList.querySelector('.focus')
+  let selectedOption = this.optionList.querySelector('.focus')
+
+  if (selectedOption) {
+    let nextOption = selectedOption.nextElementSibling
+
+    if (nextOption) {
+      selectedOption.classList.remove('focus')
+      nextOption.classList.add('focus')
+    }
+  } else {
+    selectedOption = this.optionList.querySelector('li:first-of-type')
 
     if (selectedOption) {
-      console.log('focus previous option')
+      selectedOption.classList.add('focus')
     }
   }
 }
@@ -430,6 +444,12 @@ prototype.handleOptionClick = function handleOptionClick (event) {
 
 prototype.handleReturn = function handleReturn (event) {
   let value = this.input.value
+  let selectedOption = this.optionList.querySelector('focus')
+
+  if (selectedOption) {
+    value = selectedOption.innerText
+  }
+
   if (value) {
     event.preventDefault()
 
@@ -482,13 +502,23 @@ prototype.handleRightArrow = function handleRightArrow () {
 \******************************************************************************/
 
 prototype.handleUpArrow = function handleUpArrow () {
-  if (this.shouldCaptureKeybind()) {
-    event.preventDefault()
+  event.preventDefault()
 
-    let selectedOption = this.optionList.querySelector('.focus')
+  let selectedOption = this.optionList.querySelector('.focus')
+
+  if (selectedOption) {
+    let previousOption = selectedOption.previousElementSibling
+
+    if (previousOption) {
+      previousOption.classList.add('focus')
+    }
+
+    selectedOption.classList.remove('focus')
+  } else {
+    selectedOption = this.optionList.querySelector('li:first-of-type')
 
     if (selectedOption) {
-      console.log('focus next option')
+      selectedOption.classList.add('focus')
     }
   }
 }
