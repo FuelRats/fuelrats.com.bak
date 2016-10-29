@@ -206,6 +206,10 @@ prototype.createStylesheet = function createStylesheet () {
       'width: 100%;' +
     '}' +
 
+    ':host .options:empty {' +
+      'display: none;' +
+    '}' +
+
     ':host .tags {' +
       'align-items: center;' +
       'display: flex;' +
