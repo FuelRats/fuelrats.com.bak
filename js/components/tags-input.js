@@ -12,6 +12,13 @@ let prototype = Object.create(HTMLElement.prototype)
 \******************************************************************************/
 
 prototype.addTag = function addTag (value) {
+  if (!this.allowDupes && this.value.indexOf(value) !== -1) {
+    this.dispatchEvent(new CustomEvent('duplicate', {
+      detail: value
+    }))
+    return
+  }
+
   this.value.push(value)
   this.tagList.appendChild(this.createTag(value))
   this.dispatchEvent(new CustomEvent('add', {
@@ -444,7 +451,7 @@ prototype.handleOptionClick = function handleOptionClick (event) {
 
 prototype.handleReturn = function handleReturn (event) {
   let value = this.input.value
-  let selectedOption = this.optionList.querySelector('focus')
+  let selectedOption = this.optionList.querySelector('.focus')
 
   if (selectedOption) {
     value = selectedOption.innerText
@@ -452,13 +459,6 @@ prototype.handleReturn = function handleReturn (event) {
 
   if (value) {
     event.preventDefault()
-
-    if (!this.allowDupes && this.value.indexOf(value) !== -1) {
-      this.dispatchEvent(new CustomEvent('duplicate', {
-        detail: value
-      }))
-      return
-    }
 
     this.addTag(value)
 
