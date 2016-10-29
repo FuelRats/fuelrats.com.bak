@@ -81,6 +81,22 @@ prototype.clearOptions = function clearOptions () {
 
 
 /******************************************************************************\
+  clearSelectedTag
+\******************************************************************************/
+
+prototype.clearSelectedTag = function clearSelectedTag () {
+  let selectedTag = this.tagList.querySelector('.focus')
+
+  if (selectedTag) {
+    selectedTag.classList.remove('focus')
+  }
+}
+
+
+
+
+
+/******************************************************************************\
   createdCallback
 \******************************************************************************/
 
@@ -296,17 +312,20 @@ prototype.detachedCallback = function detachedCallback () {}
 
 
 /******************************************************************************\
-  handleBackspace
+  handleDelete
 \******************************************************************************/
 
-prototype.handleBackspace = function handleBackspace () {
+prototype.handleDelete = function handleDelete () {
   if (this.shouldCaptureKeybind()) {
     event.preventDefault()
 
     let selectedTag = this.tagList.querySelector('.focus')
 
     if (selectedTag) {
+      let previousTag = selectedTag.previousElementSibling
+
       this.removeTag(selectedTag)
+      previousTag.classList.add('focus')
 
     } else if (selectedTag = this.tagList.querySelector('li:last-of-type')) {
       selectedTag.classList.add('focus')
@@ -352,6 +371,8 @@ prototype.handleDownArrow = function handleDownArrow () {
 \******************************************************************************/
 
 prototype.handleInput = function handleInput () {
+  this.clearSelectedTag()
+
   this.search(this.input.value)
 }
 
@@ -373,7 +394,7 @@ prototype.handleLeftArrow = function handleLeftArrow () {
       let previousTag = selectedTag.previousElementSibling
 
       if (previousTag) {
-        selectedTag.classList.remove('focus')
+        this.clearSelectedTag()
         previousTag.classList.add('focus')
       }
     } else {
@@ -402,7 +423,8 @@ prototype.handleKeybinds = function handleKeybinds (event) {
       break
 
     case 8: // backspace
-      this.handleBackspace()
+    case 46: // delete
+      this.handleDelete()
       break
 
     case 37: // left arrow
@@ -488,7 +510,7 @@ prototype.handleRightArrow = function handleRightArrow () {
         nextTag.classList.add('focus')
       }
 
-      selectedTag.classList.remove('focus')
+      this.clearSelectedTag()
     }
   }
 }
