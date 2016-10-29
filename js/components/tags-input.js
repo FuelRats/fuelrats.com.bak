@@ -288,14 +288,17 @@ prototype.detachedCallback = function detachedCallback () {}
 \******************************************************************************/
 
 prototype.handleBackspace = function handleBackspace () {
-  event.preventDefault()
+  if (this.shouldCaptureKeybind()) {
+    event.preventDefault()
 
-  let selectedTag = this.tagList.querySelector('.focus')
+    let selectedTag = this.tagList.querySelector('.focus')
 
-  if (selectedTag) {
-    this.removeTag(selectedTag)
-  } else {
-    this.tagList.querySelector('li:last-of-type').classList.add('focus')
+    if (selectedTag) {
+      this.removeTag(selectedTag)
+
+    } else if (selectedTag = this.tagList.querySelector('li:last-of-type')) {
+      selectedTag.classList.add('focus')
+    }
   }
 }
 
@@ -308,7 +311,15 @@ prototype.handleBackspace = function handleBackspace () {
 \******************************************************************************/
 
 prototype.handleDownArrow = function handleDownArrow () {
-  event.preventDefault()
+  if (this.shouldCaptureKeybind()) {
+    event.preventDefault()
+
+    let selectedOption = this.optionList.querySelector('.focus')
+
+    if (selectedOption) {
+      console.log('focus previous option')
+    }
+  }
 }
 
 
@@ -332,15 +343,26 @@ prototype.handleInput = function handleInput () {
 \******************************************************************************/
 
 prototype.handleLeftArrow = function handleLeftArrow () {
-//  event.preventDefault()
+  if (this.shouldCaptureKeybind()) {
+    event.preventDefault()
 
-  for (let i = this.tagList.length; i > 0; i--) {
-    let tag = this.tagList[i]
+    let selectedTag = this.tagList.querySelector('.focus')
 
-    console.log(tag)
+    if (selectedTag) {
+      let previousTag = selectedTag.previousElementSibling
+
+      if (previousTag) {
+        selectedTag.classList.remove('focus')
+        previousTag.classList.add('focus')
+      }
+    } else {
+      selectedTag = this.tagList.querySelector('li:last-of-type')
+
+      if (selectedTag) {
+        selectedTag.classList.add('focus')
+      }
+    }
   }
-
-//  this.input.blur()
 }
 
 
@@ -379,7 +401,7 @@ prototype.handleKeybinds = function handleKeybinds (event) {
       break
   }
 
-//  console.log(event.which)
+//  console.log('handleKeybinds', event.which)
 }
 
 
@@ -434,7 +456,21 @@ prototype.handleReturn = function handleReturn (event) {
 \******************************************************************************/
 
 prototype.handleRightArrow = function handleRightArrow () {
-  event.preventDefault()
+  if (this.shouldCaptureKeybind()) {
+    event.preventDefault()
+
+    let selectedTag = this.tagList.querySelector('.focus')
+
+    if (selectedTag) {
+      let nextTag = selectedTag.nextElementSibling
+
+      if (nextTag) {
+        nextTag.classList.add('focus')
+      }
+
+      selectedTag.classList.remove('focus')
+    }
+  }
 }
 
 
@@ -446,7 +482,15 @@ prototype.handleRightArrow = function handleRightArrow () {
 \******************************************************************************/
 
 prototype.handleUpArrow = function handleUpArrow () {
-  event.preventDefault()
+  if (this.shouldCaptureKeybind()) {
+    event.preventDefault()
+
+    let selectedOption = this.optionList.querySelector('.focus')
+
+    if (selectedOption) {
+      console.log('focus next option')
+    }
+  }
 }
 
 
@@ -518,6 +562,24 @@ prototype.search = function search (query) {
       this.updateOptions(data)
     })
   }
+}
+
+
+
+
+
+/******************************************************************************\
+  shouldCaptureKeybind
+\******************************************************************************/
+
+prototype.shouldCaptureKeybind = function shouldCaptureKeybind () {
+  let input = this.input
+
+  if (!input.selectionStart && !input.selectionEnd) {
+    return true
+  }
+
+  return false
 }
 
 
