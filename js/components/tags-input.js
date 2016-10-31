@@ -1,4 +1,3 @@
-import Backbone from 'backbone'
 import Bloodhound from 'typeahead.js'
 
 let prototype = Object.create(HTMLElement.prototype)
@@ -727,9 +726,8 @@ prototype.log = function log () {
 
 prototype.removeTag = function removeTag (tag) {
   let value = tag.querySelector('span').innerText
-  let indexToRemove = this.value.indexOf(value)
 
-  this.value.splice(indexToRemove, indexToRemove)
+  this.value.splice(this.value.indexOf(value), 1)
 
   tag.querySelector('button').removeEventListener('mousedown', this.removeTag)
   tag.remove()
