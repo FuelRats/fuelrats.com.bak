@@ -419,6 +419,7 @@ prototype.handleKeybinds = function handleKeybinds (event) {
   switch (event.which) {
     case 9: // tab
     case 13: // enter
+    case 188: // comma
       this.handleReturn(event)
       break
 
