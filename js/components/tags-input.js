@@ -660,13 +660,16 @@ prototype.hideOptions = function hideOptions () {
   initializeBloodhound
 \******************************************************************************/
 
-prototype.initializeBloodhound = function initializeBloodhound (target) {
+prototype.initializeBloodhound = function initializeBloodhound () {
+  let endpoint = this.getAttribute('data-endpoint')
+  let limit = this.getAttribute('data-limit') || 10
+
   this.engine = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
       prepare: function (query, settings) {
         settings.data = {
-          limit: 10,
+          limit: limit,
           name: query
         }
 
@@ -675,7 +678,7 @@ prototype.initializeBloodhound = function initializeBloodhound (target) {
       transform: function (response) {
         return response.data
       },
-      url: '/api/autocomplete'
+      url: endpoint
     },
     queryTokenizer: Bloodhound.tokenizers.whitespace
   })
