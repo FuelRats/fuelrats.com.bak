@@ -324,8 +324,11 @@ prototype.handleDelete = function handleDelete () {
     if (selectedTag) {
       let previousTag = selectedTag.previousElementSibling
 
+      if (previousTag) {
+        previousTag.classList.add('focus')
+      }
+
       this.removeTag(selectedTag)
-      previousTag.classList.add('focus')
 
     } else if (selectedTag = this.tagList.querySelector('li:last-of-type')) {
       selectedTag.classList.add('focus')
