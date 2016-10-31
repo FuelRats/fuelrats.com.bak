@@ -749,9 +749,15 @@ prototype.search = function search (query) {
   this.clearOptions()
 
   if (query) {
-    this.engine.search(query, data => {
-      this.updateOptions(data)
-    }, data => {
+    this.dispatchEvent(new CustomEvent('searchStart', {
+      detail: query
+    }))
+
+    this.engine.search(query, () => {}, data => {
+      this.dispatchEvent(new CustomEvent('searchEnd', {
+        detail: data
+      }))
+
       this.updateOptions(data)
     })
   }
