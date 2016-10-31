@@ -12,11 +12,8 @@ let prototype = Object.create(HTMLElement.prototype)
 \******************************************************************************/
 
 prototype.addTag = function addTag (value) {
-  if (!this.allowDupes && this.value.indexOf(value) !== -1) {
-    this.dispatchEvent(new CustomEvent('duplicate', {
-      detail: value
-    }))
-    return
+  if (this.checkDuplicate(value)) {
+    return false
   }
 
   this.value.push(value)
@@ -24,6 +21,7 @@ prototype.addTag = function addTag (value) {
   this.dispatchEvent(new CustomEvent('add', {
     detail: value
   }))
+  return true
 }
 
 
@@ -45,11 +43,43 @@ prototype.attachedCallback = function attachedCallback () {}
 \******************************************************************************/
 
 prototype.attributeChangedCallback = function attributeChangedCallback (attribute, oldValue, newValue) {
+  let prop = null
+
   switch (attribute) {
-    case 'data-allow-duplicates':
-      this.allowDupes = !!newValue
+    case 'data-duplicates':
+      prop = 'allowDuplicates'
+      break
+    case 'data-multiple':
+      prop = 'allowMultiple'
+      break
+    case 'data-new':
+      prop = 'allowNew'
+      break
+    case 'data-debug':
+      prop = 'debug'
       break
   }
+
+  if (prop) {
+    this.updateAttribute(attribute, prop)
+  }
+}
+
+
+
+
+
+/******************************************************************************\
+  checkDuplicate
+\******************************************************************************/
+
+prototype.checkDuplicate = function checkDuplicate (value) {
+  if (!this.allowDuplicates && this.isDuplicate(value)) {
+    this.handleDuplicate()
+    return true
+  }
+
+  return false
 }
 
 
@@ -103,18 +133,33 @@ prototype.clearSelectedTag = function clearSelectedTag () {
 prototype.createdCallback = function createdCallback () {
   this.initializeBloodhound()
 
+  this.updateAttribute('data-duplicates', 'allowDuplicates')
+  this.updateAttribute('data-multiple', 'allowMultiple')
+  this.updateAttribute('data-new', 'allowNew')
+  this.updateAttribute('data-debug', 'debug')
+  this.identifier = this.getAttribute('id') || this.getAttribute('name')
+
+  this.log('group', 'tags-input', this.identifier)
+  this.log('Allow Duplicates:', this.allowDuplicates)
+  this.log('Allow Multiple:', this.allowMultiple)
+  this.log('Allow New:', this.allowNew)
+  this.log('Debug:', this.debug)
+  this.log('groupEnd')
+
   this.value = []
+
   this.optionList = document.createElement('ol')
   this.tagList = document.createElement('ul')
-  this.allowDupes = !!this.getAttribute('data-allow-duplicates')
 
   let startingValue = this.getAttribute('value')
   if (startingValue) {
     startingValue.split(',').forEach(this.addTag)
   }
 
-  this.optionList.classList.add('options', 'hide')
+  this.optionList.classList.add('options')
   this.tagList.classList.add('tags')
+
+  this.hideOptions()
 
   this.createShadowRoot()
   this.shadowRoot.appendChild(this.createStylesheet())
@@ -137,10 +182,10 @@ prototype.createInput = function createInput () {
   this.input.addEventListener('keydown', this.handleKeybinds.bind(this))
   this.input.addEventListener('input', this.handleInput.bind(this))
   this.input.addEventListener('focus', () => {
-    this.optionList.classList.remove('hide')
+    this.showOptions()
   })
   this.input.addEventListener('blur', () => {
-    this.optionList.classList.add('hide')
+    this.hideOptions()
   })
 
   return this.input
@@ -173,7 +218,7 @@ prototype.createOption = function createOption (option) {
 prototype.createRemoveButton = function createRemoveButton (tag) {
   let removeButton = document.createElement('button')
 
-  removeButton.addEventListener('click', this.removeTag.bind(this, tag))
+  removeButton.addEventListener('mousedown', this.removeTag.bind(this, tag))
 
   return removeButton
 }
@@ -306,6 +351,34 @@ prototype.createTextWrapper = function createTextWrapper (value) {
 \******************************************************************************/
 
 prototype.detachedCallback = function detachedCallback () {}
+
+
+
+
+
+/******************************************************************************\
+  handleDuplicate
+\******************************************************************************/
+
+prototype.handleDuplicate = function handleDuplicate () {
+  this.dispatchEvent(new CustomEvent('error', {
+    detail: 'duplicate'
+  }))
+}
+
+
+
+
+
+/******************************************************************************\
+  handleInvalid
+\******************************************************************************/
+
+prototype.handleInvalid = function handleInvalid () {
+  this.dispatchEvent(new CustomEvent('error', {
+    detail: 'invalid'
+  }))
+}
 
 
 
@@ -447,8 +520,6 @@ prototype.handleKeybinds = function handleKeybinds (event) {
       this.handleDownArrow()
       break
   }
-
-//  console.log('handleKeybinds', event.which)
 }
 
 
@@ -460,12 +531,23 @@ prototype.handleKeybinds = function handleKeybinds (event) {
 \******************************************************************************/
 
 prototype.handleOptionClick = function handleOptionClick (event) {
+  event.preventDefault()
+
   let target = event.target
   let value = target.innerText
 
-  this.addTag(value)
-  this.clearInput()
-  this.clearOptions()
+  this.log('group', 'handleOptionClick')
+  this.log('value', value)
+  this.log('target', target)
+  this.log(this.input)
+  this.log('groupEnd')
+
+  if (this.addTag(value)) {
+    this.clearInput()
+    this.clearOptions()
+  }
+
+  this.input.focus()
 }
 
 
@@ -476,14 +558,30 @@ prototype.handleOptionClick = function handleOptionClick (event) {
 \******************************************************************************/
 
 prototype.handleReturn = function handleReturn (event) {
-  let value = this.input.value
+  let firstOption = this.optionList.querySelector('li:first-of-type')
   let selectedOption = this.optionList.querySelector('.focus')
+  let value
+
+  if (this.allowNew) {
+    value = this.input.value
+  } else if (firstOption) {
+    value = firstOption.innerText
+  }
 
   if (selectedOption) {
     value = selectedOption.innerText
   }
 
+  if (!this.allowNew && !firstOption) {
+    this.handleInvalid()
+    return
+  }
+
   if (value) {
+    if (this.checkDuplicate(value)) {
+      return
+    }
+
     event.preventDefault()
 
     this.addTag(value)
@@ -548,6 +646,18 @@ prototype.handleUpArrow = function handleUpArrow () {
 
 
 /******************************************************************************\
+  hideOptions
+\******************************************************************************/
+
+prototype.hideOptions = function hideOptions () {
+  this.optionList.classList.add('hide')
+}
+
+
+
+
+
+/******************************************************************************\
   initializeBloodhound
 \******************************************************************************/
 
@@ -577,6 +687,41 @@ prototype.initializeBloodhound = function initializeBloodhound (target) {
 
 
 /******************************************************************************\
+  isDuplicate
+\******************************************************************************/
+
+prototype.isDuplicate = function isDuplicate (value) {
+  return this.value.indexOf(value) !== -1
+}
+
+
+
+
+
+/******************************************************************************\
+  log
+\******************************************************************************/
+
+prototype.log = function log () {
+  // Default to using console.log
+  let type = 'log'
+
+  // Check to see if the first argument passed is a console function. If so,
+  // remove it from the arguments and use it instead of log
+  if (Object.keys(console).indexOf(arguments[0]) !== -1) {
+    type = [].shift.call(arguments)
+  }
+
+  if (this.debug) {
+    console[type].apply(this, arguments)
+  }
+}
+
+
+
+
+
+/******************************************************************************\
   removeTag
 \******************************************************************************/
 
@@ -586,7 +731,7 @@ prototype.removeTag = function removeTag (tag) {
 
   this.value.splice(indexToRemove, indexToRemove)
 
-  tag.querySelector('button').removeEventListener('click', this.removeTag)
+  tag.querySelector('button').removeEventListener('mousedown', this.removeTag)
   tag.remove()
 
   this.dispatchEvent(new CustomEvent('remove', {
@@ -637,6 +782,46 @@ prototype.shouldCaptureKeybind = function shouldCaptureKeybind () {
 
 
 /******************************************************************************\
+  showOptions
+\******************************************************************************/
+
+prototype.showOptions = function showOptions () {
+  this.optionList.classList.remove('hide')
+}
+
+
+
+
+
+/******************************************************************************\
+  updateAttribute
+\******************************************************************************/
+
+prototype.updateAttribute = function updateAttribute (attribute, property) {
+  let hasAttribute = this.hasAttribute(attribute)
+  let value = this.getAttribute(attribute)
+
+  // If the attribute doesn't exist, we'll just return false
+  if (!hasAttribute) {
+    value = false
+
+  // getAttribute returns an empty string for boolean attributes
+  } else if (typeof value === 'string' && value === '') {
+    value = true
+  }
+
+  if (typeof value === 'string' && /(true|false)/gi.test(value)) {
+    value = value.toLowerCase() === 'true'
+  }
+
+  this[property] = value
+}
+
+
+
+
+
+/******************************************************************************\
   updateOptions
 \******************************************************************************/
 
@@ -644,7 +829,7 @@ prototype.updateOptions = function updateOptions (options) {
   options.forEach(option => {
     let optionElement = this.createOption(option)
 
-    optionElement.addEventListener('click', this.handleOptionClick.bind(this))
+    optionElement.addEventListener('mousedown', this.handleOptionClick.bind(this))
 
     this.optionList.appendChild(optionElement)
   })
