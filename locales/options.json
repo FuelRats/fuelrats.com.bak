@@ -2,7 +2,7 @@
   "backend": {
     "loadPath": "/assets/locales/{{lng}}/{{ns}}.json"
   },
-  "debug": true,
+  "debug": false,
   "lng": "en-US",
   "load": "currentOnly"
 }
