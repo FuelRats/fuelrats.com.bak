@@ -1,5 +1,5 @@
+import _ from 'underscore'
 import moment from 'moment'
-
 import RatsCollection from 'collections/Rats'
 import BaseModel from './Base'
 
@@ -48,6 +48,16 @@ export default class Rescue extends BaseModel {
     Public Methods
   \******************************************************************************/
 
+  fetch (options) {
+    if (this.rats) {
+      options.data = _.extend(options.data || {}, {
+        rats: this.rats
+      })
+    }
+
+    super.fetch(options)
+  }
+
   initialize () {
     this._updateDate()
     this._getRats()
@@ -83,9 +93,69 @@ export default class Rescue extends BaseModel {
       }))
     }
 
+    response.successful = response.successful ? 'yes' : 'no'
+
     response.createdAt = new moment(response.createdAt)
     response.updatedAt = new moment(response.updatedAt)
 
     return response
+  }
+
+  toJSON (options) {
+    let clone = _.clone(this.attributes)
+
+    // Map the rats collection to an array of IDs
+    clone.rats = clone.rats.toJSON().map(model => model.id)
+
+    // Convert yes/no radio buttons into booleans
+    clone.codeRed = clone.codeRed === 'yes'
+    clone.successful = clone.successful === 'yes'
+
+    // Convert the firstLimpet field into just an ID if it's been set
+    if (clone.firstLimpet && clone.firstLimpet.id) {
+      clone.firstLimpet = clone.firstLimpet.id
+    }
+
+    return clone
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Getters
+  \******************************************************************************/
+
+  get defaults () {
+    return {
+      codeRed: false,
+      firstLimpet: null,
+      notes: '',
+      platform: 'pc',
+      rats: new RatsCollection,
+      successful: 'yes',
+      system: ''
+    }
+  }
+
+  get rats () {
+    return this._rats
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Setters
+  \******************************************************************************/
+
+  set rats (ids) {
+    if (!Array.isArray(ids)) {
+      ids = [ids]
+    }
+
+    this._rats = ids
   }
 }
