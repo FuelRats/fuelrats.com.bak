@@ -30,9 +30,7 @@ export default class Paperwork extends Route {
         }
 
       } else {
-        this.viewOptions.model = rescues.add({
-          id: params.id
-        })
+        this.viewOptions.model = rescues.add({})
 
         resolve()
       }
