@@ -12,7 +12,7 @@
   padding: 1rem;
   width: 100%;
 
-  &:focus {
+  &:focus, &[data-focus] {
     border-color: $grey;
     box-shadow: 0 0 0.5rem 0 rgba($red, 0.5);
   }
@@ -35,6 +35,12 @@ input {
   &[type=week] {
     @extend %text-input;
   }
+}
+
+tags-input {
+  @extend %text-input;
+
+  padding: 0;
 }
 
 textarea {

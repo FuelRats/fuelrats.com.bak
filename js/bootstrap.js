@@ -1,5 +1,5 @@
 import 'webcomponentsjs'
-import './components/tags-input'
+import 'tags-input-component'
 
 import i18next from 'i18next'
 import i18nextCache from 'i18next-localstorage-cache'
