@@ -16,6 +16,7 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     this.listenTo(this.model, 'change', this._toggleSubmitButton)
 
     this.ui.rats[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
+    this.ui.firstLimpet[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
   }
 
   _getRatAutocomplete (event) {
@@ -28,7 +29,7 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
           name: query
         },
         success: (response) => {
-          this.ui.rats[0].updateOptions(response.data.map((model) => {
+          event.target.updateOptions(response.data.map((model) => {
             return {
               id: model.id,
               value: model.CMDRname
@@ -98,19 +99,23 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   get bindings () {
     return {
+      '#codeRed': 'codeRed',
+      '#firstLimpet': {
+        getVal: ($el, event, options) => {
+          return $el.val()[0]
+        },
+        observe: 'firstLimpet',
+        updateModel: true
+      },
+      '#notes': 'notes',
+      '#platform': 'platform',
       '#rats': {
         getVal: ($el, event, options) => {
-          let value = $el.val()
-
           this.model.get(options.observe).reset($el.val())
         },
         observe: 'rats',
         updateModel: false
       },
-      '#codeRed': 'codeRed',
-      '#firstLimpet': 'firstLimpet',
-      '#notes': 'notes',
-      '#platform': 'platform',
       '#successful': 'successful',
       '#system': 'system'
     }
@@ -128,7 +133,8 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   get ui () {
     return this._ui || (this._ui = {
-      rats: '#rats'
+      rats: '#rats',
+      firstLimpet: '#firstLimpet'
     })
   }
 
