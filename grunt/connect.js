@@ -82,6 +82,23 @@ module.exports = {
         rewrite: {
           '^/wp-api': '/wp-json/wp/v2'
         }
+      },
+      {
+        context: [
+          '/edsm-api'
+        ],
+        debug: true,
+        headers: {
+          host: 'www.edsm.net',
+          referer: 'www.edsm.net'
+        },
+        host: 'www.edsm.net',
+        https: true,
+        port: 443,
+        protocol: 'https:',
+        rewrite: {
+          '^/edsm-api': ''
+        }
       }
     ]
   }
