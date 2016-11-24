@@ -1,5 +1,5 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
-
 import template from 'templates/Paperwork.hbs'
 
 
@@ -14,6 +14,30 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   _bindEvents () {
     this.listenTo(this.model, 'change', this._toggleSubmitButton)
+
+    this.ui.rats[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
+  }
+
+  _getRatAutocomplete (event) {
+    let query = (event.detail || '').trim()
+
+    if (query) {
+      $.ajax({
+        data: {
+          limit: 10,
+          name: query
+        },
+        success: (response) => {
+          this.ui.rats[0].updateOptions(response.data.map((model) => {
+            return {
+              id: model.id,
+              value: model.CMDRname
+            }
+          }))
+        },
+        url: '/api/autocomplete'
+      })
+    }
   }
 
   _toggleSubmitButton () {
@@ -42,12 +66,12 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     super(options)
   }
 
-  initialize () {
-    this._bindEvents()
-  }
-
   isComplete () {
     return true
+  }
+
+  onAttach () {
+    this._bindEvents()
   }
 
   onRender () {
@@ -74,7 +98,15 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   get bindings () {
     return {
-      '#rats': 'rats',
+      '#rats': {
+        getVal: ($el, event, options) => {
+          let value = $el.val()
+
+          this.model.get(options.observe).reset($el.val())
+        },
+        observe: 'rats',
+        updateModel: false
+      },
       '#codeRed': 'codeRed',
       '#firstLimpet': 'firstLimpet',
       '#notes': 'notes',
@@ -94,6 +126,12 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     return 'form'
   }
 
+  get ui () {
+    return this._ui || (this._ui = {
+      rats: '#rats'
+    })
+  }
+
 
 
 
@@ -104,5 +142,9 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   set events (value) {
     this._events = value
+  }
+
+  set ui (value) {
+    this._ui = value
   }
 }
