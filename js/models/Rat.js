@@ -64,4 +64,8 @@ export default class Rat extends BaseModel {
       loading: false
     }
   }
+
+  get urlRoot () {
+    return '/api/rats/'
+  }
 }

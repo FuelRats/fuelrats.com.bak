@@ -1,13 +1,13 @@
 import BaseModel from 'models/Base'
 import User from 'models/User'
-import APICollection from 'collections/API'
+import PageableAPICollection from 'collections/PageableAPI'
 import RatsCollection from 'collections/Rats'
 
 
 
 
 
-export default class Users extends APICollection {
+export default class PageableUsers extends PageableAPICollection {
 
   /******************************************************************************\
     Public Methods

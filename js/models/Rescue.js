@@ -1,6 +1,7 @@
 import _ from 'underscore'
 import moment from 'moment'
 import RatsCollection from 'collections/Rats'
+import RatModel from 'models/Rat'
 import BaseModel from './Base'
 
 
@@ -71,26 +72,28 @@ export default class Rescue extends BaseModel {
       delete response.parsed
     }
 
-    if (!(response.rats instanceof RatsCollection)) {
-      let allRats = this.appChannel.request('rats')
+    let allRats = this.appChannel.request('rats')
 
-      if (!Array.isArray(response.rats)) {
-        response.rats = []
+    if (!response.rats) {
+      response.rats = []
+    }
+
+    response.rats = new RatsCollection(response.rats.map(id => {
+      let rat = allRats.findWhere({
+        id: id
+      })
+
+      if (rat) {
+        return rat
       }
 
-      response.rats = new RatsCollection(response.rats.map(id => {
-        let rat = allRats.findWhere({
-          id: id
-        })
+      return allRats.add({
+        id: id
+      })
+    }))
 
-        if (rat) {
-          return rat
-        }
-
-        return allRats.add({
-          id: id
-        })
-      }))
+    if (response.firstLimpet) {
+      response.firstLimpet = new RatModel({id: response.firstLimpet})
     }
 
     response.successful = response.successful ? 'yes' : 'no'
@@ -127,11 +130,17 @@ export default class Rescue extends BaseModel {
     Getters
   \******************************************************************************/
 
+  get appChannel () {
+    return Backbone.Radio.channel('application')
+  }
+
   get defaults () {
     return {
+      active: false,
       codeRed: false,
       firstLimpet: null,
       notes: '',
+      open: false,
       platform: 'pc',
       rats: new RatsCollection,
       successful: 'yes',

@@ -1,6 +1,5 @@
 import Route from '../Route'
 import RescueAdminTableView from 'views/RescueAdminTable'
-import RescuesCollection from 'collections/Rescues'
 
 
 

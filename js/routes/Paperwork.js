@@ -13,6 +13,7 @@ export default class Paperwork extends Route {
   \******************************************************************************/
   loadData (params) {
     return new Promise((resolve, reject) => {
+      let promises = []
       let rescues = this.appChannel.request('rescues')
 
       if (params.id) {
@@ -25,7 +26,27 @@ export default class Paperwork extends Route {
           this.viewOptions.model = rescues.add({id: params.id})
           this.viewOptions.model.fetch({
             error: reject,
-            success: resolve
+            success: () => {
+              this.viewOptions.model.get('rats').forEach(rat => {
+                promises.push(new Promise((resolve, reject) => {
+                  rat.fetch({
+                    error: reject,
+                    success: resolve
+                  })
+                }))
+              })
+
+              promises.push(new Promise((resolve, reject) => {
+                this.viewOptions.model.get('firstLimpet').fetch({
+                  error: reject,
+                  success: resolve
+                })
+              }))
+
+              Promise.all(promises)
+              .then(resolve)
+              .catch(reject)
+            }
           })
         }
 

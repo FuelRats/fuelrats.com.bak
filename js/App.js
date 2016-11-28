@@ -10,9 +10,9 @@ import AuthorsCollection from 'collections/Authors'
 import BlogsCollection from 'collections/Blogs'
 import CategoriesCollection from 'collections/Categories'
 import PagesCollection from 'collections/Pages'
-import RatsCollection from 'collections/Rats'
-import RescuesCollection from 'collections/Rescues'
-import UsersCollection from 'collections/Users'
+import PageableRatsCollection from 'collections/PageableRats'
+import PageableRescuesCollection from 'collections/PageableRescues'
+import PageableUsersCollection from 'collections/PageableUsers'
 
 
 
@@ -138,11 +138,11 @@ export default class App extends Backbone.Marionette.Application {
   }
 
   get rats () {
-    return this._rats || (this._rats = new RatsCollection)
+    return this._rats || (this._rats = new PageableRatsCollection)
   }
 
   get rescues () {
-    return this._rescues || (this._rescues = new RescuesCollection)
+    return this._rescues || (this._rescues = new PageableRescuesCollection)
   }
 
   get scheduler () {
@@ -154,7 +154,7 @@ export default class App extends Backbone.Marionette.Application {
   }
 
   get users () {
-    return this._users || (this._users = new UsersCollection)
+    return this._users || (this._users = new PageableUsersCollection)
   }
 
   get appChannel () {

@@ -7,14 +7,13 @@ import BaseModel from 'models/Base'
 
 
 
-export default class API extends Backbone.PageableCollection {
+export default class API extends Backbone.Collection {
 
   /******************************************************************************\
     Private Methods
   \******************************************************************************/
 
   _bindEvents () {
-    this.data.listenTo(this, 'pageable:state:change sync', this._updateData.bind(this))
     this.listenTo(this, 'sync', this._syncModels.bind(this))
     this.listenTo(this, 'request', this._requestModels.bind(this))
   }
@@ -29,20 +28,6 @@ export default class API extends Backbone.PageableCollection {
     this.models.forEach(model => {
       model.set('loading', false)
       model.set('loaded', true)
-    })
-  }
-
-  _updateData () {
-    let currentPage = this.state.currentPage
-    let lastPage = this.state.lastPage
-    let firstPage = this.state.firstPage
-
-    this.data.set({
-      currentPage: currentPage,
-      hasMultiplePages: this.hasNextPage() || this.hasPreviousPage(),
-      lastPage: lastPage,
-      nextPage: this.hasNextPage() ? currentPage + 1 : false,
-      previousPage: this.hasPreviousPage() ? currentPage - 1 : false
     })
   }
 
@@ -85,14 +70,6 @@ export default class API extends Backbone.PageableCollection {
     this._bindEvents()
   }
 
-  parseState (response, queryParams, state, options) {
-    let totalRecords = response.meta.total
-
-    return {
-      totalRecords: totalRecords
-    }
-  }
-
 
 
 
@@ -103,58 +80,5 @@ export default class API extends Backbone.PageableCollection {
 
   get appChannel () {
     return Backbone.Radio.channel('application')
-  }
-
-  get data () {
-    return this._data || (this._data = new BaseModel)
-  }
-
-  get queryParams () {
-    return this._queryParams || (this._queryParams = {
-      currentPage: 'page',
-      directions: {
-        '-1': 'ASC',
-        '1': 'DESC'
-      },
-      order: 'direction',
-      pageSize: 'limit',
-      sortKey: 'order',
-      totalPages: '',
-      totalRecords: ''
-    })
-  }
-
-  get state () {
-    return this._state || (this._state = {
-      firstPage: 1,
-      order: 1,
-      pageSize: 100,
-      sortKey: 'createdAt'
-    })
-  }
-
-
-
-
-
-  /******************************************************************************\
-    Setters
-  \******************************************************************************/
-
-  set queryParams (value) {
-    this._queryParams = value
-  }
-
-  set state (value) {
-    if (this._state) {
-      let keys = Object.keys(value)
-
-      keys.forEach(key => {
-        this._state[key] = value[key]
-      })
-
-    } else {
-      this._state = value
-    }
   }
 }

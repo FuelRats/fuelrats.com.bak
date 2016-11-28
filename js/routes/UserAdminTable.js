@@ -1,6 +1,5 @@
 import Route from '../Route'
 import UserAdminTableView from 'views/UserAdminTable'
-import UsersCollection from 'collections/Users'
 
 
 

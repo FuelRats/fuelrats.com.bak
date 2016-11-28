@@ -14,7 +14,9 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   _bindEvents () {
     this.listenTo(this.model, 'change', this._toggleSubmitButton)
+  }
 
+  _bindUIEvents () {
     this.ui.rats[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
     this.ui.firstLimpet[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
     this.ui.system[0].addEventListener('search', _.debounce(this._getSystemAutocomplete.bind(this), 300))
@@ -48,8 +50,15 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     if (query) {
       $.ajax({
         success: response => {
-          console.log(response)
-          event.target.updateOptions(response.map(model => model.value))
+          let newOptions
+
+          if (response) {
+            newOptions = response.map(model => model.value)
+          } else {
+            newOptions = []
+          }
+
+          event.target.updateOptions(newOptions)
         },
         url: '/edsm-api/typeahead/systems/query/' + query
       })
@@ -82,12 +91,16 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
     super(options)
   }
 
+  initialize () {
+    this._bindEvents()
+  }
+
   isComplete () {
     return true
   }
 
   onAttach () {
-    this._bindEvents()
+    this._bindUIEvents()
   }
 
   onRender () {
@@ -95,8 +108,6 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
   }
 
   onSubmit (event) {
-//    console.log('Submitted!', this.model.toJSON())
-
     this.model.save()
   }
 
@@ -119,6 +130,16 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
         getVal: ($el, event, options) => {
           return $el.val()[0]
         },
+        initialize: ($el, model, options) => {
+          let firstLimpet = model.get('firstLimpet')
+
+          if (firstLimpet) {
+            $el[0].addTag({
+              id: firstLimpet.get('id'),
+              value: firstLimpet.get('CMDRname')
+            })
+          }
+        },
         observe: 'firstLimpet'
       },
       '#notes': 'notes',
@@ -126,6 +147,18 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
       '#rats': {
         getVal: ($el, event, options) => {
           this.model.get(options.observe).reset($el.val())
+        },
+        initialize: ($el, model, options) => {
+          let rats = model.get('rats').toJSON()
+
+          if (rats.length) {
+            rats.forEach(rat => {
+              $el[0].addTag({
+                id: rat.id,
+                value: rat.CMDRname
+              })
+            })
+          }
         },
         observe: 'rats',
         updateModel: false

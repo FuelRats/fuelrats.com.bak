@@ -1,13 +1,13 @@
 import moment from 'moment'
 
 import RescueModel from 'models/Rescue'
-import APICollection from 'collections/API'
+import PageableAPICollection from 'collections/PageableAPI'
 
 
 
 
 
-export default class Rescues extends APICollection {
+export default class PageableRescues extends PageableAPICollection {
 
   /******************************************************************************\
     Public Methods
@@ -15,6 +15,14 @@ export default class Rescues extends APICollection {
 
   comparator (model) {
     return -model.get('createdAt')
+  }
+
+  parseRecords (response) {
+    response.data.forEach(datum => {
+      datum.parsed = true
+    })
+
+    return response.data
   }
 
 
