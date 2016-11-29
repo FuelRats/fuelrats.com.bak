@@ -38,11 +38,11 @@ export default class Root extends Backbone.Marionette.LayoutView {
       replaceElement: true
     })
 
-    this.getRegion('reminders').show(new RemindersView({
-      collection: userRescues
-    }), {
-      replaceElement: true
-    })
+//    this.getRegion('reminders').show(new RemindersView({
+//      collection: userRescues
+//    }), {
+//      replaceElement: true
+//    })
   }
 
 
