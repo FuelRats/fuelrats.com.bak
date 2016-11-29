@@ -108,9 +108,6 @@ export default class Rescue extends BaseModel {
     // Map the rats collection to an array of IDs
     clone.rats = clone.rats.toJSON().map(model => model.id)
 
-    // Convert yes/no radio buttons into booleans
-    clone.codeRed = clone.codeRed === 'yes'
-
     // Convert the firstLimpet field into just an ID if it's been set
     if (clone.firstLimpet && clone.firstLimpet.id) {
       clone.firstLimpet = clone.firstLimpet.id
