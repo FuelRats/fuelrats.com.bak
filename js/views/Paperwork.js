@@ -18,8 +18,27 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   _bindUIEvents () {
     this.ui.rats[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
-    this.ui.firstLimpet[0].addEventListener('search', _.debounce(this._getRatAutocomplete.bind(this), 300))
+    this.ui.firstLimpet[0].addEventListener('search', _.debounce(this._getFirstLimpetAutocomplete.bind(this), 300))
     this.ui.system[0].addEventListener('search', _.debounce(this._getSystemAutocomplete.bind(this), 300))
+  }
+
+  _getFirstLimpetAutocomplete (event) {
+    let query = (event.detail || '').trim().toLowerCase()
+
+    if (query) {
+      let collection = this.model.get('rats')
+      .filter(model => {
+        return model.get('CMDRname').toLowerCase().indexOf(query) !== -1
+      })
+      .map(model => {
+        return {
+          id: model.get('id'),
+          value: model.get('CMDRname')
+        }
+      })
+
+      event.target.updateOptions(collection)
+    }
   }
 
   _getRatAutocomplete (event) {
@@ -63,6 +82,21 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
         url: '/edsm-api/typeahead/systems/query/' + query
       })
     }
+  }
+
+  _onGetBooleanRadio (value, options) {
+    // Convert the boolean value into a string for radio button values
+    if (value) {
+      return 'yes'
+    } else {
+      return 'no'
+    }
+  }
+
+  _onSetBooleanRadio (value, options) {
+    // Convert the string value of the radio button into a boolean for
+    // the model
+    return value === 'yes'
   }
 
   _toggleSubmitButton () {
@@ -125,10 +159,19 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   get bindings () {
     return {
-      '#codeRed': 'codeRed',
+      'input[name=codeRed]': {
+        observe: 'codeRed',
+        onGet: this._onGetBooleanRadio,
+        onSet: this._onSetBooleanRadio
+      },
       '#firstLimpet': {
         getVal: ($el, event, options) => {
-          return $el.val()[0]
+          return $el.val().map(model => {
+            return {
+              id: model.id,
+              CMDRname: model.value
+            }
+          })[0]
         },
         initialize: ($el, model, options) => {
           let firstLimpet = model.get('firstLimpet')
@@ -143,10 +186,15 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
         observe: 'firstLimpet'
       },
       '#notes': 'notes',
-      '#platform': 'platform',
+      'input[name=platform]': 'platform',
       '#rats': {
         getVal: ($el, event, options) => {
-          this.model.get(options.observe).reset($el.val())
+          this.model.get(options.observe).reset($el.val().map(model => {
+            return {
+              id: model.id,
+              CMDRname: model.value
+            }
+          }))
         },
         initialize: ($el, model, options) => {
           let rats = model.get('rats').toJSON()
@@ -163,7 +211,11 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
         observe: 'rats',
         updateModel: false
       },
-      '#successful': 'successful',
+      'input[name=successful]': {
+        observe: 'successful',
+        onGet: this._onGetBooleanRadio,
+        onSet: this._onSetBooleanRadio
+      },
       '#system': {
         getVal: ($el, event, options) => {
           return $el.val()[0]

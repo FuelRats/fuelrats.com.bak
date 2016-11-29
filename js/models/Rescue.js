@@ -96,8 +96,6 @@ export default class Rescue extends BaseModel {
       response.firstLimpet = new RatModel({id: response.firstLimpet})
     }
 
-    response.successful = response.successful ? 'yes' : 'no'
-
     response.createdAt = new moment(response.createdAt)
     response.updatedAt = new moment(response.updatedAt)
 
@@ -112,7 +110,6 @@ export default class Rescue extends BaseModel {
 
     // Convert yes/no radio buttons into booleans
     clone.codeRed = clone.codeRed === 'yes'
-    clone.successful = clone.successful === 'yes'
 
     // Convert the firstLimpet field into just an ID if it's been set
     if (clone.firstLimpet && clone.firstLimpet.id) {
@@ -143,7 +140,7 @@ export default class Rescue extends BaseModel {
       open: false,
       platform: 'pc',
       rats: new RatsCollection,
-      successful: 'yes',
+      successful: true,
       system: ''
     }
   }
