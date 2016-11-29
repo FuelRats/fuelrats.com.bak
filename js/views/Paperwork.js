@@ -220,6 +220,13 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
         getVal: ($el, event, options) => {
           return $el.val()[0]
         },
+        initialize: ($el, model, options) => {
+          let system = model.get('system')
+
+          if (system) {
+            $el[0].addTag(system)
+          }
+        },
         observe: 'system'
       },
     }
