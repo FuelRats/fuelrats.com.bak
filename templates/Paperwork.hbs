@@ -75,7 +75,7 @@
 
 <menu type="toolbar">
   <div class="primary">
-    <button type="submit">
+    <button {{#if saving}}disabled{{/if}} type="submit">
       {{t 'common.submit'}}
     </button>
   </div>

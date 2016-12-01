@@ -137,6 +137,7 @@ export default class Rescue extends BaseModel {
       open: false,
       platform: 'pc',
       rats: new RatsCollection,
+      saving: false,
       successful: true,
       system: ''
     }

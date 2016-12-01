@@ -142,7 +142,16 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
   }
 
   onSubmit (event) {
-    this.model.save()
+    this.model.set('saving', true)
+
+    this.model.save({}, {
+      error: () => {
+        this.model.set('saving', false)
+      },
+      success: () => {
+        this.model.set('saving', false)
+      }
+    })
   }
 
 
