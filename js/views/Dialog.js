@@ -63,6 +63,14 @@ export default class Dialog extends BaseLayoutView {
   }
 
   show (options) {
+    if (typeof options.showClose !== 'boolean') {
+      options.showClose = true
+    }
+
+    if (typeof options.showHeader !== 'boolean') {
+      options.showHeader = true
+    }
+
     if (typeof options.showMenu !== 'boolean') {
       options.showMenu = true
     }

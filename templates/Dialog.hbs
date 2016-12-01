@@ -1,12 +1,16 @@
 <div class="loading" data-hidden></div>
 
-<button class="close icon secondary">
-  <i class="fa fa-fw fa-times"></i>
-</button>
+{{#if showClose}}
+  <button class="close icon secondary">
+    <i class="fa fa-fw fa-times"></i>
+  </button>
+{{/if}}
 
-<header>
-  {{{title}}}
-</header>
+{{#if showHeader}}
+  <header>
+    {{{title}}}
+  </header>
+{{/if}}
 
 <div class="content">
   {{{body}}}
