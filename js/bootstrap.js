@@ -21,6 +21,8 @@ import './shims/marionette.replaceElement'
 import marked from 'marked'
 import './shims/marked.latex'
 
+import 'messenger'
+
 import Prism from 'prism'
 
 import './shims/capitalize'

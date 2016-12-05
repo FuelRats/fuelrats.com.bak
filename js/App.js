@@ -58,6 +58,8 @@ export default class App extends Backbone.Marionette.Application {
       }
     })
 
+    this.appChannel.reply('toast', this.toast)
+
     this.appChannel.reply('authors', this.authors)
     this.appChannel.reply('blogs', this.blogs)
     this.appChannel.reply('categories', this.categories)
@@ -111,6 +113,12 @@ export default class App extends Backbone.Marionette.Application {
     // Backbone.Intercept prevents anchors and form submissions from changing
     // the URL
     Backbone.Intercept.start()
+
+//    window.Messenger().hookBackboneAjax()
+  }
+
+  toast (options) {
+    return window.Messenger().post(options)
   }
 
 

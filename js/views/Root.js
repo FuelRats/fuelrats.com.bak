@@ -1,5 +1,4 @@
 import Backbone from 'backbone'
-import Messenger from 'messenger'
 import DialogView from 'views/Dialog'
 import HeaderView from 'views/Header'
 import RemindersView from 'views/Reminders'
