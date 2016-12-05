@@ -63,17 +63,11 @@ export default class Dialog extends BaseLayoutView {
   }
 
   show (options) {
-    if (typeof options.showClose !== 'boolean') {
-      options.showClose = true
-    }
+    options = options || {}
 
-    if (typeof options.showHeader !== 'boolean') {
-      options.showHeader = true
-    }
-
-    if (typeof options.showMenu !== 'boolean') {
-      options.showMenu = true
-    }
+    options.showClose = options.showClose || true
+    options.showHeader = options.showHeader || true
+    options.showMenu = options.showMenu || true
 
     this.model.clear()
     this.model.set(options)
