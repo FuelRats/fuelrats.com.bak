@@ -1,0 +1,23 @@
+.messenger {
+  &.messenger-theme-flat {
+    background-color: $black-lightened;
+
+    .messenger-message {
+      &.alert-error {
+        .messenger-message-inner:before {
+          background-color: $red;
+        }
+      }
+      &.alert-info {
+        .messenger-message-inner:before {
+          background-color: $blue;
+        }
+      }
+      &.alert-success {
+        .messenger-message-inner:before {
+          background-color: $green;
+        }
+      }
+    }
+  }
+}
