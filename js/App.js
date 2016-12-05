@@ -114,7 +114,16 @@ export default class App extends Backbone.Marionette.Application {
     // the URL
     Backbone.Intercept.start()
 
-//    window.Messenger().hookBackboneAjax()
+    window.Messenger.options = {
+      closeButtonText: '<i class="fa fa-fw fa-times"></i>',
+      theme: 'flat'
+    }
+
+    window.Messenger().hookBackboneAjax({
+      errorMessage: 'Failed to save. 😭',
+      progressMessage: 'Saving...',
+      successMessage: 'Saved!',
+    })
   }
 
   toast (options) {
