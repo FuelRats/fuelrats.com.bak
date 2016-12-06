@@ -65,9 +65,9 @@ export default class Dialog extends BaseLayoutView {
   show (options) {
     options = options || {}
 
-    options.showClose = options.showClose || true
-    options.showHeader = options.showHeader || true
-    options.showMenu = options.showMenu || true
+    options.showClose = options.hasOwnProperty('showClose') ? options.showClose : true
+    options.showHeader = options.hasOwnProperty('showHeader') ? options.showHeader : true
+    options.showMenu = options.hasOwnProperty('showMenu') ? options.showMenu : true
 
     this.model.clear()
     this.model.set(options)
