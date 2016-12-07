@@ -1,11 +1,11 @@
-import 'webcomponentsjs'
-import 'tags-input-component'
-
 import i18next from 'i18next'
 import i18nextCache from 'i18next-localstorage-cache'
 import i18nextLanguageDetector from 'i18next-browser-languagedetector'
 import i18nextOptions from '../locales/options.json'
 import i18nextXHR from 'i18next-xhr-backend'
+
+import 'webcomponentsjs'
+import 'tags-input-component'
 
 import Backbone from 'backbone'
 import 'backbone.base-router'

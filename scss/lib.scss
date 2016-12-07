@@ -1,4 +1,13 @@
 /******************************************************************************\
+  dialog-polyfill
+\******************************************************************************/
+@import '../bower_components/dialog-polyfill/dialog-polyfill';
+
+
+
+
+
+/******************************************************************************\
   FontAwesome
 \******************************************************************************/
 $fa-font-path: '/assets/fonts/font-awesome';
@@ -9,9 +18,11 @@ $fa-font-path: '/assets/fonts/font-awesome';
 
 
 /******************************************************************************\
-  Prism
+  Hamburgers
 \******************************************************************************/
-@import '../bower_components/prism/themes/prism';
+$hamburger-layer-color: white;
+$hamburger-types: (squeeze);
+@import './vendor/hamburgers/hamburgers/hamburgers';
 
 
 
@@ -37,8 +48,6 @@ $fa-font-path: '/assets/fonts/font-awesome';
 
 
 /******************************************************************************\
-  Hamburgers
+  Prism
 \******************************************************************************/
-$hamburger-layer-color: white;
-$hamburger-types: (squeeze);
-@import './vendor/hamburgers/hamburgers/hamburgers';
+@import '../bower_components/prism/themes/prism';

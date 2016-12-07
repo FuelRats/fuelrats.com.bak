@@ -17,6 +17,7 @@ dialog {
     display: flex;
   }
 
+  & + .backdrop,
   &::backdrop {
     background-color: rgba($black, 0.8);
     bottom: 0;

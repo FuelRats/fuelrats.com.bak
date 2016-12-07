@@ -1,3 +1,4 @@
+import dialogPolyfill from 'dialog-polyfill'
 import Backbone from 'backbone'
 import DialogView from 'views/Dialog'
 import HeaderView from 'views/Header'
@@ -42,6 +43,11 @@ export default class Root extends Backbone.Marionette.LayoutView {
 //    }), {
 //      replaceElement: true
 //    })
+
+    let dialogs = document.querySelectorAll('dialog')
+    for (let i = 0, length = dialogs.length; i < length; i++) {
+      dialogPolyfill.registerDialog(dialogs[i])
+    }
   }
 
 
