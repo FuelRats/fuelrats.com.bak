@@ -143,9 +143,24 @@ export default class Paperwork extends Backbone.Marionette.ItemView {
 
   onSubmit (event) {
     this.model.set('saving', true)
+    let toast = this.appChannel.request('toast', {
+      message: 'Saving... 🕓'
+    })
 
     this.listenToOnce(this.model, 'sync', () => {
       this.model.set('saving', false)
+      toast.update({
+        message: 'Saved! 👍',
+        type: 'success'
+      })
+    })
+
+    this.listenToOnce(this.model, 'error', () => {
+      this.model.set('saving', false)
+      toast.update({
+        message: 'Failed to save. 😭',
+        type: 'error'
+      })
     })
 
     this.model.save()
