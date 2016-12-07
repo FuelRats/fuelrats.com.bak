@@ -212,12 +212,13 @@ export default class User extends BaseModel {
   }
 
   logout () {
+    localStorage.removeItem('user')
+    cookie.expire('connect.sid')
+
     this.set({
       email: '',
       loggedIn: false
     })
-    localStorage.removeItem('user')
-    cookie.expire('connect.sid')
   }
 
   parse (response) {
