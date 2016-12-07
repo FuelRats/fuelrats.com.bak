@@ -23,7 +23,7 @@ module.exports = {
       loaders: [
         {
           test: /\.hbs$/,
-          loader: 'handlebars',
+          loader: 'handlebars-loader',
           query: {
             helperDirs: path.resolve(__dirname, '..', 'js', 'helpers'),
             partialDirs: path.resolve(__dirname, '..', 'templates', 'partials')
@@ -31,11 +31,15 @@ module.exports = {
         },
         {
           test: /\.json$/,
-          loader: 'json'
+          loader: 'json-loader'
+        },
+        {
+          test: /\.js$/,
+          loader: 'uglify-loader'
         },
         {
           exclude: /(node_modules|bower_components)/,
-          loader: 'babel',
+          loader: 'babel-loader',
           test: /\.js$/
         }
       ]
