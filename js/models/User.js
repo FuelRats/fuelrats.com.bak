@@ -162,7 +162,7 @@ export default class User extends BaseModel {
   }
 
   login () {
-    if (cookie.get('connect.sid')) {
+    if (cookie.get('connect.sid') && localStorage.getItem('user')) {
       let user = this.deserializeUser()
       this.set(user)
       return Promise.resolve()
