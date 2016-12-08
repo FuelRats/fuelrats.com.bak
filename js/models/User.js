@@ -32,10 +32,10 @@ export default class User extends BaseModel {
       }
     })
 
-    this.listenTo(this.get('rats'), 'add', this._getRescues)
+    this.listenTo(this.get('rats'), 'add', this.getRescues)
 
-    this.listenTo(this, 'change:CMDRs', this._getRats)
-    this.listenTo(this, 'change:group change:groups', this._getPermissions)
+    this.listenTo(this, 'change:CMDRs', this.getRats)
+    this.listenTo(this, 'change:group change:groups', this.getPermissions)
     this.listenTo(this, 'change:loggedIn', this._updateAvatar)
 
     this.listenTo(this, 'change', () => {
@@ -47,7 +47,34 @@ export default class User extends BaseModel {
     })
   }
 
-  _getRats () {
+  _updateAvatar () {
+    let id = this.get('id')
+
+    this.set('avatar', `//api.adorable.io/avatars/${id}`)
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Public Methods
+  \******************************************************************************/
+
+  deserializeUser () {
+    let user = JSON.parse(localStorage.getItem('user'))
+
+    if (user) {
+      user.loggedIn = true
+      this.set(this.parse(user))
+      this.getPermissions()
+      this.getRats()
+    }
+
+    return
+  }
+
+  getRats () {
     let allRats = this.appChannel.request('rats')
     let CMDRs = this.get('CMDRs')
     let rats = this.get('rats')
@@ -79,7 +106,7 @@ export default class User extends BaseModel {
     })
   }
 
-  _getRescues () {
+  getRescues () {
     let allRescues = this.appChannel.request('rescues')
     let id = this.get('id')
     let rescues = this.get('rescues')
@@ -93,21 +120,9 @@ export default class User extends BaseModel {
     })
 
     allRescues.add(filteredRescues)
-
-//    rescues.rats = id
-//
-//    rescues.fetch({
-//      bulk: true,
-//      error: () => {
-//        console.log('error!', arguments)
-//      },
-//      success: () => {
-//        console.log('success!', arguments)
-//      }
-//    })
   }
 
-  _getPermissions () {
+  getPermissions () {
     let group = this.get('group') || this.get('groups')
     let isArray = Array.isArray(group)
 
@@ -128,33 +143,6 @@ export default class User extends BaseModel {
     this.set('isAdmin', isAdmin)
     this.set('isModerator', isModerator)
     this.set('isOverseer', isOverseer)
-  }
-
-  _updateAvatar () {
-    let id = this.get('id')
-
-    this.set('avatar', `//api.adorable.io/avatars/${id}`)
-  }
-
-
-
-
-
-  /******************************************************************************\
-    Public Methods
-  \******************************************************************************/
-
-  deserializeUser () {
-    let user = JSON.parse(localStorage.getItem('user'))
-
-    if (user) {
-      user.loggedIn = true
-      this.set(this.parse(user))
-      this._getPermissions()
-      this._getRats()
-    }
-
-    return
   }
 
   initialize () {
