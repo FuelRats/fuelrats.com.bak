@@ -26,11 +26,15 @@ export default class Profile extends Route {
   \******************************************************************************/
 
   get replaceElement () {
-    return false
+    return true
+  }
+
+  get requireAuthentication () {
+    return true
   }
 
   get title () {
-    return this.viewOptions.model.get('title')
+    return 'My Profile'
   }
 
   get view () {
