@@ -80,7 +80,7 @@ export default class RescueAdminRow extends BaseLayoutView {
 
 
   /******************************************************************************\
-    Getters
+    Setters
   \******************************************************************************/
 
   set regions (value) {

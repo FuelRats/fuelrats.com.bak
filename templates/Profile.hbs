@@ -1,3 +1,44 @@
 <header class="page-header">
   <h1>{{t 'pages.profile'}}</h1>
 </header>
+
+<div class="flex-row page-content">
+  <section class="stretch-2">
+<!--
+    <h4>
+      <span class="inline-stats">
+        <span class="inline-stats-successful">{{firstLimpetCount}} Successful</span>
+        <span class="inline-stats-assists">{{assistCount}} Assists</span>
+        <span class="inline-stats-failures">{{failureCount}} Failures</span>
+        <span class="inline-stats-success-rate">({{successRate}}% Success)</span>
+      </span>
+    </h4>
+-->
+
+    <div class="loading rescues"></div>
+  </section>
+
+  <aside>
+    <div class="panel">
+      <header>Rats</header>
+
+      <ul class="panel-content rats">
+        {{#each rats.models}}
+          <li>
+            <a href="#{{attributes.id}}">{{attributes.CMDRname}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <div class="panel">
+      <header>IRC Nicknames</header>
+
+      <ul class="panel-content">
+        {{#each nicknames}}
+          {{this}}
+        {{/each}}
+      </ul>
+    </div>
+  </aside>
+</div>

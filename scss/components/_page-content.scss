@@ -1,0 +1,9 @@
+.page-content {
+  display: flex;
+  margin: 2rem;
+  overflow: auto;
+
+  section + aside {
+    margin-left: 2rem;
+  }
+}

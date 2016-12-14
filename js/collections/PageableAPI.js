@@ -1,6 +1,6 @@
 import _ from 'underscore'
 import Backbone from 'backbone'
-
+import PaginationDataModel from 'models/PaginationData'
 import BaseModel from 'models/Base'
 
 
@@ -14,7 +14,6 @@ export default class PageableAPI extends Backbone.PageableCollection {
   \******************************************************************************/
 
   _bindEvents () {
-    this.data.listenTo(this, 'pageable:state:change sync', this._updateData.bind(this))
     this.listenTo(this, 'sync', this._syncModels.bind(this))
     this.listenTo(this, 'request', this._requestModels.bind(this))
   }
@@ -32,20 +31,6 @@ export default class PageableAPI extends Backbone.PageableCollection {
     })
   }
 
-  _updateData () {
-    let currentPage = this.state.currentPage
-    let lastPage = this.state.lastPage
-    let firstPage = this.state.firstPage
-
-    this.data.set({
-      currentPage: currentPage,
-      hasMultiplePages: this.hasNextPage() || this.hasPreviousPage(),
-      lastPage: lastPage,
-      nextPage: this.hasNextPage() ? currentPage + 1 : false,
-      previousPage: this.hasPreviousPage() ? currentPage - 1 : false
-    })
-  }
-
 
 
 
@@ -53,6 +38,15 @@ export default class PageableAPI extends Backbone.PageableCollection {
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
+
+  constructor (models, options) {
+    console.log('arguments', arguments)
+
+    super(models, options)
+    if (options) {
+      console.log(options)
+    }
+  }
 
   fetch (options) {
     options = options || {}
@@ -81,7 +75,8 @@ export default class PageableAPI extends Backbone.PageableCollection {
     super.fetch(options)
   }
 
-  initialize () {
+  initialize (models, options) {
+//    console.log('arguments', arguments)
     this._bindEvents()
   }
 
@@ -106,7 +101,9 @@ export default class PageableAPI extends Backbone.PageableCollection {
   }
 
   get data () {
-    return this._data || (this._data = new BaseModel)
+    return this._data || (this._data = new PaginationDataModel({
+      collection: this
+    }))
   }
 
   get queryParams () {

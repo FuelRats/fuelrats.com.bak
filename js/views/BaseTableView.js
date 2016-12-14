@@ -1,3 +1,4 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
 
 
@@ -14,6 +15,18 @@ export default class BaseTable extends Backbone.Marionette.CompositeView {
     this.$el.find('[data-sort]').on('click', this.changeSort.bind(this))
   }
 
+  _nextPage (event) {
+    console.log('_nextPage')
+    event.preventDefault()
+    this.collection.getNextPage()
+  }
+
+  _previousPage (event) {
+    console.log('_previousPage')
+    event.preventDefault()
+    this.collection.getPreviousPage()
+  }
+
 
 
 
@@ -25,6 +38,17 @@ export default class BaseTable extends Backbone.Marionette.CompositeView {
   changeSort (event) {
     this.collection.setSorting(event.target.getAttribute('data-sort'), 1, {})
     console.log('changeSort', this.collection.state)
+  }
+
+  constructor (options) {
+    options = _.extend(options || {}, {
+      events: {
+        'click .next': '_nextPage',
+        'click .previous': '_previousPage'
+      }
+    })
+
+    super(options)
   }
 
   onAttach () {

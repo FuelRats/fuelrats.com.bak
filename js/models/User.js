@@ -74,6 +74,51 @@ export default class User extends BaseModel {
     return
   }
 
+  getProfile () {
+    return $.ajax({
+      method: 'get',
+      success: (response, status, xhr) => {
+        let profile = response.data
+
+        let stats = {
+          assistCount: 0,
+          failureCount: 0,
+          firstLimpetCount: 0,
+          successRate: 0,
+          totalRescues: 0
+        }
+
+        this.set({
+          group: profile.group,
+          nicknames: profile.nicknames
+        })
+
+        profile.rats.forEach(rat => {
+          let ratModel = this.get('rats').findWhere({
+            id: rat.id
+          })
+
+          stats.assistCount += rat.assistCount
+          stats.failureCount += rat.failureCount
+          stats.firstLimpetCount += rat.firstLimpetCount
+          stats.successRate += parseFloat(rat.successRate)
+          stats.totalRescues += rat.totalRescues
+
+          ratModel.set({
+            assistCount: rat.assistCount,
+            failureCount: rat.failureCount,
+            firstLimpetCount: rat.firstLimpetCount,
+            successRate: parseFloat(rat.successRate),
+            totalRescues: rat.totalRescues
+          })
+        })
+
+        this.set(stats)
+      },
+      url: '/api/profile'
+    })
+  }
+
   getRats () {
     let allRats = this.appChannel.request('rats')
     let CMDRs = this.get('CMDRs')

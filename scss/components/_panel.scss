@@ -1,5 +1,11 @@
 .panel {
   background-color: $white;
+  box-shadow: 0 0 1rem rgba($black, 0.1);
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   footer,
   header {
@@ -23,7 +29,8 @@
     }
   }
 
-  .content {
+  .panel-content {
     overflow: auto;
+    padding: 1rem;
   }
 }

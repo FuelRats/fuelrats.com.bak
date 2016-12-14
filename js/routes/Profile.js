@@ -16,8 +16,9 @@ export default class Profile extends Route {
       let user = this.appChannel.request('user')
 
       this.viewOptions.model = user
-
-      resolve()
+      this.viewOptions.model.getRats()
+      this.viewOptions.model.getProfile()
+      .then(resolve)
     })
   }
 
