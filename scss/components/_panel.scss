@@ -1,14 +1,15 @@
 .panel {
   background-color: $white;
   box-shadow: 0 0 1rem rgba($black, 0.1);
-  margin-bottom: 2rem;
 
   &:last-child {
     margin-bottom: 0;
   }
 
   footer,
-  header {
+  header,
+  .panel-header,
+  .panel-footer {
     background-color: $black;
     color: $white;
     padding: 1rem;
@@ -19,7 +20,8 @@
     }
   }
 
-  header {
+  header,
+  .panel-header {
     align-items: center;
     display: flex;
     justify-content: space-between;
@@ -28,6 +30,9 @@
       padding: 0;
     }
   }
+
+  footer,
+  .panel-footer {}
 
   .panel-content {
     overflow: auto;

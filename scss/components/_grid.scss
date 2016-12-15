@@ -1,9 +1,21 @@
-.flex-row {
+.row {
   align-content: stretch;
+  align-items: flex-start;
   display: flex;
+  margin-bottom: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   > * {
+    flex-basis: 0;
     flex-grow: 1;
+    margin-right: 2rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     &.stretch-2 {
       flex-grow: 2;

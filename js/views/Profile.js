@@ -19,10 +19,10 @@ export default class Profile extends BaseLayoutView {
   _getRescues (rat) {
     let rescues = new PageableRescuesCollection
     rescues.setPageSize(10)
+    rescues.setFilters({
+      rats: [rat.get('id')]
+    })
     rescues.getPage(1, {
-      data: {
-        rats: [rat.get('id')]
-      },
       success: this._showRescues.bind(this)
     })
   }
@@ -30,10 +30,12 @@ export default class Profile extends BaseLayoutView {
   _showRescues (rescues) {
     if (rescues.length) {
       this.getRegion('rescues').show(new RescueTableView({
+        className: 'rescues',
         collection: rescues,
         model: new PaginationDataModel({
           collection: rescues
         }),
+      }, {
         replaceElement: true
       }))
     }
