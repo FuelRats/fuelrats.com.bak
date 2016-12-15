@@ -34,6 +34,9 @@ import App from './App'
 
 
 
+// Remove some data that was being cached by an old version of the app
+localStorage.removeItem('user')
+
 // Set some default values for XHRs made with jQuery
 $.ajaxSetup({
   xhrFields: {

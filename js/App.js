@@ -103,7 +103,10 @@ export default class App extends Backbone.Marionette.Application {
     // attach it to the app object for easy access
     this.main = this.RootView.getRegion('main')
 
-    this.user.deserializeUser()
+    // Bootstrap the user
+    if (localStorage.getItem('userID')) {
+      this.user.getUserInfo()
+    }
 
     // Start the router with push routing
     Backbone.history.start({

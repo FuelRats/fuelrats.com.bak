@@ -37,13 +37,49 @@ export default class User extends BaseModel {
     this.listenTo(this, 'change:CMDRs', this.getRats)
     this.listenTo(this, 'change:group change:groups', this.getPermissions)
     this.listenTo(this, 'change:loggedIn', this._updateAvatar)
+  }
 
-    this.listenTo(this, 'change', () => {
-      if (this.get('loggedIn')) {
-        this.serializeUser()
-      } else {
-        this.deserializeUser()
-      }
+  _loginWithCredentials () {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        data: {
+          email: this.get('email'),
+          password: this.get('password')
+        },
+        error: reject,
+        method: 'post',
+        success: (response, status, xhr) => {
+          let user = response.data
+
+          user.loggedIn = true
+          user.loggingIn = false
+          user.password = ''
+
+          this.set(this.parse(user))
+
+          localStorage.setItem('userID', this.get('id'))
+
+          // Handle redirect query parameters
+          if (window.location.search) {
+            let query = window.location.search.substr(1).split('&')
+            let queryHash = {}
+
+            query.forEach((item, index, array) => {
+              item = item.split('=')
+              queryHash[item[0]] = item[1]
+            })
+
+            if (queryHash.redirect) {
+              window.location = queryHash.redirect
+            }
+          }
+
+          this.routerChannel.request('route', '/home')
+
+          resolve()
+        },
+        url: '/api/login'
+      })
     })
   }
 
@@ -61,17 +97,27 @@ export default class User extends BaseModel {
     Public Methods
   \******************************************************************************/
 
-  deserializeUser () {
-    let user = JSON.parse(localStorage.getItem('user'))
+  getPermissions () {
+    let group = this.get('group') || this.get('groups')
+    let isArray = Array.isArray(group)
 
-    if (user) {
-      user.loggedIn = true
-      this.set(this.parse(user))
-      this.getPermissions()
-      this.getRats()
+    let isAdmin = false
+    let isModerator = false
+    let isOverseer = false
+
+    if (isArray) {
+      isAdmin = group.indexOf('admin') !== -1
+      isModerator = group.indexOf('moderator') !== -1
+      isOverseer = group.indexOf('overseer') !== -1
+    } else {
+      isAdmin = group === 'admin'
+      isModerator = isAdmin || group === 'moderator'
+      isOverseer = isModerator || group === 'overseer'
     }
 
-    return
+    this.set('isAdmin', isAdmin)
+    this.set('isModerator', isModerator)
+    this.set('isOverseer', isOverseer)
   }
 
   getProfile () {
@@ -167,27 +213,30 @@ export default class User extends BaseModel {
     allRescues.add(filteredRescues)
   }
 
-  getPermissions () {
-    let group = this.get('group') || this.get('groups')
-    let isArray = Array.isArray(group)
+  getUserInfo () {
+    let id = localStorage.getItem('userID')
 
-    let isAdmin = false
-    let isModerator = false
-    let isOverseer = false
+    if (id) {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          error: reject,
+          method: 'get',
+          success: (response, status, xhr) => {
+            let user = response.data
 
-    if (isArray) {
-      isAdmin = group.indexOf('admin') !== -1
-      isModerator = group.indexOf('moderator') !== -1
-      isOverseer = group.indexOf('overseer') !== -1
+            user.loggedIn = true
+            user.loggingIn = false
+
+            this.set(this.parse(user))
+
+            resolve()
+          },
+          url: `/api/users/${id}`
+        })
+      })
     } else {
-      isAdmin = group === 'admin'
-      isModerator = isAdmin || group === 'moderator'
-      isOverseer = isModerator || group === 'overseer'
+      return Promise.resolve()
     }
-
-    this.set('isAdmin', isAdmin)
-    this.set('isModerator', isModerator)
-    this.set('isOverseer', isOverseer)
   }
 
   initialize () {
@@ -195,58 +244,25 @@ export default class User extends BaseModel {
   }
 
   login () {
-    if (cookie.get('connect.sid') && localStorage.getItem('user')) {
-      let user = this.deserializeUser()
-      this.set(user)
-      return Promise.resolve()
-    }
-
     return new Promise((resolve, reject) => {
-      $.ajax({
-        data: {
-          email: this.get('email'),
-          password: this.get('password')
-        },
-        error: reject,
-        method: 'post',
-        success: (response, status, xhr) => {
-          let user = response.data
+      let promise
 
-          user.loggedIn = true
-          user.loggingIn = false
-          user.password = ''
+      if (cookie.get('connect.sid') && localStorage.getItem('userID')) {
+        promise = this.getUserInfo()
 
-          this.set(this.parse(user))
+      } else {
+        promise = this._loginWithCredentials()
+      }
 
-          this.serializeUser()
-
-          // Handle redirect query parameters
-          if (window.location.search) {
-            let query = window.location.search.substr(1).split('&')
-            let queryHash = {}
-
-            query.forEach((item, index, array) => {
-              item = item.split('=')
-              queryHash[item[0]] = item[1]
-            })
-
-            if (queryHash.redirect) {
-              window.location = queryHash.redirect
-            }
-          }
-
-          this.routerChannel.request('route', '/home')
-
-          resolve()
-        },
-        url: '/api/login'
-      })
+      promise
+      .then(resolve)
+      .catch(reject)
     })
   }
 
   logout () {
-    localStorage.removeItem('user')
     cookie.expire('connect.sid')
+    localStorage.removeItem('userID')
 
     this.set({
       email: '',
@@ -256,22 +272,6 @@ export default class User extends BaseModel {
 
   parse (response) {
     return response
-  }
-
-  serializeUser () {
-    if (this.get('loggedIn')) {
-      let user = this.toJSON()
-
-      localStorage.setItem('user', JSON.stringify({
-        CMDRs: user.CMDRs,
-        drilled: user.drilled,
-        drilledDispatch: user.drilledDispatch,
-        email: user.email,
-        group: user.group,
-        id: user.id,
-        nicknames: user.nicknames
-      }))
-    }
   }
 
 
