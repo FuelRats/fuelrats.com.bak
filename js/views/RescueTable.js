@@ -31,8 +31,4 @@ export default class RescueTable extends BaseTableView {
   get childView () {
     return RescueAdminRowView
   }
-
-  get tagName () {
-    return 'main'
-  }
 }
