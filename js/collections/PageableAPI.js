@@ -40,9 +40,8 @@ export default class PageableAPI extends Backbone.PageableCollection {
   \******************************************************************************/
 
   constructor (models, options) {
-    console.log('arguments', arguments)
-
     super(models, options)
+
     if (options) {
       console.log(options)
     }
@@ -72,6 +71,8 @@ export default class PageableAPI extends Backbone.PageableCollection {
       })
     }
 
+    options.data = _.extend(options.data || {}, this.filters)
+
     super.fetch(options)
   }
 
@@ -86,6 +87,19 @@ export default class PageableAPI extends Backbone.PageableCollection {
     return {
       totalRecords: totalRecords
     }
+  }
+
+  setFilters (filters) {
+    Object.keys(filters).forEach(key => {
+      let filterValue = filters[key]
+
+      if (filterValue === null) {
+        delete this.filters[key]
+
+      } else {
+        this.filters[key] = filterValue
+      }
+    })
   }
 
 
@@ -104,6 +118,10 @@ export default class PageableAPI extends Backbone.PageableCollection {
     return this._data || (this._data = new PaginationDataModel({
       collection: this
     }))
+  }
+
+  get filters () {
+    return this._filters || (this._filters = {})
   }
 
   get queryParams () {
@@ -137,6 +155,10 @@ export default class PageableAPI extends Backbone.PageableCollection {
   /******************************************************************************\
     Setters
   \******************************************************************************/
+
+  set filters (value) {
+    this._filters = value
+  }
 
   set queryParams (value) {
     this._queryParams = value
