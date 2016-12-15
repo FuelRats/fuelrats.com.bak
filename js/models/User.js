@@ -151,9 +151,6 @@ export default class User extends BaseModel {
 
           rat.successRate = rat.successRate !== 'NaN' ? parseFloat(rat.successRate) : 0
 
-          console.log('rat.successRate', rat.successRate)
-          console.log('stats', stats)
-
           ratModel.set({
             assistCount: rat.assistCount,
             failureCount: rat.failureCount,
