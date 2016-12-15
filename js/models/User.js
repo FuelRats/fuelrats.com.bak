@@ -147,17 +147,23 @@ export default class User extends BaseModel {
           stats.assistCount += rat.assistCount
           stats.failureCount += rat.failureCount
           stats.firstLimpetCount += rat.firstLimpetCount
-          stats.successRate += parseFloat(rat.successRate)
           stats.totalRescues += rat.totalRescues
+
+          rat.successRate = rat.successRate !== 'NaN' ? parseFloat(rat.successRate) : 0
+
+          console.log('rat.successRate', rat.successRate)
+          console.log('stats', stats)
 
           ratModel.set({
             assistCount: rat.assistCount,
             failureCount: rat.failureCount,
             firstLimpetCount: rat.firstLimpetCount,
-            successRate: parseFloat(rat.successRate),
+            successRate: rat.successRate,
             totalRescues: rat.totalRescues
           })
         })
+
+        stats.successRate = ((stats.firstLimpetCount + stats.assistCount) / stats.totalRescues * 100).toFixed(2)
 
         this.set(stats)
       },
