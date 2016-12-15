@@ -11,7 +11,6 @@ export default class PageableData extends Backbone.Model {
   \******************************************************************************/
 
   _bindEvents () {
-    console.log(this.get('collection'))
     this.listenTo(this.get('collection'), 'pageable:state:change sync', this._update.bind(this))
   }
 
