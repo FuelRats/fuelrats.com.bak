@@ -57,9 +57,13 @@
     <div class="panel">
       <header>IRC Nicknames</header>
 
-      <ul class="panel-content loading">{{#each nicknames}}
-        {{this}}
-      {{/each}}</ul>
+      <ul class="panel-content loading">{{#if nicknames.length}}
+        {{#each nicknames}}
+          {{this}}
+        {{/each}}
+      {{else}}
+        No nicknames
+      {{/if}}</ul>
     </div>
   </div>
 
