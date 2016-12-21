@@ -16,13 +16,11 @@ export default class BaseTable extends Backbone.Marionette.CompositeView {
   }
 
   _nextPage (event) {
-    console.log('_nextPage')
     event.preventDefault()
     this.collection.getNextPage()
   }
 
   _previousPage (event) {
-    console.log('_previousPage')
     event.preventDefault()
     this.collection.getPreviousPage()
   }

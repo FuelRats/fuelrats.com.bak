@@ -77,7 +77,6 @@ export default class PageableAPI extends Backbone.PageableCollection {
   }
 
   initialize (models, options) {
-//    console.log('arguments', arguments)
     this._bindEvents()
   }
 
