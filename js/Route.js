@@ -61,7 +61,7 @@ export default class Route extends Backbone.Marionette.Object {
 
 
   /******************************************************************************\
-    Public Methods
+    Getters
   \******************************************************************************/
 
   get appChannel () {
@@ -69,7 +69,7 @@ export default class Route extends Backbone.Marionette.Object {
   }
 
   get replaceElement () {
-    return true
+    return this._replaceElement || (this._replaceElement = true)
   }
 
   get routerChannel () {
@@ -86,5 +86,17 @@ export default class Route extends Backbone.Marionette.Object {
 
   get view () {
     return Backbone.Marionette.ItemView
+  }
+
+
+
+
+
+  /******************************************************************************\
+    Setters
+  \******************************************************************************/
+
+  set replaceElement (value) {
+    this._replaceElement = value
   }
 }
