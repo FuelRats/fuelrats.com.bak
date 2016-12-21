@@ -132,6 +132,10 @@ export default class Rescue extends BaseModel {
     return clone
   }
 
+  toViewJSON (options) {
+    return super.toJSON(options)
+  }
+
 
 
 
