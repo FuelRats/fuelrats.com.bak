@@ -30,10 +30,17 @@ export default class Rescue extends Route {
             })
 
             promises.push(new Promise((resolve, reject) => {
-              this.viewOptions.model.get('firstLimpet').fetch({
-                error: reject,
-                success: resolve
-              })
+              let firstLimpet = this.viewOptions.model.get('firstLimpet')
+
+              if (firstLimpet) {
+                this.viewOptions.model.get('firstLimpet').fetch({
+                  error: reject,
+                  success: resolve
+                })
+
+              } else {
+                resolve()
+              }
             }))
 
             Promise.all(promises)
