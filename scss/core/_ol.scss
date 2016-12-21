@@ -6,7 +6,7 @@ ol {
     margin-bottom: 0;
   }
 
-  .numbered {
+  &.numbered {
     list-style-type: decimal;
     padding-left: 3rem;
   }
