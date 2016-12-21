@@ -1,0 +1,153 @@
+<header class="page-header">
+  <h1>{{t 'pages.rescue'}}</h1>
+</header>
+
+<div class="page-content">
+  {{#if title}}
+    <div class="row">
+      <h2>
+        {{title}}
+      </h2>
+    </div>
+  {{else}}
+    <div class="row">
+      <h2>
+        {{system}}
+      </h2>
+    </div>
+  {{/if}}
+
+  <div class="row">
+    <div class="panel stretch-3">
+      <header>Details</header>
+
+      <div class="panel-content">
+        <div class="row">
+          <div>
+            <strong>Status:</strong>
+          </div>
+
+          <div class="stretch-9">
+            {{#if open}}
+              Open
+            {{else}}
+              Closed
+            {{/if}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <strong>Platform:</strong>
+          </div>
+
+          <div class="stretch-9">
+            {{safePlatform}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <strong>Successful:</strong>
+          </div>
+
+          <div class="stretch-9">
+            {{#if successful}}
+              Yes
+            {{else}}
+              No
+            {{/if}}
+          </div>
+        </div>
+
+        {{#if title}}
+          <div class="row">
+            <div>
+              <strong>System:</strong>
+            </div>
+
+            <div class="stretch-9">
+              {{system}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if client}}
+          <div class="row">
+            <div>
+              <strong>Client:</strong>
+            </div>
+
+            <div class="stretch-9">
+              {{client}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if notes}}
+          <div class="row">
+            <div>
+              <strong>Notes:</strong>
+            </div>
+
+            <div class="stretch-9">
+              {{notes}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div>
+      <div class="row">
+        <div class="panel">
+          <header>First Limpet</header>
+
+          <ul class="panel-content loading">{{#if firstLimpet}}
+            <li>
+              <a href="#{{firstLimpet.attributes.id}}">{{firstLimpet.attributes.CMDRname}}</a>
+            </li>
+          {{else}}
+            <li>N/A</li>
+          {{/if}}</ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel">
+          <header>Rats</header>
+
+          <ul class="panel-content loading">{{#if rats.models.length}}
+            {{#each rats.models}}
+              <li>
+                <a href="#{{attributes.id}}">{{attributes.CMDRname}}</a>
+              </li>
+            {{/each}}
+          {{else}}
+            <li>No rats</li>
+          {{/if}}</ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="panel stretch-3">
+      <header>Quotes</header>
+
+      <div class="panel-content">
+        {{#if quotes.length}}
+          <ol class="numbered">
+            {{#each quotes}}
+              <li>
+                {{this}}
+              </li>
+            {{/each}}
+          </ol>
+        {{else}}
+          <p>No quotes</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

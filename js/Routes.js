@@ -10,6 +10,7 @@ import PaperworkRoute from 'routes/Paperwork'
 import ProfileRoute from 'routes/Profile'
 import RatAdminTableRoute from 'routes/RatAdminTable'
 import RescueAdminTableRoute from 'routes/RescueAdminTable'
+import RescueRoute from 'routes/Rescue'
 import TweeterRoute from 'routes/Tweeter'
 import UserAdminTableRoute from 'routes/UserAdminTable'
 
@@ -32,7 +33,7 @@ export default {
     'rats/page/:page(/)': new RatAdminTableRoute,
     'rats(/)': new RatAdminTableRoute,
     'rescues/page/:page(/)': new RescueAdminTableRoute,
-    'rescues(/)': new RescueAdminTableRoute,
+    'rescues/:id(/)': new RescueRoute,
     'tweeter(/)': new TweeterRoute,
     'users/page/:page(/)': new UserAdminTableRoute,
     'users(/)': new UserAdminTableRoute,
