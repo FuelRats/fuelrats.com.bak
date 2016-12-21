@@ -34,6 +34,7 @@ export default {
     'rats(/)': new RatAdminTableRoute,
     'rescues/page/:page(/)': new RescueAdminTableRoute,
     'rescues/:id(/)': new RescueRoute,
+    'rescues(/)': new RescueAdminTableRoute,
     'tweeter(/)': new TweeterRoute,
     'users/page/:page(/)': new UserAdminTableRoute,
     'users(/)': new UserAdminTableRoute,
