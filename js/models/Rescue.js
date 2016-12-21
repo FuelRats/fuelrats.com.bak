@@ -16,6 +16,7 @@ export default class Rescue extends BaseModel {
 
   _bindEvents () {
     this.listenTo(this, 'change:createdAt', this._updateDate)
+    this.listenTo(this, 'change:platform', this._updateSystem)
   }
 
   _getRats () {
@@ -39,6 +40,21 @@ export default class Rescue extends BaseModel {
 
       this.set('date', createdAt.calendar())
     }
+  }
+
+  _updateSystem () {
+    let safePlatform
+
+    switch (this.get('platform')) {
+      case 'pc':
+        safePlatform = 'PC'
+        break
+      case 'xb':
+        safePlatform = 'Xbox One'
+        break
+    }
+
+    this.set('safePlatform', safePlatform)
   }
 
 
@@ -135,16 +151,21 @@ export default class Rescue extends BaseModel {
       firstLimpet: null,
       notes: '',
       open: false,
-      platform: 'pc',
+      platform: 'PC',
       rats: new RatsCollection,
       saving: false,
       successful: true,
-      system: ''
+      system: '',
+      title: false
     }
   }
 
   get rats () {
     return this._rats
+  }
+
+  get urlRoot () {
+    return '/api/rescues/'
   }
 
 
