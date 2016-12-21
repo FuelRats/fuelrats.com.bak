@@ -17,6 +17,16 @@ export default class RescueAdminRow extends BaseLayoutView {
     this.listenTo(this.model.get('rats'), 'change sync', this._showRats)
   }
 
+  _handleEdit (event) {
+    let id = event.target.getAttribute('data-id')
+    this.routerChannel.request('route', '/paperwork/' + id)
+  }
+
+  _handleView (event) {
+    let id = event.target.getAttribute('data-id')
+    this.routerChannel.request('route', '/rescues/' + id)
+  }
+
   _showRats () {
     let rats = this.model.get('rats')
 
@@ -37,6 +47,10 @@ export default class RescueAdminRow extends BaseLayoutView {
 
   constructor (options) {
     options = _.extend(options || {}, {
+      events: {
+        'click [data-action=edit]': '_handleEdit',
+        'click [data-action=view]': '_handleView'
+      },
       template: template
     })
 
@@ -69,6 +83,10 @@ export default class RescueAdminRow extends BaseLayoutView {
     return this._regions || (this._regions = {
       rats: '.rats'
     })
+  }
+
+  get routerChannel () {
+    return Backbone.Radio.channel('router')
   }
 
   get tagName () {
