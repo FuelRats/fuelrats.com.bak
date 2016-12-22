@@ -155,12 +155,12 @@ export default class Rescue extends BaseModel {
       firstLimpet: null,
       notes: '',
       open: false,
-      platform: 'PC',
+      platform: 'pc',
       rats: new RatsCollection,
       saving: false,
       successful: true,
       system: '',
-      title: false
+      title: ''
     }
   }
 
