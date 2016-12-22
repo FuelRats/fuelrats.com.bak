@@ -47,11 +47,15 @@
     <div class="panel">
       <header>Rats</header>
 
-      <ul class="panel-content loading rats">{{#each rats.models}}
-        <li>
-          <a href="#{{attributes.id}}">{{attributes.CMDRname}}</a>
-        </li>
-      {{/each}}</ul>
+      <ul class="panel-content loading rats">{{#if rats.models.length}}
+        {{#each rats.models}}
+          <li>
+            <a href="#{{attributes.id}}">{{attributes.CMDRname}}</a>
+          </li>
+        {{/each}}
+      {{else}}
+        <li>No rats</li>
+      {{/if}}</ul>
     </div>
 
     <div class="panel">
@@ -62,7 +66,7 @@
           {{this}}
         {{/each}}
       {{else}}
-        No nicknames
+        <li>No nicknames</li>
       {{/if}}</ul>
     </div>
   </div>

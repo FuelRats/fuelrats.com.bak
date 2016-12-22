@@ -1,0 +1,60 @@
+<td class="title">
+  {{#if title}}
+    {{title}}
+    <em>{{system}}</em>
+  {{else}}
+    {{system}}
+  {{/if}}
+</td>
+
+<td class="state">
+  {{#if open}}
+    {{#if active}}
+      <span class="text-info">
+        <i class="fa fa-rocket" title="Active"></i>
+        Active
+      </span>
+    {{else}}
+      <span class="text-muted">
+        <i class="fa fa-pause" title="Inactive"></i>
+        Inactive
+      </span>
+    {{/if}}
+  {{else}}
+    {{#if successful}}
+      <span class="text-success">
+        <i class="fa fa-check" title="Successful"></i>
+        Successful
+      </span>
+    {{else}}
+      <span class="text-danger">
+        <i class="fa fa-times" title="Failed"></i>
+        Failed
+      </span>
+    {{/if}}
+  {{/if}}
+</td>
+
+<td class="codeRed">
+  {{#if codeRed}}
+    <span class="text-danger">
+      <i class="fa fa-check" title="Code Red"></i>
+    </span>
+  {{else}}
+    <span class="text-muted">
+      <i class="fa fa-minus"></i>
+    </span>
+  {{/if}}
+</td>
+
+<td class="rats">
+  {{#if rats}}
+    <ul class="rats comma-separated inline"></ul>
+  {{else}}
+    There are no rats assigned to this rescue
+  {{/if}}
+</td>
+
+<td class="date">
+  {{{date}}}
+</td>

@@ -28,17 +28,23 @@ export default class Profile extends BaseLayoutView {
   }
 
   _showRescues (rescues) {
-    if (rescues.length) {
-      this.getRegion('rescues').show(new RescueTableView({
-        className: 'rescues',
-        collection: rescues,
-        model: new PaginationDataModel({
-          collection: rescues
-        }),
-      }, {
-        replaceElement: true
-      }))
-    }
+    this.getRegion('rescues').show(new RescueTableView({
+      className: 'rescues',
+      collection: rescues,
+      model: new PaginationDataModel({
+        collection: rescues
+      }),
+    }, {
+      replaceElement: true
+    }))
+  }
+
+  _updateRescues (event) {
+    let rat = this.model.get('rats').findWhere({
+      id: event.target.getAttribute('data-rat-id')
+    })
+
+    this._getRescues(rat)
   }
 
 
@@ -51,6 +57,9 @@ export default class Profile extends BaseLayoutView {
 
   constructor (options) {
     options = _.extend(options || {}, {
+      events: {
+        'click [data-rat-id]': '_updateRescues'
+      },
       template: template
     })
 

@@ -1,5 +1,5 @@
 import BaseTableView from 'views/BaseTableView'
-import RescueAdminRowView from 'views/RescueAdminRow'
+import RescueRowView from 'views/RescueRow'
 import template from 'templates/RescueTable.hbs'
 
 
@@ -29,6 +29,6 @@ export default class RescueTable extends BaseTableView {
   \******************************************************************************/
 
   get childView () {
-    return RescueAdminRowView
+    return RescueRowView
   }
 }
