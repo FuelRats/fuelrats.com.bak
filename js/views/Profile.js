@@ -16,11 +16,15 @@ export default class Profile extends BaseLayoutView {
     Private Methods
   \******************************************************************************/
 
-  _getRescues (rat) {
+  _getRescues () {
+    let rats = this.model.get('rats').map((rat) => {
+      return rat.get('id')
+    })
     let rescues = new PageableRescuesCollection
+
     rescues.setPageSize(10)
     rescues.setFilters({
-      rats: [rat.get('id')]
+      rats: rats
     })
     rescues.getPage(1, {
       success: this._showRescues.bind(this)
@@ -33,7 +37,7 @@ export default class Profile extends BaseLayoutView {
       collection: rescues,
       model: new PaginationDataModel({
         collection: rescues
-      }),
+      })
     }, {
       replaceElement: true
     }))
@@ -69,7 +73,7 @@ export default class Profile extends BaseLayoutView {
   onAttach () {
     super.onAttach()
 
-    this._getRescues(this.model.get('rats').first())
+    this._getRescues()
   }
 
 

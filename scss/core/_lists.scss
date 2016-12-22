@@ -1,4 +1,17 @@
 ol, ul {
+  &.columns {
+    align-content: stretch;
+    display: flex;
+    flex-wrap: wrap;
+
+    > li {
+      display: block;
+      flex-grow: 1;
+      flex-shrink: 0;
+      min-width: 50%;
+    }
+  }
+
   &.inline {
     display: flex;
     flex-wrap: wrap;
@@ -19,19 +32,6 @@ ol, ul {
           margin-right: 0;
         }
       }
-    }
-  }
-
-  &.columns {
-    align-content: stretch;
-    display: flex;
-    flex-wrap: wrap;
-
-    > li {
-      display: block;
-      flex-grow: 1;
-      flex-shrink: 0;
-      min-width: 50%;
     }
   }
 }
