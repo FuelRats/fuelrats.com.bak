@@ -61,6 +61,12 @@ export default class RescueAdminRow extends BaseLayoutView {
     Getters
   \******************************************************************************/
 
+  get attributes () {
+    return {
+      'data-id': this.model.get('id')
+    }
+  }
+
   get className () {
     return 'rescue'
   }

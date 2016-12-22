@@ -61,6 +61,12 @@ export default class RatAdminRow extends BaseLayoutView {
     Getters
   \******************************************************************************/
 
+  get attributes () {
+    return {
+      'data-id': this.model.get('id')
+    }
+  }
+
   get className () {
     return 'rat'
   }
