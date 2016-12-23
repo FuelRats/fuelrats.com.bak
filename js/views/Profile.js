@@ -16,7 +16,9 @@ export default class Profile extends BaseLayoutView {
     Private Methods
   \******************************************************************************/
 
-  _addNickname () {
+  _addNickname (event) {
+    event.preventDefault()
+
     let nicknameInput = document.querySelector('input[name="add-nickname"]')
 
     this.listenToOnce(this.model, 'sync', () => {
@@ -25,6 +27,10 @@ export default class Profile extends BaseLayoutView {
 
     this.model.addNickname(nicknameInput.value)
     this.model.save()
+  }
+
+  _bindEvents () {
+    this.listenTo(this.model, 'change', this.render)
   }
 
   _getRescues () {
@@ -92,6 +98,7 @@ export default class Profile extends BaseLayoutView {
     super.onAttach()
 
     this._getRescues()
+    this._bindEvents()
   }
 
 
