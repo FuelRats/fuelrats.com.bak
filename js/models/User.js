@@ -292,6 +292,14 @@ export default class User extends BaseModel {
     this.set('nicknames', nicknames)
   }
 
+  toJSON (options) {
+    let clone = _.clone(this.attributes)
+
+    delete clone.password
+
+    return clone
+  }
+
 
 
 
