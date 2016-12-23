@@ -65,7 +65,13 @@
         <div class="row">
           <ul class="loading">{{#if nicknames.length}}
             {{#each nicknames}}
-              {{this}}
+              <li>
+                <button class="tiny" data-action="remove-nickname" data-nickname="{{this}}">
+                  <i class="fa fa-fw fa-times"></i>
+                </button>
+
+                {{this}}
+              </li>
             {{/each}}
           {{else}}
             <li>No nicknames</li>
@@ -74,7 +80,7 @@
 
         <form class="row">
           <input class="stretch-9" name="add-nickname" placeholder="Add a nickname...">
-          <button type="submit">Add</button>
+          <button data-action="add-nickname" type="submit">Add</button>
         </form>
       </div>
     </div>

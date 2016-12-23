@@ -97,6 +97,10 @@ export default class User extends BaseModel {
     Public Methods
   \******************************************************************************/
 
+  addNickname (nickname) {
+    this.set('nicknames', this.get('nicknames').concat(nickname))
+  }
+
   getPermissions () {
     let group = this.get('group') || this.get('groups')
     let isArray = Array.isArray(group)
@@ -277,6 +281,17 @@ export default class User extends BaseModel {
     return response
   }
 
+  removeNickname (nickname) {
+    let nicknames = this.get('nicknames')
+    let index = nicknames.indexOf(nickname)
+
+    if (index !== -1) {
+      nicknames.splice(index, 1)
+    }
+
+    this.set('nicknames', nicknames)
+  }
+
 
 
 
@@ -295,9 +310,14 @@ export default class User extends BaseModel {
       loggedIn: false,
       loggingIn: false,
       name: '',
+      nicknames: [],
       password: '',
       rats: new RatsCollection,
       rescues: new RescuesCollection
     }
+  }
+
+  get urlRoot () {
+    return '/api/users/'
   }
 }
