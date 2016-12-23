@@ -22,17 +22,6 @@ input[type=button],
     color: $red;
   }
 
-  &.secondary {
-    background-color: $black-lightened;
-    border: none;
-    color: $grey;
-
-    &:hover {
-      background-color: $red;
-      color: $white;
-    }
-  }
-
   &.icon {
     padding: 1rem;
   }
@@ -45,5 +34,20 @@ input[type=button],
       background-color: none;
       border: none;
     }
+  }
+
+  &.secondary {
+    background-color: $black-lightened;
+    border: none;
+    color: $grey;
+
+    &:hover {
+      background-color: $red;
+      color: $white;
+    }
+  }
+
+  &.tiny {
+    padding: 0;
   }
 }

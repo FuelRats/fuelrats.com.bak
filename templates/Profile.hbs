@@ -61,13 +61,28 @@
     <div class="panel">
       <header>IRC Nicknames</header>
 
-      <ul class="panel-content loading">{{#if nicknames.length}}
-        {{#each nicknames}}
-          {{this}}
-        {{/each}}
-      {{else}}
-        <li>No nicknames</li>
-      {{/if}}</ul>
+      <div class="panel-content">
+        <div class="row">
+          <ul class="loading">{{#if nicknames.length}}
+            {{#each nicknames}}
+              <li>
+                <button class="tiny" data-action="remove-nickname" data-nickname="{{this}}">
+                  <i class="fa fa-fw fa-times"></i>
+                </button>
+
+                {{this}}
+              </li>
+            {{/each}}
+          {{else}}
+            <li>No nicknames</li>
+          {{/if}}</ul>
+        </div>
+
+        <form class="row">
+          <input class="stretch-9" name="add-nickname" placeholder="Add a nickname...">
+          <button data-action="add-nickname" type="submit">Add</button>
+        </form>
+      </div>
     </div>
   </div>
 

@@ -16,6 +16,23 @@ export default class Profile extends BaseLayoutView {
     Private Methods
   \******************************************************************************/
 
+  _addNickname (event) {
+    event.preventDefault()
+
+    let nicknameInput = document.querySelector('input[name="add-nickname"]')
+
+    this.listenToOnce(this.model, 'sync', () => {
+      nicknameInput.value = ''
+    })
+
+    this.model.addNickname(nicknameInput.value)
+    this.model.save()
+  }
+
+  _bindEvents () {
+    this.listenTo(this.model, 'change', this.render)
+  }
+
   _getRescues () {
     let rats = this.model.get('rats').map((rat) => {
       return rat.get('id')
@@ -29,6 +46,11 @@ export default class Profile extends BaseLayoutView {
     rescues.getPage(1, {
       success: this._showRescues.bind(this)
     })
+  }
+
+  _removeNickname (event) {
+    this.model.removeNickname(event.currentTarget.getAttribute('data-nickname'))
+    this.model.save()
   }
 
   _showRescues (rescues) {
@@ -62,7 +84,9 @@ export default class Profile extends BaseLayoutView {
   constructor (options) {
     options = _.extend(options || {}, {
       events: {
-        'click [data-rat-id]': '_updateRescues'
+        'click [data-rat-id]': '_updateRescues',
+        'click [data-action="add-nickname"]': '_addNickname',
+        'click [data-action="remove-nickname"]': '_removeNickname'
       },
       template: template
     })
@@ -74,6 +98,7 @@ export default class Profile extends BaseLayoutView {
     super.onAttach()
 
     this._getRescues()
+    this._bindEvents()
   }
 
 
