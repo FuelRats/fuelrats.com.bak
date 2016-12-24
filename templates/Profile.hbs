@@ -48,17 +48,7 @@
       <header>Rats</header>
 
       <div class="panel-content">
-        <div class="row">
-          <ul class="loading">{{#if rats.models.length}}
-            {{#each rats.models}}
-              <li>
-                <a href="/rats/{{attributes.id}}">{{attributes.CMDRname}}</a>
-              </li>
-            {{/each}}
-          {{else}}
-            <li>No rats</li>
-          {{/if}}</ul>
-        </div>
+        <div class="row rats"></div>
 
         <form class="row">
           <input class="stretch-9" name="add-rat" placeholder="Add a rat...">

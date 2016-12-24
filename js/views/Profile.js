@@ -21,12 +21,9 @@ export default class Profile extends BaseLayoutView {
 
     let nicknameInput = document.querySelector('input[name="add-nickname"]')
 
-    this.listenToOnce(this.model, 'sync', () => {
-      nicknameInput.value = ''
-    })
-
     this.model.addNickname(nicknameInput.value)
     this.model.save()
+    nicknameInput.value = ''
   }
 
   _addRat (event) {
@@ -34,17 +31,8 @@ export default class Profile extends BaseLayoutView {
 
     let ratInput = document.querySelector('input[name="add-rat"]')
 
-    this.listenToOnce(this.model, 'sync', () => {
-      ratInput.value = ''
-    })
-
-    this.listenToOnce(this.model, 'change:rats', this.render)
-
     this.model.addRat(ratInput.value)
-  }
-
-  _bindEvents () {
-    this.listenTo(this.model, 'change', this.render)
+    ratInput.value = ''
   }
 
   _getRescues () {
@@ -65,6 +53,12 @@ export default class Profile extends BaseLayoutView {
   _removeNickname (event) {
     this.model.removeNickname(event.currentTarget.getAttribute('data-nickname'))
     this.model.save()
+  }
+
+  _showRats (rescues) {
+    this.getRegion('rats').show(new RatListView({
+      collection: this.model.get('rats')
+    }))
   }
 
   _showRescues (rescues) {
@@ -113,7 +107,7 @@ export default class Profile extends BaseLayoutView {
     super.onAttach()
 
     this._getRescues()
-    this._bindEvents()
+    this._showRats()
   }
 
 
@@ -130,6 +124,7 @@ export default class Profile extends BaseLayoutView {
 
   get regions () {
     return this._regions || (this._regions = {
+      rats: '.rats',
       rescues: '.rescues'
     })
   }

@@ -37,12 +37,16 @@ export default class Base extends Backbone.Model {
   }
 
   toJSON (options) {
-    let clone = _.clone(this.attributes)
+    let clone = super.toJSON(options)
 
     delete clone.loaded
     delete clone.loading
 
     return clone
+  }
+
+  toViewJSON (options) {
+    return super.toJSON(options)
   }
 
 
