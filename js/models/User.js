@@ -101,6 +101,18 @@ export default class User extends BaseModel {
     this.set('nicknames', this.get('nicknames').concat(nickname))
   }
 
+  addRat (CMDRname) {
+    let rat = this.get('rats').add(new RatModel({
+      CMDRname: CMDRname
+    }))
+
+    this.listenToOnce(rat, 'sync', () => {
+      this.trigger('change:rats')
+    })
+
+    rat.save()
+  }
+
   getPermissions () {
     let group = this.get('group') || this.get('groups')
     let isArray = Array.isArray(group)
@@ -293,7 +305,7 @@ export default class User extends BaseModel {
   }
 
   toJSON (options) {
-    let clone = _.clone(this.attributes)
+    let clone = super.toJSON(options)
 
     delete clone.password
 

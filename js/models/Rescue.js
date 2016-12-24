@@ -119,7 +119,7 @@ export default class Rescue extends BaseModel {
   }
 
   toJSON (options) {
-    let clone = _.clone(this.attributes)
+    let clone = super.toJSON(options)
 
     // Map the rats collection to an array of IDs
     clone.rats = clone.rats.toJSON().map(model => model.id)

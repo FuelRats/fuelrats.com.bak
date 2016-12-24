@@ -1,3 +1,4 @@
+import _ from 'underscore'
 import Backbone from 'backbone'
 
 
@@ -33,6 +34,15 @@ export default class Base extends Backbone.Model {
     super(model, options)
 
     this.sync = new Backbone.Hoard.Control().getModelSync()
+  }
+
+  toJSON (options) {
+    let clone = _.clone(this.attributes)
+
+    delete clone.loaded
+    delete clone.loading
+
+    return clone
   }
 
 
