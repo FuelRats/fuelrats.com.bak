@@ -29,6 +29,20 @@ export default class Profile extends BaseLayoutView {
     this.model.save()
   }
 
+  _addRat (event) {
+    event.preventDefault()
+
+    let ratInput = document.querySelector('input[name="add-rat"]')
+
+    this.listenToOnce(this.model, 'sync', () => {
+      ratInput.value = ''
+    })
+
+    this.listenToOnce(this.model, 'change:rats', this.render)
+
+    this.model.addRat(ratInput.value)
+  }
+
   _bindEvents () {
     this.listenTo(this.model, 'change', this.render)
   }
@@ -86,7 +100,8 @@ export default class Profile extends BaseLayoutView {
       events: {
         'click [data-rat-id]': '_updateRescues',
         'click [data-action="add-nickname"]': '_addNickname',
-        'click [data-action="remove-nickname"]': '_removeNickname'
+        'click [data-action="remove-nickname"]': '_removeNickname',
+        'click [data-action="add-rat"]': '_addRat'
       },
       template: template
     })
