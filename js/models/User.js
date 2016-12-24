@@ -293,7 +293,7 @@ export default class User extends BaseModel {
   }
 
   toJSON (options) {
-    let clone = _.clone(this.attributes)
+    let clone = super.toJSON(options)
 
     delete clone.password
 
