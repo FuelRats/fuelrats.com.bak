@@ -1,11 +1,11 @@
 import BaseItemView from 'views/BaseItemView'
-import template from 'templates/RatSummary.hbs'
+import template from 'templates/NicknameSummary.hbs'
 
 
 
 
 
-export default class RatSummary extends BaseItemView {
+export default class NicknameSummary extends BaseItemView {
 
   /******************************************************************************\
     Private Methods

@@ -1,3 +1,4 @@
+import Backbone from 'backbone'
 import cookie from 'cookies-js'
 
 import BaseModel from './Base'
@@ -98,7 +99,9 @@ export default class User extends BaseModel {
   \******************************************************************************/
 
   addNickname (nickname) {
-    this.set('nicknames', this.get('nicknames').concat(nickname))
+    this.get('nicknames').add({
+      nickname: nickname
+    })
   }
 
   addRat (CMDRname) {
@@ -150,9 +153,15 @@ export default class User extends BaseModel {
           totalRescues: 0
         }
 
+        profile.nicknames = profile.nicknames.map(nickname => {
+          return {
+            nickname: nickname
+          }
+        })
+
         this.set({
           group: profile.group,
-          nicknames: profile.nicknames
+          nicknames: new Backbone.Collection(profile.nicknames)
         })
 
         profile.rats.forEach(rat => {
@@ -295,21 +304,29 @@ export default class User extends BaseModel {
 
   removeNickname (nickname) {
     let nicknames = this.get('nicknames')
-    let index = nicknames.indexOf(nickname)
+    let nicknameModel = nicknames.findWhere({
+      nickname: nickname
+    })
 
-    if (index !== -1) {
-      nicknames.splice(index, 1)
-    }
-
-    this.set('nicknames', nicknames)
+    nicknames.remove(nicknameModel)
   }
 
   toJSON (options) {
     let clone = super.toJSON(options)
 
+    if (clone.nicknames instanceof Backbone.Collection) {
+      clone.nicknames = clone.nicknames.map(model => {
+        return model.get('nickname')
+      })
+    }
+
     delete clone.password
 
     return clone
+  }
+
+  toViewJSON (options) {
+    return super.toJSON(options)
   }
 
 

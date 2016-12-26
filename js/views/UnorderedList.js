@@ -1,13 +1,12 @@
 import Backbone from 'backbone'
 
-import RatSummaryView from 'views/RatSummary'
-import template from 'templates/RatList.hbs'
+import template from 'templates/UnorderedList.hbs'
 
 
 
 
 
-export default class RatList extends Backbone.Marionette.CompositeView {
+export default class UnorderedList extends Backbone.Marionette.CompositeView {
 
   /******************************************************************************\
     Public Methods
@@ -28,14 +27,6 @@ export default class RatList extends Backbone.Marionette.CompositeView {
   /******************************************************************************\
     Public Methods
   \******************************************************************************/
-
-  get childView () {
-    return RatSummaryView
-  }
-
-  get className () {
-    return 'rats-list'
-  }
 
   get tagName () {
     return 'ul'

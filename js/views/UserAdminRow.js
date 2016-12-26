@@ -1,7 +1,6 @@
 import BaseLayoutView from 'views/BaseLayoutView'
-
-import RatListView from 'views/RatList'
-
+import RatSummaryView from 'views/RatSummary'
+import UnorderedListView from 'views/UnorderedList'
 import template from 'templates/UserAdminRow.hbs'
 
 
@@ -22,7 +21,8 @@ export default class UserAdminRow extends BaseLayoutView {
     let rats = this.model.get('rats')
 
     if (rats && rats.length) {
-      this.getRegion('rats').show(new RatListView({
+      this.getRegion('rats').show(new UnorderedListView({
+        childView: RatSummaryView,
         collection: rats
       }))
     }

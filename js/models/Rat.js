@@ -14,13 +14,9 @@ export default class Rat extends BaseModel {
 
   _bindEvents () {
     this.listenTo(this, 'sync', () => {
-      if (!this.get('loaded')) {
-        this.set({
-          loaded: true
-        }, {
-          silent: true
-        })
-      }
+      this.set({
+        loaded: true
+      })
     })
   }
 
