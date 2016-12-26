@@ -2,8 +2,9 @@ import Backbone from 'backbone'
 import BaseLayoutView from 'views/BaseLayoutView'
 import PageableRescuesCollection from 'collections/PageableRescues'
 import PaginationDataModel from 'models/PaginationData'
-import RatListView from 'views/RatList'
+import RatSummaryView from 'views/RatSummary'
 import RescueTableView from 'views/RescueTable'
+import UnorderedListView from 'views/UnorderedList'
 import template from 'templates/Profile.hbs'
 
 
@@ -55,8 +56,9 @@ export default class Profile extends BaseLayoutView {
     this.model.save()
   }
 
-  _showRats (rescues) {
-    this.getRegion('rats').show(new RatListView({
+  _showRats () {
+    this.getRegion('rats').show(new UnorderedListView({
+      childView: RatSummaryView,
       collection: this.model.get('rats')
     }))
   }
