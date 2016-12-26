@@ -150,9 +150,15 @@ export default class User extends BaseModel {
           totalRescues: 0
         }
 
+        profile.nicknames = profile.nicknames.map(nickname => {
+          return {
+            nickname: nickname
+          }
+        })
+
         this.set({
           group: profile.group,
-          nicknames: profile.nicknames
+          nicknames: new Backbone.Collection(profile.nicknames)
         })
 
         profile.rats.forEach(rat => {
@@ -306,6 +312,10 @@ export default class User extends BaseModel {
 
   toJSON (options) {
     let clone = super.toJSON(options)
+
+    clone.nicknames.map(nicknameModel => {
+      return nicknameModel.nickname
+    })
 
     delete clone.password
 
