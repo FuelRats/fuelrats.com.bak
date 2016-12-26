@@ -2,6 +2,7 @@ import Backbone from 'backbone'
 import BaseLayoutView from 'views/BaseLayoutView'
 import PageableRescuesCollection from 'collections/PageableRescues'
 import PaginationDataModel from 'models/PaginationData'
+import NicknameSummaryView from 'views/NicknameSummary'
 import RatSummaryView from 'views/RatSummary'
 import RescueTableView from 'views/RescueTable'
 import UnorderedListView from 'views/UnorderedList'
@@ -54,6 +55,13 @@ export default class Profile extends BaseLayoutView {
   _removeNickname (event) {
     this.model.removeNickname(event.currentTarget.getAttribute('data-nickname'))
     this.model.save()
+  }
+
+  _showNicknames () {
+    this.getRegion('nicknames').show(new UnorderedListView({
+      childView: NicknameSummaryView,
+      collection: this.model.get('nicknames')
+    }))
   }
 
   _showRats () {
@@ -109,6 +117,7 @@ export default class Profile extends BaseLayoutView {
     super.onAttach()
 
     this._getRescues()
+    this._showNicknames()
     this._showRats()
   }
 
@@ -126,6 +135,7 @@ export default class Profile extends BaseLayoutView {
 
   get regions () {
     return this._regions || (this._regions = {
+      nicknames: '.nicknames',
       rats: '.rats',
       rescues: '.rescues'
     })
