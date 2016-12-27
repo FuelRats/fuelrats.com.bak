@@ -18,6 +18,22 @@ export default class Rat extends BaseModel {
         loaded: true
       })
     })
+    this.listenTo(this, 'change:platform', this._updatePlatform)
+  }
+
+  _updatePlatform () {
+    let safePlatform
+
+    switch (this.get('platform')) {
+      case 'pc':
+        safePlatform = 'PC'
+        break
+      case 'xb':
+        safePlatform = 'Xbox One'
+        break
+    }
+
+    this.set('safePlatform', safePlatform)
   }
 
 

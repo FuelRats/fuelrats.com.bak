@@ -16,7 +16,7 @@ export default class Rescue extends BaseModel {
 
   _bindEvents () {
     this.listenTo(this, 'change:createdAt', this._updateDate)
-    this.listenTo(this, 'change:platform', this._updateSystem)
+    this.listenTo(this, 'change:platform', this._updatePlatform)
   }
 
   _getRats () {
@@ -42,7 +42,7 @@ export default class Rescue extends BaseModel {
     }
   }
 
-  _updateSystem () {
+  _updatePlatform () {
     let safePlatform
 
     switch (this.get('platform')) {
