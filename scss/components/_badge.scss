@@ -12,4 +12,8 @@
   &:empty {
     display: none;
   }
+
+  &.xbox {
+    background-color: $green;
+  }
 }

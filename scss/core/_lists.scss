@@ -34,4 +34,16 @@ ol, ul {
       }
     }
   }
+
+  &.padded {
+    > li {
+      padding: 1rem;
+    }
+  }
+
+  &.striped {
+    > li:nth-child(odd) {
+      background-color: $light-grey;
+    }
+  }
 }
