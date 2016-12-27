@@ -31,10 +31,14 @@ export default class Profile extends BaseLayoutView {
   _addRat (event) {
     event.preventDefault()
 
-    let ratInput = document.querySelector('input[name="add-rat"]')
+    let CMDRname = document.querySelector('input[name="rat-CMDRname"]')
+    let Platform = document.querySelector('select[name="rat-platform"]')
 
-    this.model.addRat(ratInput.value)
-    ratInput.value = ''
+    this.model.addRat({
+      CMDRname: CMDRname.value,
+      platform: Platform.value
+    })
+    CMDRname.value = ''
   }
 
   _getRescues () {

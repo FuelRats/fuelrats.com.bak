@@ -47,6 +47,7 @@ export default class Rat extends BaseModel {
 
   initialize () {
     this._bindEvents()
+    this._updatePlatform()
   }
 
   parse (response) {
@@ -74,7 +75,9 @@ export default class Rat extends BaseModel {
   get defaults () {
     return {
       loaded: false,
-      loading: false
+      loading: false,
+      platform: 'pc',
+      safePlatform: 'PC'
     }
   }
 

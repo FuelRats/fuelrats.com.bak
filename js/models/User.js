@@ -104,10 +104,8 @@ export default class User extends BaseModel {
     })
   }
 
-  addRat (CMDRname) {
-    let rat = this.get('rats').add(new RatModel({
-      CMDRname: CMDRname
-    }))
+  addRat (ratDeets) {
+    let rat = this.get('rats').add(ratDeets)
 
     this.listenToOnce(rat, 'sync', () => {
       this.trigger('change:rats')
