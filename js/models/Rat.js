@@ -13,12 +13,12 @@ export default class Rat extends BaseModel {
   \******************************************************************************/
 
   _bindEvents () {
+    this.listenTo(this, 'change:platform', this._updatePlatform)
     this.listenTo(this, 'sync', () => {
       this.set({
         loaded: true
       })
     })
-    this.listenTo(this, 'change:platform', this._updatePlatform)
   }
 
   _updatePlatform () {
@@ -30,6 +30,7 @@ export default class Rat extends BaseModel {
         break
       case 'xb':
         safePlatform = 'Xbox One'
+        this.set('isXbox', true)
         break
     }
 

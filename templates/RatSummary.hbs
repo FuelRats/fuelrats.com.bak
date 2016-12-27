@@ -1,8 +1,6 @@
 {{#if loaded}}
   <a href="/rats/{{id}}">{{CMDRname}}</a>
-  {{#if firstLimpet}}
-    <span class="badge">First Limpet</span>
-  {{/if}}
+  <span class="badge {{#if isXbox}}xbox{{/if}}">{{safePlatform}}</span>
 {{else}}
   Loading rat info...
 {{/if}}
