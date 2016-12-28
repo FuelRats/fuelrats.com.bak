@@ -1,0 +1,87 @@
+<td class="cmdr">
+  {{#each rats}}
+    {{this}}
+  {{/each}}
+</td>
+
+<td class="rescues">
+  {{rescueCount}}
+</td>
+
+<td class="achievements epic">{{#if hasEpic}}
+  <img
+       alt="Epic Badge"
+       class="epic"
+       title="This rat has been found to be Epic in some way"
+       src="/assets/badge/epic.svg">
+  {{/if}}
+</td>
+
+<td class="achievements codeRed">{{#if hasCodeRed}}
+    <img
+         alt="Code Red Badge"
+         class="codeRed"
+         title="This rat has completed a code red rescue"
+         src="/assets/badge/code-red.svg">
+  {{/if}}
+</td>
+
+<td class="achievements dispatch">{{#if hasDispatch}}
+    <img
+         alt="Dispatch Badge"
+         class="dispatch"
+         title="This rat has dispatched a rescue"
+         src="/assets/badge/dispatch.svg">
+  {{/if}}
+</td>
+
+<td class="achievements rescueCount">{{#if hasLargeCrown}}
+    <img
+         alt="1000 Rescues Crown"
+         class="large-crown"
+         title="This rat has completed at least 1000 rescues"
+         src="/assets/badge/large-crown.svg">
+  {{else if hasSmallCrown}}
+    <img
+         alt="500 Rescues Crown"
+         class="small-crown"
+         title="This rat has completed at least 500 rescues"
+         src="/assets/badge/small-crown.svg">
+  {{else if hasFourthPip}}
+    <img
+         alt="100 Rescues Pip"
+         class="pip"
+         title="Each pip represents 100 rescues the rat has completed"
+         src="/assets/badge/pip.x4.svg">
+
+  {{else if hasThirdPip}}
+    <img
+         alt="100 Rescues Pip"
+         class="pip"
+         title="Each pip represents 100 rescues the rat has completed"
+         src="/assets/badge/pip.x3.svg">
+
+  {{else if hasSecondPip}}
+    <img
+         alt="100 Rescues Pip"
+         class="pip"
+         title="Each pip represents 100 rescues the rat has completed"
+         src="/assets/badge/pip.x2.svg">
+
+  {{else if hasFirstPip}}
+    <img
+         alt="100 Rescues Pip"
+         class="pip"
+         title="Each pip represents 100 rescues the rat has completed"
+         src="/assets/badge/pip.svg">
+  {{/if}}
+</td>
+
+<td class="achievements y3301">{{#if has3301}}
+    <img
+         alt="3301 Badge"
+         class="y3301"
+         title="This rat joined in the year 3301"
+         src="/assets/badge/3301.svg">
+  {{/if}}
+</td>
