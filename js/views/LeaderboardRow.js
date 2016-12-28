@@ -1,12 +1,11 @@
-import BaseTableView from 'views/BaseTableView'
-import LeaderboardRowView from 'views/LeaderboardRow'
-import template from 'templates/Leaderboard.hbs'
+import BaseItemView from 'views/BaseItemView'
+import template from 'templates/LeaderboardRow.hbs'
 
 
 
 
 
-export default class Leaderboard extends BaseTableView {
+export default class LeaderboardRow extends BaseItemView {
 
   /******************************************************************************\
     Public Methods
@@ -28,7 +27,7 @@ export default class Leaderboard extends BaseTableView {
     Getters
   \******************************************************************************/
 
-  get childView () {
-    return LeaderboardRowView
+  get tagName () {
+    return 'tr'
   }
 }

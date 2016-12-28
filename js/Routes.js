@@ -4,6 +4,7 @@ import AboutRoute from 'routes/About'
 import BlogListRoute from 'routes/BlogList'
 import BlogRoute from 'routes/Blog'
 import HomeRoute from 'routes/Home'
+import StatisticsRoute from 'routes/Statistics'
 import LoginRoute from 'routes/Login'
 import LogoutRoute from 'routes/Logout'
 import PaperworkRoute from 'routes/Paperwork'
@@ -35,6 +36,7 @@ export default {
     'rescues/page/:page(/)': new RescueAdminTableRoute,
     'rescues/:id(/)': new RescueRoute,
     'rescues(/)': new RescueAdminTableRoute,
+    'statistics(/)': new StatisticsRoute,
     'tweeter(/)': new TweeterRoute,
     'users/page/:page(/)': new UserAdminTableRoute,
     'users(/)': new UserAdminTableRoute,
