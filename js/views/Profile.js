@@ -37,6 +37,11 @@ export default class Profile extends BaseLayoutView {
     ratInput.value = ''
   }
 
+  _bindEvents () {
+    this.listenTo(this.model.get('rats'), 'add change remove sync', this._showRats.bind(this))
+    this.listenTo(this.model.get('nicknames'), 'add change remove sync', this._showNicknames.bind(this))
+  }
+
   _getRescues () {
     let rats = this.model.get('rats').map((rat) => {
       return rat.get('id')
@@ -113,9 +118,11 @@ export default class Profile extends BaseLayoutView {
     super(options)
   }
 
-  onAttach () {
-    super.onAttach()
+  initialize () {
+    this._bindEvents()
+  }
 
+  onRender () {
     this._getRescues()
     this._showNicknames()
     this._showRats()
