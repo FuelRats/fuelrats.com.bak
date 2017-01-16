@@ -18,18 +18,21 @@ module.exports = {
       keepalive: process.env.KEEPALIVE || config.http.keepalive || false,
 
       middleware: function (connect, options) {
-        let middlewares = [
-          require('connect-livereload')({
+        let middlewares = []
+
+        if (process.env.NODE_ENV === 'development') {
+          middlewares.push(require('connect-livereload')({
             rules: [{
               match: /<\/head>(?![\s\S]*<\/head>)/i,
               fn: function (match, script) {
                 return script + match
               }
             }]
-          }),
-          require('grunt-connect-proxy/lib/utils').proxyRequest,
-          require('connect-pushstate')()
-        ]
+          }))
+        }
+
+        middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest)
+        middlewares.push(require('connect-pushstate')())
 
         if (!Array.isArray(options.base)) {
           options.base = [options.base]
