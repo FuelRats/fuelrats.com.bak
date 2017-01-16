@@ -5,7 +5,8 @@
   "main": "js/index.js",
   "scripts": {
     "postinstall": "$(npm bin)/bower install",
-    "start": "$(npm bin)/grunt"
+    "dev": "$(npm bin)/grunt",
+    "start": "$(npm bin)/grunt dist"
   },
   "author": "",
   "license": "ISC",
