@@ -54,13 +54,13 @@ module.exports = {
         ],
         debug: true,
         headers: {
-          host: 'localhost',
-          referer: 'localhost'
+          host: config.api.hostname,
+          referer: config.api.hostname
         },
-        host: 'localhost',
-        https: false,
-        port: 8080,
-        protocol: 'http:',
+        host: config.api.hostname,
+        https: config.api.ssl,
+        port: config.api.port,
+        protocol: config.api.ssl ? 'https:' : 'http:',
         rewrite: {
           '^/api': ''
         }
