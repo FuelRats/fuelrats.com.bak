@@ -18,18 +18,21 @@ module.exports = {
       keepalive: process.env.KEEPALIVE || config.http.keepalive || false,
 
       middleware: function (connect, options) {
-        let middlewares = [
-          require('connect-livereload')({
+        let middlewares = []
+
+        if (process.env.NODE_ENV === 'development') {
+          middlewares.push(require('connect-livereload')({
             rules: [{
               match: /<\/head>(?![\s\S]*<\/head>)/i,
               fn: function (match, script) {
                 return script + match
               }
             }]
-          }),
-          require('grunt-connect-proxy/lib/utils').proxyRequest,
-          require('connect-pushstate')()
-        ]
+          }))
+        }
+
+        middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest)
+        middlewares.push(require('connect-pushstate')())
 
         if (!Array.isArray(options.base)) {
           options.base = [options.base]
@@ -54,13 +57,13 @@ module.exports = {
         ],
         debug: true,
         headers: {
-          host: config.api.hostname,
-          referer: config.api.hostname
+          host: 'localhost',
+          referer: 'localhost'
         },
-        host: config.api.hostname,
-        https: config.api.ssl,
-        port: config.api.port,
-        protocol: config.api.ssl ? 'https:' : 'http:',
+        host: 'localhost',
+        https: false,
+        port: 8080,
+        protocol: 'http:',
         rewrite: {
           '^/api': ''
         }
