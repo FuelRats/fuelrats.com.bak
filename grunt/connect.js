@@ -15,7 +15,7 @@ module.exports = {
 
       host: process.env.HOSTNAME || config.http.hostname || '0.0.0.0',
 
-      keepalive: process.env.KEEPALIVE || config.http.keepalive || false,
+      keepalive: process.env.NODE_ENV === 'production' || false,
 
       middleware: function (connect, options) {
         let middlewares = []
