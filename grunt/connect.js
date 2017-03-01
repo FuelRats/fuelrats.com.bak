@@ -8,12 +8,32 @@ let config = require('../config')
 
 
 
+let API_PROPS = {
+  host: process.env.API_HOSTNAME || config.api.hostname || 'localhost',
+  port: process.env.API_PORT || config.api.port || 8080,
+  ssl: process.env.API_SSL || config.api.ssl || false
+}
+
+let HTTP_PROPS = {
+  host: process.env.HOSTNAME || config.http.hostname || 'localhost',
+  port: process.env.PORT || config.http.port || 8080,
+  ssl: process.env.SSL || config.http.ssl || false
+}
+
+function getProtocol (useSSL) {
+  return useSSL ? 'https' : 'http'
+}
+
+
+
+
+
 module.exports = {
   app: {
     options: {
       debug: true,
 
-      host: process.env.HOSTNAME || config.http.hostname || '0.0.0.0',
+      host: process.env.HOSTNAME || HTTP_PROPS.hostname || '0.0.0.0',
 
       keepalive: process.env.NODE_ENV === 'production' || false,
 
@@ -45,9 +65,9 @@ module.exports = {
         return middlewares
       },
 
-      port: process.env.PORT || config.http.port || 3000,
+      port: HTTP_PROPS.port || 3000,
 
-      protocol: config.http.ssl ? 'https' : 'http'
+      protocol: getProtocol(HTTP_PROPS.ssl)
     },
 
     proxies: [
@@ -57,13 +77,13 @@ module.exports = {
         ],
         debug: true,
         headers: {
-          host: 'localhost',
-          referer: 'localhost'
+          host: API_PROPS.host,
+          referer: API_PROPS.host
         },
-        host: 'localhost',
-        https: false,
-        port: 8080,
-        protocol: 'http:',
+        host: API_PROPS.host,
+        https: API_PROPS.ssl,
+        port: API_PROPS.port,
+        protocol: getProtocol(API_PROPS.ssl),
         rewrite: {
           '^/api': ''
         }
@@ -79,9 +99,9 @@ module.exports = {
           referer: 'www.fuelrats.com'
         },
         host: 'www.fuelrats.com',
-        https: config.http.ssl,
-        port: config.http.ssl ? 443 : 80,
-        protocol: config.http.ssl ? 'https:' : 'http:',
+        https: HTTP_PROPS.ssl,
+        port: HTTP_PROPS.ssl ? 443 : 80,
+        protocol: getProtocol(HTTP_PROPS.ssl),
         rewrite: {
           '^/wp-api': '/wp-json/wp/v2'
         }
