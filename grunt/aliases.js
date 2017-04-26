@@ -1,7 +1,6 @@
 module.exports = {
   default: [
     'build',
-    'server',
     'watch'
   ],
 
@@ -45,12 +44,6 @@ module.exports = {
   dist: [
     'build',
     'cssmin',
-    'uglify',
-    'server'
-  ],
-
-  server: [
-    'configureProxies:app',
-    'connect'
+    'uglify'
   ]
 }

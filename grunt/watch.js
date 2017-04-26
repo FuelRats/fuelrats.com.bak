@@ -9,21 +9,9 @@ let config = require('../config')
 
 
 
-let certificatesDirectory = path.resolve('node_modules', 'grunt-contrib-connect', 'tasks', 'certs')
-
-let livereloadOptions = !config.http.ssl ? true : {
-  cert: grunt.file.read(`${certificatesDirectory}/server.crt`),
-  key: grunt.file.read(`${certificatesDirectory}/server.key`)
-}
-
-
-
-
-
 module.exports = {
   options: {
     interrupt: true,
-    livereload: livereloadOptions,
     spawn: true
   },
 
