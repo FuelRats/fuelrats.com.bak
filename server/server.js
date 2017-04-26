@@ -4,7 +4,7 @@
   Module imports
 \******************************************************************************/
 
-const config = require('./config.json')
+const config = require('./config')
 
 
 
@@ -17,14 +17,14 @@ const config = require('./config.json')
 // Start Koa
 const app = new (require('koa'))
 
+// Configure proxies
+require('./config/proxy')(app, config)
+
 // Configure middleware, et al
 require('./config/koa')(app, config)
 
 // Configure static file serving
 require('./config/serve')(app, config)
-
-// Configure proxies
-require('./config/proxy')(app, config)
 
 // Configure the router
 require('./config/router')(app, config)
