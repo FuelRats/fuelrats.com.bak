@@ -7,7 +7,7 @@
     "postinstall": "$(npm bin)/bower install",
     "dev": "$(npm bin)/grunt",
     "dev-server": "$(npm bin)/node-dev ./server/server.js",
-    "start": "$(npm bin)/grunt dist"
+    "build": "$(npm bin)/grunt build",
   },
   "author": "",
   "license": "ISC",
